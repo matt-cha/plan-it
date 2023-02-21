@@ -14,8 +14,9 @@ app.get('/api/hello', (req, res) => {
 app.use(errorMiddleware);
 
 /* app.post('api/events/', (req, res) => {
-  const
-}) */
+  const name = req.body.name;
+  const details = req.body.details;
+}); */
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
