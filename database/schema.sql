@@ -9,11 +9,11 @@ create schema "public";
 CREATE TABLE "public"."Events" (
 	"name" TEXT NOT NULL,
 	"eventId" serial NOT NULL,
-	"startDate" DATE NOT NULL,
-	"endDate" DATE NOT NULL,
-	"location" TEXT NOT NULL,
-	"details" TEXT NOT NULL,
-	"image" TEXT NOT NULL,
+	"startDate" timestamp with time zone NOT NULL,
+	"endDate" timestamp with time zone NOT NULL,
+	"location" TEXT,
+	"details" TEXT,
+	"image" TEXT,
 	CONSTRAINT "Events_pk" PRIMARY KEY ("eventId")
 ) WITH (
   OIDS=FALSE

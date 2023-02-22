@@ -15,6 +15,7 @@ const db = new pg.Pool({
 const app = express();
 
 app.use(staticMiddleware);
+app.use(express.json());
 
 app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
@@ -22,25 +23,33 @@ app.get('/api/hello', (req, res) => {
 
 app.use(errorMiddleware);
 
-app.post('api/events/', (req, res) => {
-  const { name } = req.body.name;
-  const { details } = req.body.details;
+app.post('/api/events', (req, res) => {
+  if (!req.body) throw new ClientError(400, 'request requires a body');
+  const name = req.body.name;
+  const startDate = req.body.startDate ?? '2023-02-21 12:00'; /* Date.now(); */
+  const endDate = req.body.endDate ?? 'February 21, 2023, 6:00 PM';
+  const location = req.body.location ?? 'Irvine Spectrum';
+  const details = req.body.details;
+  const image = req.body.image ?? 'https://preview.redd.it/kgbu2vq2mija1.jpg?width=640&crop=smart&auto=webp&v=enabled&s=8fc9fe8a20d30eb1be2de87ee6fb2a720f03ba04';
+
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
-  if (!details) {
-    throw new ClientError(400, 'details is a required field');
+  if (!startDate) {
+    throw new ClientError(400, 'startDate is a required field');
   }
+  if (!endDate) {
+    throw new ClientError(400, 'endDate is a required field');
+  }
+
   const sql = `
-    insert into "events" ("name", "details")
-    values ($1, $2)
+    insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
+    values ($1, $2, $3, $4, $5, $6)
     returning *;
     `;
-  const params = [name, details];
+  const params = [name, startDate, endDate, location, details, image];
   db.query(sql, params)
-    .then(result => {
-      res.status(201).json(result.rows[0]);
-    })
+    .then(result => res.status(201).json(result.rows[0]))
     .catch(err => {
       console.error(err);
       res.status(500).json({
