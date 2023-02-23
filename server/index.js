@@ -21,8 +21,6 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-app.use(errorMiddleware);
-
 app.post('/api/events', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
@@ -41,7 +39,6 @@ app.post('/api/events', (req, res) => {
   if (!endDate) {
     throw new ClientError(400, 'endDate is a required field');
   }
-
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
     values ($1, $2, $3, $4, $5, $6)
@@ -49,14 +46,18 @@ app.post('/api/events', (req, res) => {
     `;
   const params = [name, startDate, endDate, location, details, image];
   db.query(sql, params)
-    .then(result => res.status(201).json(result.rows[0]))
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
     .catch(err => {
-      console.error(err);
+      console.error('line 54:', err);
       res.status(500).json({
         error: 'An unexpected error occurred.'
       });
     });
 });
+
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
