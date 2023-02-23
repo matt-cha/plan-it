@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-/* import Flatpickr from 'react-flatpickr'; */
+import Flatpickr from 'react-flatpickr';
 
 export default function Event() {
 
@@ -43,26 +43,14 @@ export default function Event() {
         </label>
       </div>
 
-      {/*       <div className='text-white'>
-        <p>Start Date and Time</p>
-        <Flatpickr  {...register('startDate')}  data-enable-time className='text-black rounded' options={{
-          minDate: 'today',
-          altInput: true,
-          altFormat: 'F j, Y',
-          dateFormat: 'Y-m-d'
-        }}
-         />
-      </div>
       <div className='text-white'>
-        <p>End Date and Time</p>
-        <Flatpickr  {...register('endDate')}  className='text-black rounded' options={{
-          altInput: true,
-          altFormat: 'F j, Y',
-          dateFormat: 'Y-m-d',
+        <p>Start Date and Time</p>
+        <Flatpickr options={{
           enableTime: true,
-          minDate: 'today'
-        }} />
-      </div> */}
+          noCalendar: true,
+          dateFormat: 'H:i'
+        }}/>
+      </div>
 
       <div>
         <label className='text-white'>Details
@@ -77,3 +65,24 @@ export default function Event() {
     </form>
   );
 }
+
+{ /*       <div className='text-white'>
+        <p>Start Date and Time</p>
+        <Flatpickr {...register('startDate')} data-enable-time className='text-black rounded' options={{
+          minDate: 'today',
+          altInput: true,
+          altFormat: 'F j, Y',
+          dateFormat: 'Y-m-d'
+        }}
+         />
+      </div>
+      <div className='text-white'>
+        <p>End Date and Time</p>
+        <Flatpickr {...register('endDate')} className='text-black rounded' options={{
+          altInput: true,
+          altFormat: 'F j, Y',
+          dateFormat: 'Y-m-d',
+          enableTime: true,
+          minDate: 'today'
+        }} />
+      </div> */ }
