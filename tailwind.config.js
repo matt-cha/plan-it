@@ -3,15 +3,19 @@ module.exports = {
   content: ['./**/**.{html,js,jsx}'],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px'
+      sm: '320px',
+      md: '480px ',
+      lg: '770px ',
+      xl: '1025px ',
+      xxl: '1200px'
     },
     extend: {
       colors: {
-        brightRed: 'hsl(12, 88%, 59%)'
-
+        brightRed: 'hsl(12, 88%, 59%)',
+        overlay: 'rgba(65, 65, 65, 0.55)'
+      },
+      backgroundImage: {
+        wedding: "url('../images/calendar.webp')"
       }
     }
   },

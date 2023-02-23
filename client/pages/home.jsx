@@ -7,13 +7,13 @@ export default function Home(props) {
   return (
     <>
       <div>
-        <HelloWorld />
-      </div>
-      <div>
         <Navbar />
       </div>
       <div>
         <Event />
+      </div>
+      <div>
+        <HelloWorld />
       </div>
     </>
 
