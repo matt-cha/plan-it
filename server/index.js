@@ -24,8 +24,8 @@ app.get('/api/hello', (req, res) => {
 app.post('/api/events', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
-  const startDate = req.body.startDate ?? '2023-02-21 12:00'; /* Date.now(); */
-  const endDate = req.body.endDate ?? 'February 21, 2023, 6:00 PM';
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
   const location = req.body.location ?? 'Irvine Spectrum';
   const details = req.body.details;
   const image = req.body.image ?? 'https://preview.redd.it/kgbu2vq2mija1.jpg?width=640&crop=smart&auto=webp&v=enabled&s=8fc9fe8a20d30eb1be2de87ee6fb2a720f03ba04';
