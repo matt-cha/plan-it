@@ -18,10 +18,12 @@
     "boxicons": "^2.1.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "jsonwebtoken": "^8.5.1",
+    "flatpickr": "^4.6.13",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-flatpickr": "^3.10.13",
     "react-hook-form": "^7.43.2"
   },
   "devDependencies": {

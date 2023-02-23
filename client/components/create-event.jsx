@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+/* import Flatpickr from 'react-flatpickr'; */
 
 export default function Event() {
+
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async data => {
@@ -38,20 +40,39 @@ export default function Event() {
           <div>
             <p>{errors.name?.message}</p>
           </div>
-
         </label>
       </div>
+
+      {/*       <div className='text-white'>
+        <p>Start Date and Time</p>
+        <Flatpickr  {...register('startDate')}  data-enable-time className='text-black rounded' options={{
+          minDate: 'today',
+          altInput: true,
+          altFormat: 'F j, Y',
+          dateFormat: 'Y-m-d'
+        }}
+         />
+      </div>
+      <div className='text-white'>
+        <p>End Date and Time</p>
+        <Flatpickr  {...register('endDate')}  className='text-black rounded' options={{
+          altInput: true,
+          altFormat: 'F j, Y',
+          dateFormat: 'Y-m-d',
+          enableTime: true,
+          minDate: 'today'
+        }} />
+      </div> */}
+
       <div>
         <label className='text-white'>Details
           <div>
             <textarea className='text-black border rounded border-black bg-green-300' {...register('details')} />
-
           </div>
         </label>
       </div>
       <div>
         <input className='rounded right-0 top-0 border border-black bg-red-500' type="submit" />
-
       </div>
     </form>
   );
