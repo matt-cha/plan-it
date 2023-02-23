@@ -31,8 +31,8 @@ export default function Event() {
                 message: 'Minimium event name is 4'
               },
               maxLength: {
-                value: 10,
-                message: 'Maximum event name is 10'
+                value: 20,
+                message: 'Maximum event name is 20'
               }
             })} />
           </div>
@@ -42,26 +42,31 @@ export default function Event() {
         </label>
       </div>
 
-      <div className='text-white'>
-        <p>Start Date and Time</p>
-        <Flatpickr {...register('startDate')} data-enable-time className='text-black rounded' options={{
-          minDate: 'today',
-          altInput: true,
-          altFormat: 'F j, Y',
-          dateFormat: 'Y-m-d'
-        }}
-      />
-      </div>
-      <div className='text-white'>
-        <p>End Date and Time</p>
-        <Flatpickr {...register('endDate')} className='text-black rounded' options={{
-          altInput: true,
-          altFormat: 'F j, Y',
-          dateFormat: 'Y-m-d',
-          enableTime: true,
-          minDate: 'today'
-        }} />
-      </div>
+      <label className='text-white'>Start Date and Time
+        <div>
+          <Flatpickr {...register('startDate')} className='text-black rounded' options={{
+            minDate: 'today',
+            altInput: true,
+            altFormat: 'F j, Y',
+            enableTime: true,
+            dateFormat: 'Y-m-d'
+          }}
+          />
+        </div>
+
+      </label>
+      <label className='text-white'>End Date and Time
+        <div>
+          <Flatpickr {...register('endDate')} className='text-black rounded' options={{
+            altInput: true,
+            altFormat: 'F j, Y',
+            dateFormat: 'Y-m-d',
+            enableTime: true,
+            minDate: 'today'
+          }} />
+        </div>
+
+      </label>
 
       <div>
         <label className='text-white'>Details
