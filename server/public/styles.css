@@ -830,8 +830,16 @@ video {
   height: 2.25rem;
 }
 
+.min-h-full {
+  min-height: 100%;
+}
+
 .w-1 {
   width: 0.25rem;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .max-w-xs {
@@ -1732,13 +1740,18 @@ video {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
 
-.bg-blue-200 {
+.bg-red-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
 .bg-wedding {
-  background-image: url('../images/calendar.webp');
+  background-image: url('../images/checklist.webp');
 }
 
 .decoration-slice {
@@ -1937,11 +1950,6 @@ video {
 
 .align-super {
   vertical-align: super;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .font-bold {

@@ -26,7 +26,7 @@ app.post('/api/events', (req, res) => {
   const name = req.body.name;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
-  const location = req.body.location ?? 'Irvine Spectrum';
+  const location = req.body.location;
   const details = req.body.details;
   const image = req.body.image ?? 'https://preview.redd.it/kgbu2vq2mija1.jpg?width=640&crop=smart&auto=webp&v=enabled&s=8fc9fe8a20d30eb1be2de87ee6fb2a720f03ba04';
 

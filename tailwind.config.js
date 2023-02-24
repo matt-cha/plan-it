@@ -15,7 +15,7 @@ module.exports = {
         overlay: 'rgba(65, 65, 65, 0.55)'
       },
       backgroundImage: {
-        wedding: "url('../images/calendar.webp')"
+        wedding: "url('../images/checklist.webp')"
       }
     }
   },
