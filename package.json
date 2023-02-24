@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "flatpickr": "^4.6.13",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "pg": "^8.8.0",
     "react": "^18.2.0",
     "react-datetime": "^3.2.0",

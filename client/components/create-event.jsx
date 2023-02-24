@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
 export default function Event() {
-  const { control, register, handleSubmit, formState: { errors } } = useForm();
+  const { control, register, reset, handleSubmit, formState: { errors } } = useForm();
+  const startDateRef = useRef(null);
+  const endDateRef = useRef(null);
+
   const onSubmit = async data => {
-    // eslint-disable-next-line no-use-before-define
-    /*  console.log('line:14 data::: ', data);
-     return; */
+    const debug = true;
+    if (debug) {
+      // eslint-disable-next-line
+      console.log('line:14 data::: ', data);
+      reset();
+      return;
+    }
+
     try {
       await fetch('/api/events', {
         method: 'POST',
@@ -16,6 +24,10 @@ export default function Event() {
         headers: {
           'Content-Type': 'application/json'
         }
+      });
+      reset({
+        startDate: undefined,
+        endDate: undefined
       });
     } catch (error) {
       console.error('Error:', error);
@@ -28,14 +40,14 @@ export default function Event() {
         <label className='text-white'>Event Name
           <div>
             <input type='text' className='text-black border rounded border-black bg-green-300' {...register('name', {
-              required: 'This is required.',
+              required: 'Event name is required.',
               minLength: {
                 value: 4,
-                message: 'Minimium event name is 4'
+                message: 'Event name cannot be shorter than 4 characters'
               },
               maxLength: {
                 value: 20,
-                message: 'Maximum event name is 20'
+                message: 'Event name cannot be longer than 20 characters'
               }
             })} />
           </div>
@@ -48,13 +60,12 @@ export default function Event() {
         <label> <span className='text-white'>Start Date and Time</span>
           <div>
             <Controller
-            name="startDate"
-            control={control}
-            required render={({ field }) => (
-              <Datetime
-              {...field}
-              />
-            )}
+              name="startDate"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => <Datetime {...field} ref={startDateRef}
+
+              />}
              />
           </div>
         </label>
@@ -65,11 +76,8 @@ export default function Event() {
             <Controller
               name="endDate"
               control={control}
-              required render={({ field }) => (
-                <Datetime
-                  {...field}
-                />
-              )}
+              rules={{ required: true }} // optional? decide this
+              render={({ field }) => <Datetime {...field} ref={endDateRef} />}
             />
           </div>
         </label>
@@ -82,7 +90,10 @@ export default function Event() {
         </label>
       </div>
       <div>
-        <input className='rounded right-0 top-0 border border-black bg-red-500' type="submit" />
+        <input
+          className='rounded right-0 top-0 border border-black bg-red-500'
+          type="submit"
+          />
       </div>
     </form>
   );
