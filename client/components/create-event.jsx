@@ -113,7 +113,9 @@ export default function Event() {
           mapContainerStyle={mapContainerStyle}
           zoom={10}
           center={selected}
-          className='w-full'>
+          className='h-1/4 p-11'
+          mapContainerClassName='w-full h-1/2'
+        >
           <Marker position={selected} />
         </GoogleMap>
       </div>
