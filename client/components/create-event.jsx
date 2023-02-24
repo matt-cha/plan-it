@@ -52,11 +52,11 @@ export default function Event() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label className=''>Event Name
           <div>
-            <input type='text' autoFocus className=' border rounded border-black bg-green-300' {...register('name', {
+            <input type='text' autoFocus className=' border rounded border-black bg-green-300 container' {...register('name', {
               required: 'Event name is required.',
               minLength: {
                 value: 4,
@@ -130,7 +130,8 @@ export default function Event() {
         <input
           className='rounded right-0 top-0 border border-black bg-red-500'
           type="submit"
-          />
+          value='Create Event'
+           />
       </div>
     </form>
   );
@@ -164,7 +165,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
         className='container bg-red-200 rounded'
-        placeholder='search her placeholdere' />
+        placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }) => (
