@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -8,8 +8,9 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 import '@reach/combobox/styles.css'; // maybe not needed
 
 export default function Event() {
-  const { control, register, /* reset */ handleSubmit, formState: { errors } } = useForm();
+  const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [selected, setSelected] = useState({ lat: 44, lng: -80 });
+  const fileInputRef = useRef();
 
   const mapContainerStyle = {
     width: '100%',
@@ -20,18 +21,11 @@ export default function Event() {
     libraries: ['places']
   });
 
-  const onSelectHandler = (latLng, address, field) => {
-    setSelected(latLng);
-    field.onChange(address);
-  };
-  // @Robert, I tried pulling out the onSelect from PlacesAutocomplete but the data is returning as undefined if you could take a look at this when you review, thanks!
-
   const onSubmit = async data => {
     const debug = true;
     if (debug) {
     // eslint-disable-next-line no-console
       console.log('line:14 data:::browser only ', data);
-      /*  reset(); */
       return;
     }
     try {
@@ -105,7 +99,12 @@ export default function Event() {
           name="location"
           control={control}
           inputProps={{ className: 'rounded' }}
-          render={({ field }) => <PlacesAutoComplete /* onSelect={(latLng, address) => { setSelected(latLng); field.onChange(address); }} */ onSelect={onSelectHandler} /> }
+          render={({ field }) => {
+            <PlacesAutoComplete onSelect={(latLng, address) => {
+              setSelected(latLng); field.onChange(address);
+            }}
+            />;
+          }}
         />
       </div>
       <div>
@@ -126,12 +125,30 @@ export default function Event() {
           </div>
         </label>
       </div>
+
       <div>
-        <input
+        <label
+          htmlFor="image"
+          className=' bg-rose-400 text-white rounded-lg shadow-md hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"'
+        >Cover Photo
+          <input
+            type="file"
+            name="image"
+            ref={fileInputRef}
+            className='rounded w-full'
+            accept=".png, .jpg, .jpeg, .gif, .webp"
+            {...register('image')}
+          />
+        </label>
+      </div>
+
+      <div>
+        <button
           className='rounded right-0 top-0 border border-black bg-red-500'
           type="submit"
-          value='Create Event'
-           />
+          value='Create Event'>
+          Create that event!!
+        </button>
       </div>
     </form>
   );
