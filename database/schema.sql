@@ -9,8 +9,8 @@ create schema "public";
 CREATE TABLE "public"."Events" (
 	"name" TEXT NOT NULL,
 	"eventId" serial NOT NULL,
-	"startDate" timestamp with time zone NOT NULL,
-	"endDate" timestamp with time zone NOT NULL,
+	"startDate" timestamp with time zone,
+	"endDate" timestamp with time zone,
 	"location" TEXT,
 	"details" TEXT,
 	"image" TEXT,
