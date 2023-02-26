@@ -9,7 +9,7 @@ export default function Home(props) {
         <Navbar />
       </div>
       <div>
-        <Event />
+        <CreateEvent />
       </div>
     </>
 

@@ -30,8 +30,7 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const location = req.body.location;
   const details = req.body.details;
   /* const image = req.body.image ?? 'url here'; */
-
-  const image = `/images/${req.file.filename}`;
+  const image = `/images/${req.file.filename}` ?? 'this didnt work'
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
