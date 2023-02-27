@@ -35,7 +35,10 @@ function EventCard({ event }) {
       href={`#events?eventId=${eventId}`}
 
       className="text-dark card mb-4 shadow-sm text-decoration-none">
-      <img src={image} className="card-img-top" alt={name} />
+      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img src={image} className="object-contain rounded h-full w-full" alt={name} />
+        </div>
+
 
         <h5 className="card-title">{name}</h5>
         <p className="card-text text-secondary">{startDate} - {endDate}</p>

@@ -9,7 +9,8 @@ import '@reach/combobox/styles.css'; // maybe not needed
 
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
-  const [selected, setSelected] = useState({ lat: 44, lng: -80 });
+  const [selected, setSelected] = useState({ lat: 33.812511, lng: -117.918976 });
+  const [imageUrl, setImageUrl] = useState();
   const fileInputRef = useRef();
   const libraries = useMemo(() => ['places'], []);
 
@@ -26,19 +27,18 @@ export default function CreateEvent() {
     event.preventDefault();
     const formData = new FormData();
     formData.append('image', fileInputRef.current.files[0]);
-    console.log('line:29 formData::: ', formData);
-/*
-    fetch('/api/uploads', {
+
+    fetch('/api/events/upload', {
       method: 'POST',
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setCaption('');
+        setImageUrl(data)
         fileInputRef.current.value = null;
       })
-      .catch((error) => console.error('Error:', error)); */
+      .catch((error) => console.error('Error:', error));
   }
 
 
@@ -50,6 +50,7 @@ export default function CreateEvent() {
       return;
     }
     try {
+      data.image = imageUrl
       await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -63,7 +64,6 @@ export default function CreateEvent() {
       console.error('Error:', error);
     }
   };
-
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -148,25 +148,7 @@ export default function CreateEvent() {
           </label>
         </div>
 
-        {/*       <div>
-        <label
-          htmlFor="image"
-          className=' bg-rose-400"'
-        >Cover Photo
-        <div>
-          <input
-            type="file"
-            name="image"
-            ref={fileInputRef}
-            className='rounded border border-black'
-            accept=".png, .jpg, .jpeg, .gif, .webp"
-            {...register('image')}
-          />
-        </div>
-
-        </label>
-      </div> */}
-
+        {(imageUrl) && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
         <div>
           <button
@@ -177,6 +159,7 @@ export default function CreateEvent() {
           </button>
         </div>
       </form>
+
       <form onSubmit={handleImageSubmit}>
 
         <div>

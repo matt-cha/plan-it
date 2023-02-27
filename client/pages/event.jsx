@@ -18,8 +18,8 @@ export default function Event({ eventId}) {
   return (
     <>
       <div>
+        <p>Individual Event Page </p>
         <box-icon name='chevron-left' ></box-icon>
-        <p>back arrow here </p>
       </div>
       <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
         <img className="object-contain rounded h-full w-full" src='https://memestemplates.in/uploads/1643224858.jpeg'></img>
