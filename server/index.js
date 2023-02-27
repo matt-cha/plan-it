@@ -22,6 +22,22 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
+app.get('/api/events', (req, res, next) => {
+  const sql = `
+  select "eventId",
+      "name",
+      "startDate",
+      "endDate",
+      "location",
+      "details",
+      "image"
+    from "Events"
+  `;
+  db.query(sql)
+    .then((result) => res.json(result.rows))
+    .catch((err) => next(err));
+})
+
 app.get('/api/events/:eventId', (req, res) => {
   const eventId = Number(req.params.eventId);
   if (!Number.isInteger(eventId) || eventId <= 0) {
@@ -69,7 +85,7 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const location = req.body.location;
   const details = req.body.details;
   /* const image = req.body.image ?? 'url here'; */
-  const image = /* `/images/${req.file.filename}` ??  */'this isnt working yet'
+  const image = /* `/images/${req.file.filename}` ??  */'https://memestemplates.in/uploads/1643224858.jpeg'
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
