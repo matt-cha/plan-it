@@ -2,6 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
 
@@ -21,23 +22,63 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-app.post('/api/events', (req, res) => {
+app.get('/api/events/:eventId', (req, res) => {
+  const eventId = Number(req.params.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) {
+    res.status(400).json({
+      error: `id ${eventId} is not a positive integer`,
+    })
+    return;
+  }
+  const sql = `
+  select "eventId",
+      "name",
+      "startDate",
+      "endDate",
+      "location",
+      "details",
+      "image"
+    from "Events"
+    where "eventId" = $1
+  `;
+  const params = [eventId];
+    db.query(sql, params)
+      .then((result) => {
+        const event = result.rows[0];
+        if (!event) {
+          res.status(404).json({
+            error: `Cannot find event with eventId '${eventId}'`,
+          });
+        } else {
+          res.json(event);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({
+          error: 'An unexpected error occurred in dbquery.',
+        })
+      })
+  })
+
+app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const location = req.body.location;
   const details = req.body.details;
-  const image = req.body.image ?? 'url here';
+  /* const image = req.body.image ?? 'url here'; */
+  const image = /* `/images/${req.file.filename}` ??  */'this isnt working yet'
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
-  if (!startDate) {
+  /*   if (!startDate) {
     throw new ClientError(400, 'startDate is a required field');
   }
   if (!endDate) {
     throw new ClientError(400, 'endDate is a required field');
-  }
+  } */
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
     values ($1, $2, $3, $4, $5, $6)

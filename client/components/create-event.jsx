@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -7,10 +7,11 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css'; // maybe not needed
 
-export default function Event() {
+export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [selected, setSelected] = useState({ lat: 44, lng: -80 });
   const fileInputRef = useRef();
+  const libraries = useMemo(() => ['places'], []);
 
   const mapContainerStyle = {
     width: '100%',
@@ -18,11 +19,31 @@ export default function Event() {
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
-    libraries: ['places']
+    libraries
   });
 
-  const onSubmit = async data => {
-    const debug = true;
+  function handleImageSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', fileInputRef.current.files[0]);
+    console.log('line:29 formData::: ', formData);
+/*
+    fetch('/api/uploads', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCaption('');
+        fileInputRef.current.value = null;
+      })
+      .catch((error) => console.error('Error:', error)); */
+  }
+
+
+   const onSubmit = async data => {
+    const debug = false;
     if (debug) {
     // eslint-disable-next-line no-console
       console.log('line:14 data:::browser only ', data);
@@ -43,114 +64,135 @@ export default function Event() {
     }
   };
 
+
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <form className="" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label className=''>Event Name
-          <div>
-            <input type='text' autoFocus className=' border rounded border-black bg-green-300 container' {...register('name', {
-              required: 'Event name is required.',
-              minLength: {
-                value: 4,
-                message: 'Event name cannot be shorter than 4 characters'
-              },
-              maxLength: {
-                value: 20,
-                message: 'Event name cannot be longer than 20 characters'
-              }
-            })} />
-          </div>
-          <div>
-            <p>{errors?.name?.message}</p>
-          </div>
-        </label>
-      </div>
-      <div>
-        <label> <span className=''>Start Date and Time</span>
-          <div>
-            <Controller
-              name="startDate"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => <Datetime inputProps={{ className: 'rounded' }} {...field} />}
-             />
-          </div>
-        </label>
-      </div>
-      <div>
-        <label><span className=''>End Date and Time</span>
-          <div>
-            <Controller
-              name="endDate"
-              control={control}
-              rules={{ required: true }} // optional? decide this
-              render={({ field }) => <Datetime inputProps={{ className: 'rounded' }} {...field} />}
-            />
-          </div>
-        </label>
-      </div>
-      <div>
-        <p>Location</p>
-      </div>
-      <div>
-        <Controller
-          name="location"
-          control={control}
-          inputProps={{ className: 'rounded' }}
-          render={({ field }) => {
-            <PlacesAutoComplete onSelect={(latLng, address) => {
-              setSelected(latLng); field.onChange(address);
-            }}
-            />;
-          }}
-        />
-      </div>
-      <div>
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={10}
-          center={selected}
-          className='h-1/4 p-11'
-          mapContainerClassName='w-full h-1/2'
-        >
-          <Marker position={selected} />
-        </GoogleMap>
-      </div>
-      <div>
-        <label className=''>Details
-          <div>
-            <textarea className=' border rounded border-black bg-green-300' {...register('details')} />
-          </div>
-        </label>
-      </div>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label className=''>Event Name
+            <div>
+              <input type='text' autoFocus className=' border rounded border-black bg-green-300 container' {...register('name', {
+                required: 'Event name is required.',
+                minLength: {
+                  value: 4,
+                  message: 'Event name cannot be shorter than 4 characters'
+                },
+                maxLength: {
+                  value: 20,
+                  message: 'Event name cannot be longer than 20 characters'
+                }
+              })} />
+            </div>
+            <div>
+              <p>{errors?.name?.message}</p>
+            </div>
+          </label>
+        </div>
+        <div>
+          <label> <span className=''>Start Date and Time</span>
+            <div>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => <Datetime inputProps={{ className: 'rounded border border-black' }} {...field} />}
+              />
+            </div>
+          </label>
+        </div>
+        <div>
+          <label><span className=''>End Date and Time</span>
+            <div>
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => <Datetime inputProps={{ className: 'rounded border border-black' }} {...field} />}
+              />
+            </div>
+          </label>
+        </div>
+        <div>
+          <p>Location</p>
+        </div>
+        <div>
+          <Controller
+            name="location"
+            control={control}
+            inputProps={{ className: 'rounded border border-black' }}
+            render={({ field }) =>
+              <PlacesAutoComplete onSelect={(latLng, address) => {
+                setSelected(latLng);
+                field.onChange(address);
+              }}
+              />
+            }
+          />
+        </div>
+        <div>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={10}
+            center={selected}
+            className='h-1/4 p-11'
+            mapContainerClassName='w-full h-1/2'
+          >
+            <Marker position={selected} />
+          </GoogleMap>
+        </div>
+        <div>
+          <label className=''>Details
+            <div>
+              <textarea className=' border rounded border-black bg-green-300' {...register('details')} />
+            </div>
+          </label>
+        </div>
 
-      <div>
+        {/*       <div>
         <label
           htmlFor="image"
-          className=' bg-rose-400 text-white rounded-lg shadow-md hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"'
+          className=' bg-rose-400"'
         >Cover Photo
+        <div>
           <input
             type="file"
             name="image"
             ref={fileInputRef}
-            className='rounded w-full'
+            className='rounded border border-black'
             accept=".png, .jpg, .jpeg, .gif, .webp"
             {...register('image')}
           />
-        </label>
-      </div>
+        </div>
 
-      <div>
-        <button
-          className='rounded right-0 top-0 border border-black bg-red-500'
-          type="submit"
-          value='Create Event'>
-          Create that event!!
-        </button>
-      </div>
-    </form>
+        </label>
+      </div> */}
+
+
+        <div>
+          <button
+            className='rounded right-0 top-0 border border-black bg-red-300'
+            type="submit"
+            value='Create Event'>
+            Create the event!! move this up to nav bar later
+          </button>
+        </div>
+      </form>
+      <form onSubmit={handleImageSubmit}>
+
+        <div>
+          <input
+            required
+            type="file"
+            name="image"
+            ref={fileInputRef}
+            className="bg-orange-300"
+            accept=".png, .jpg, .jpeg, .gif" />
+          <button type="submit" className="bg-yellow-200">
+            Upload now!!!!!!!
+          </button>
+        </div>
+      </form>
+    </>
   );
 }
 
@@ -181,12 +223,12 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='container bg-red-200 rounded'
-        placeholder='search here placeholder' />
+        className='container bg-purple-200 rounded border border-black'
+        placeholder='search here placeholder'/>
       <ComboboxPopover>
         <ComboboxList>
-          {status === 'OK' && data.map(({ placeId, description }) => (
-            <ComboboxOption key={placeId} value={description} />
+          {status === 'OK' && data.map(({ placeId, description }, index) => (
+            <ComboboxOption key={index} value={description} />
           ))}
         </ComboboxList>
       </ComboboxPopover>
