@@ -30,19 +30,17 @@ export default function CreateEvent() {
 
     fetch('/api/events/upload', {
       method: 'POST',
-      body: formData,
+      body: formData
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setImageUrl(data)
-        console.log('line:39 data::: ', data);
+      .then(response => response.json())
+      .then(data => {
+        setImageUrl(data);
         fileInputRef.current.value = null;
       })
-      .catch((error) => console.error('Error:', error));
+      .catch(error => console.error('Error:', error));
   }
 
-
-   const onSubmit = async data => {
+  const onSubmit = async data => {
     const debug = false;
     if (debug) {
     // eslint-disable-next-line no-console
@@ -50,7 +48,7 @@ export default function CreateEvent() {
       return;
     }
     try {
-      data.image = imageUrl
+      data.image = imageUrl;
       await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -64,7 +62,6 @@ export default function CreateEvent() {
       console.error('Error:', error);
     }
   };
-
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -148,7 +145,8 @@ export default function CreateEvent() {
             </div>
           </label>
         </div>
-          {(imageUrl) && <div><img src={imageUrl} /> </div> }
+
+        {imageUrl && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
         <div>
           <button
@@ -159,7 +157,6 @@ export default function CreateEvent() {
           </button>
         </div>
       </form>
-
 
       <form onSubmit={handleImageSubmit}>
         <div>

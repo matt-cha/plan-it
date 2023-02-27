@@ -5,6 +5,7 @@ const errorMiddleware = require('./error-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
+const path = require('path');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -22,7 +23,7 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-app.get('/api/events', (req, res, next) => {
+app.get('/api/events', (req, res) => {
   const sql = `
   select "eventId",
       "name",
@@ -77,15 +78,20 @@ app.get('/api/events/:eventId', (req, res) => {
       })
   })
 
-app.post('/api/events', uploadsMiddleware, (req, res, next) => {
+app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
+  const url = `/images/${req.file.filename}`
+  res.status(200).json(url);
+});
+
+app.post('/api/events', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const location = req.body.location;
   const details = req.body.details;
-  /* const image = req.body.image ?? 'url here'; */
-  const image = /* `/images/${req.file.filename}` ??  */'https://memestemplates.in/uploads/1643224858.jpeg'
+  const image = req.body.image;
+
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
@@ -111,6 +117,10 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
         error: 'An unexpected error occurred.'
       });
     });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.use(errorMiddleware);
