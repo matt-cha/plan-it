@@ -22,6 +22,45 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
+app.get('/api/events/:eventId', (req, res) => {
+  const eventId = Number(req.params.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) {
+    res.status(400).json({
+      error: `id ${eventId} is not a positive integer`,
+    })
+    return;
+  }
+  const sql = `
+  select "eventId",
+      "name",
+      "startDate",
+      "endDate",
+      "location",
+      "details",
+      "image"
+    from "Events"
+    where "eventId" = $1
+  `;
+  const params = [eventId];
+    db.query(sql, params)
+      .then((result) => {
+        const event = result.rows[0];
+        if (!event) {
+          res.status(404).json({
+            error: `Cannot find event with eventId '${eventId}'`,
+          });
+        } else {
+          res.json(event);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({
+          error: 'An unexpected error occurred in dbquery.',
+        })
+      })
+  })
+
 app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
@@ -30,7 +69,7 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const location = req.body.location;
   const details = req.body.details;
   /* const image = req.body.image ?? 'url here'; */
-  const image = `/images/${req.file.filename}` ?? 'this didnt work'
+  const image = /* `/images/${req.file.filename}` ??  */'this isnt working yet'
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
