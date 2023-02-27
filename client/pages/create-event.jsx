@@ -30,19 +30,17 @@ export default function CreateEvent() {
 
     fetch('/api/events/upload', {
       method: 'POST',
-      body: formData,
+      body: formData
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setImageUrl(data)
+      .then(response => response.json())
+      .then(data => {
+        setImageUrl(data);
         fileInputRef.current.value = null;
       })
-      .catch((error) => console.error('Error:', error));
+      .catch(error => console.error('Error:', error));
   }
 
-
-   const onSubmit = async data => {
+  const onSubmit = async data => {
     const debug = false;
     if (debug) {
     // eslint-disable-next-line no-console
@@ -50,7 +48,7 @@ export default function CreateEvent() {
       return;
     }
     try {
-      data.image = imageUrl
+      data.image = imageUrl;
       await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -161,7 +159,6 @@ export default function CreateEvent() {
       </form>
 
       <form onSubmit={handleImageSubmit}>
-
         <div>
           <input
             required
@@ -171,7 +168,7 @@ export default function CreateEvent() {
             className="bg-orange-300"
             accept=".png, .jpg, .jpeg, .gif" />
           <button type="submit" className="bg-yellow-200">
-            Upload now!!!!!!!
+            Upload the image now
           </button>
         </div>
       </form>
