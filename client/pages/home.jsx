@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/navbar';
-import Event from '../components/create-event';
+import CreateEvent from '../components/create-event';
 
 export default function Home(props) {
   return (

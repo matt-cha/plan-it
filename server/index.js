@@ -22,15 +22,20 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-app.post('/api/events', uploadsMiddleware, (req, res, next) => {
+app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
+  const url = `/images/${req.file.filename}`
+  res.status(200).json(url);
+});
+
+app.post('/api/events', (req, res, next) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const name = req.body.name;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const location = req.body.location;
   const details = req.body.details;
-  /* const image = req.body.image ?? 'url here'; */
-  const image = `/images/${req.file.filename}` ?? 'this didnt work'
+  const image = req.body.image;
+
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
