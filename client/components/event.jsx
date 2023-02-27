@@ -13,7 +13,7 @@ export default function Event({ eventId}) {
   const {
     name, startDate, endDate, location, details, image,
   } = event;
-
+// test
 
   return (
     <>
