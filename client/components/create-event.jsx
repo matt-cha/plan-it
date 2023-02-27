@@ -9,7 +9,8 @@ import '@reach/combobox/styles.css'; // maybe not needed
 
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
-  const [selected, setSelected] = useState({ lat: 44, lng: -80 });
+  const [selected, setSelected] = useState({ lat: 33.812511, lng: -117.918976 });
+  const [imageUrl, setImageUrl] = useState();
   const fileInputRef = useRef();
   const libraries = useMemo(() => ['places'], []);
 
@@ -26,19 +27,18 @@ export default function CreateEvent() {
     event.preventDefault();
     const formData = new FormData();
     formData.append('image', fileInputRef.current.files[0]);
-    console.log('line:29 formData::: ', formData);
-/*
-    fetch('/api/uploads', {
+
+    fetch('/api/events/upload', {
       method: 'POST',
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setCaption('');
+        setImageUrl(data)
+        console.log('line:39 data::: ', data);
         fileInputRef.current.value = null;
       })
-      .catch((error) => console.error('Error:', error)); */
+      .catch((error) => console.error('Error:', error));
   }
 
 
@@ -50,6 +50,7 @@ export default function CreateEvent() {
       return;
     }
     try {
+      data.image = imageUrl
       await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -147,26 +148,7 @@ export default function CreateEvent() {
             </div>
           </label>
         </div>
-
-        {/*       <div>
-        <label
-          htmlFor="image"
-          className=' bg-rose-400"'
-        >Cover Photo
-        <div>
-          <input
-            type="file"
-            name="image"
-            ref={fileInputRef}
-            className='rounded border border-black'
-            accept=".png, .jpg, .jpeg, .gif, .webp"
-            {...register('image')}
-          />
-        </div>
-
-        </label>
-      </div> */}
-
+          {(imageUrl) && <div><img src={imageUrl} /> </div> }
 
         <div>
           <button
@@ -177,8 +159,9 @@ export default function CreateEvent() {
           </button>
         </div>
       </form>
-      <form onSubmit={handleImageSubmit}>
 
+
+      <form onSubmit={handleImageSubmit}>
         <div>
           <input
             required
@@ -188,7 +171,7 @@ export default function CreateEvent() {
             className="bg-orange-300"
             accept=".png, .jpg, .jpeg, .gif" />
           <button type="submit" className="bg-yellow-200">
-            Upload now!!!!!!!
+            Upload the image now
           </button>
         </div>
       </form>
