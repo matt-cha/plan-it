@@ -6,8 +6,7 @@ import Events from './pages/events';
 import Event from './pages/event';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export default class App extends React.Component {
-  render() {
+export default function App() {
     return (
         <div className='App'>
           <Navbar />
@@ -22,5 +21,4 @@ export default class App extends React.Component {
           </div>
         </div>
     )
-  }
 }

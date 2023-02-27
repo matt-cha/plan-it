@@ -148,7 +148,7 @@ export default function CreateEvent() {
           </label>
         </div>
 
-        {(imageUrl) && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+        {imageUrl && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
         <div>
           <button
