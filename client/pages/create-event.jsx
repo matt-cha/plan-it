@@ -18,7 +18,9 @@ export default function CreateEvent() {
 
   const mapContainerStyle = {
     width: '100%',
-    height: '300px'
+    margin: '.5rem',
+    height: '300px',
+    'border-radius': '.25rem'
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
@@ -71,7 +73,7 @@ export default function CreateEvent() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <div className='m-2'>
           <label className=''>Event Name
             <div>
               <input type='text' autoFocus className=' border rounded border-black bg-green-300 container' {...register('name', {
@@ -91,7 +93,7 @@ export default function CreateEvent() {
             </div>
           </label>
         </div>
-        <div>
+        <div className='m-2'>
           <label> <span className=''>Start Date and Time</span>
             <div>
               <Controller
@@ -102,7 +104,7 @@ export default function CreateEvent() {
             </div>
           </label>
         </div>
-        <div>
+        <div className='m-2'>
           <label><span className=''>End Date and Time</span>
             <div>
               <Controller
@@ -113,14 +115,14 @@ export default function CreateEvent() {
             </div>
           </label>
         </div>
-        <div>
+        <div className='m-2'>
           <p>Location</p>
         </div>
         <div>
           <Controller
             name="location"
             control={control}
-            inputProps={{ className: 'rounded border border-black' }}
+            inputProps={{ className: 'rounded border border-black m-2' }}
             render={({ field }) =>
               <PlacesAutoComplete onSelect={(latLng, address) => {
                 setSelected(latLng);
@@ -136,12 +138,12 @@ export default function CreateEvent() {
             zoom={10}
             center={selected}
             className='h-1/4 p-11'
-            mapContainerClassName='w-full h-1/2'
+            mapContainerClassName='w-full h-1/2 rounded'
           >
             <Marker position={selected} />
           </GoogleMap>
         </div>
-        <div>
+        <div className='m-2'>
           <label className=''>Details
             <div>
               <textarea className=' border rounded border-black bg-green-300' {...register('details')} />
@@ -151,7 +153,7 @@ export default function CreateEvent() {
 
         {imageUrl && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
-        <div>
+        <div className='m-2'>
           <button
             className='rounded right-0 top-0 border border-black bg-red-300'
             type="submit"
@@ -162,15 +164,15 @@ export default function CreateEvent() {
       </form>
 
       <form onSubmit={handleImageSubmit}>
-        <div>
+        <div className='m-2'>
           <input
             required
             type="file"
             name="image"
             ref={fileInputRef}
-            className="bg-orange-300"
+            className="bg-orange-300 rounded"
             accept=".png, .jpg, .jpeg, .gif" />
-          <button type="submit" className="bg-yellow-200">
+          <button type="submit" className="bg-yellow-200 rounded">
             Upload the image now
           </button>
         </div>
@@ -206,7 +208,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='container bg-purple-200 rounded border border-black'
+        className='bg-purple-200 rounded border border-black m-2'
         placeholder='search here placeholder'/>
       <ComboboxPopover>
         <ComboboxList>

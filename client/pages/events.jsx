@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
+import formatDate from '../lib/format-date';
 
 export default function Events() {
   const [events, setEvents] = useState();
@@ -38,7 +39,7 @@ function EventCard({ event }) {
         <h5 className="">{name}</h5>
       </div>
       <div>
-        <p className="">{startDate} - {endDate}</p>
+        <p className="">{formatDate(startDate)}</p>
       </div>
       <div>
         <p className="" >{location}</p>
