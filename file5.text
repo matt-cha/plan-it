@@ -59,24 +59,24 @@ app.get('/api/events/:eventId', (req, res) => {
     where "eventId" = $1
   `;
   const params = [eventId];
-  db.query(sql, params)
-    .then((result) => {
-      const event = result.rows[0];
-      if (!event) {
-        res.status(404).json({
-          error: `Cannot find event with eventId '${eventId}'`,
-        });
-      } else {
-        res.json(event);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occurred in dbquery.',
+    db.query(sql, params)
+      .then((result) => {
+        const event = result.rows[0];
+        if (!event) {
+          res.status(404).json({
+            error: `Cannot find event with eventId '${eventId}'`,
+          });
+        } else {
+          res.json(event);
+        }
       })
-    })
-})
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({
+          error: 'An unexpected error occurred in dbquery.',
+        })
+      })
+  })
 
 app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
   const url = `/images/${req.file.filename}`
@@ -158,28 +158,28 @@ app.post('/api/guests', (req, res) => {
       });
     });
 
-  /*   db.query(sql, params)
-      .then(result => {
-        res.status(201).json(result.rows[0]);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json({
-          error: 'An unexpected error occurred.'
-        });
+/*   db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.'
       });
+    });
 
 
-    db.query(sql, params)
-      .then(result => {
-        res.status(201).json(result.rows[0]);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json({
-          error: 'An unexpected error occurred.'
-        });
-      }); */
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.'
+      });
+    }); */
 });
 
 
