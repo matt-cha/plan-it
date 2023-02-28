@@ -1,22 +1,51 @@
-import React, { useEffect, useState } from 'react';
 
-export default function Event({ eventId}) {
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
+import formatDate from '../lib/format-date';
+
+export default function Event( ) {
   const [event, setEvent] = useState();
+  const { eventId } = useParams();
 
   useEffect(() => {
+    console.log('line:9 eventId::: ', eventId);
     fetch(`/api/events/${eventId}`)
       .then((res) => res.json())
-      .then((event) => setEvent(event));
+      .then((event) => {
+        setEvent(event)
+        console.log('line:10 event::: ', event);
+      })
   }, []);
 
   if (!event) return null;
-  const {
-    name, startDate, endDate, location, details, image,
-  } = event;
-// test
+  const { name, startDate, endDate, location, details, image } = event;
 
   return (
     <>
+      <div>
+        <box-icon name='chevron-left' ></box-icon>
+      </div>
+      <div className='items-center content-center flex h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img className="object-contain rounded h-full w-full" src={image}></img>
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='calendar-event'></box-icon>
+        <h2>{name}</h2>
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='time' type='solid' ></box-icon>
+        <p>{formatDate(startDate)} - {formatDate(endDate)}</p>
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='map' ></box-icon>
+        <p>{location}</p>
+      </div>
+      <div className='flex m-2 '>
+        <box-icon name='detail' type='solid' ></box-icon>
+        <p>{details}</p>
+      </div>
+
+{/*
       <div>
         <p>Individual Event Page </p>
         <box-icon name='chevron-left' ></box-icon>
@@ -35,22 +64,8 @@ export default function Event({ eventId}) {
       </div>
       <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
         <img className="object-contain rounded h-full w-full" src='https://i.redd.it/vldfqmszljy91.jpg'></img>
-      </div>
+      </div> */}
 
-
-      <div>
-        <img src={image}></img>
-      </div>
-      <div>
-        <h2>{name}</h2>
-      </div>
-      <div>
-        <p>{startDate} - {endDate}</p>
-      </div>
-      <div>
-        <p>{location}</p>
-      </div>
     </>
-
   );
 }
