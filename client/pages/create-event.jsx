@@ -6,6 +6,7 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css'; // maybe not needed
+import { useNavigate } from "react-router-dom"
 
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
@@ -13,6 +14,7 @@ export default function CreateEvent() {
   const [imageUrl, setImageUrl] = useState();
   const fileInputRef = useRef();
   const libraries = useMemo(() => ['places'], []);
+  const navigate =  useNavigate()
 
   const mapContainerStyle = {
     width: '100%',
@@ -58,6 +60,7 @@ export default function CreateEvent() {
       });
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
+      navigate('/events')
     } catch (error) {
       console.error('Error:', error);
     }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom"
 
 export default function Events() {
   const [events, setEvents] = useState();
@@ -10,13 +11,13 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="">
       <h1>All Events</h1>
-      <hr />
-      <div className="row">
+
+      <div className="">
         {
           events?.map((event) => (
-            <div key={event.eventId} className="col-12 col-md-6 col-lg-4">
+            <div key={event.eventId} className="">
               <EventCard event={event} />
             </div>
           ))
@@ -27,23 +28,21 @@ export default function Events() {
 }
 
 function EventCard({ event }) {
-  // eslint-disable-next-line no-unused-vars
   const { eventId, name, startDate, endDate, location, details, image } = event;
-  /* this anchor should go to event details at `#events?eventId=${eventId}` */
   return (
-    <a
-      href={`#events?eventId=${eventId}`}
-
-      className="text-dark card mb-4 shadow-sm text-decoration-none">
+    <Link to={`/events/${eventId}`}>
       <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
-        <img src={image} className="object-contain rounded h-full w-full" alt={name} />
-        </div>
-
-
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text text-secondary">{startDate} - {endDate}</p>
-        <p className="card-text" >{location}</p>
-
-    </a>
+        <img src={image} className="object-contain rounded h-full w-full" />
+      </div>
+      <div>
+        <h5 className="">{name}</h5>
+      </div>
+      <div>
+        <p className="">{startDate} - {endDate}</p>
+      </div>
+      <div>
+        <p className="" >{location}</p>
+      </div>
+    </Link>
   );
 }
