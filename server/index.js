@@ -78,6 +78,33 @@ app.get('/api/events/:eventId', (req, res) => {
     });
 });
 
+app.get('/api/events/:eventId/guests', (req, res, next) => {
+  const eventId = Number(req.params.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) {
+    res.status(400).json({
+      error: `id ${eventId} is not a positive integer`
+    });
+    return;
+  }
+  const sql = `
+  select "guestId",
+      "guest",
+      "phoneNumber"
+  from "Guests"
+  join "EventGuests" using ("guestId")
+  where "EventGuests"."eventId" = $1
+  `;
+  const params = [eventId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.'
+      });
+    });
+});
+
 app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
   const url = `/images/${req.file.filename}`;
   res.status(200).json(url);

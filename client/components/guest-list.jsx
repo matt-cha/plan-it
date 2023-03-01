@@ -1,9 +1,9 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 export default function GuestList() {
-  const { control, register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
 
   const onSubmit = async data => {
@@ -85,5 +85,5 @@ export default function GuestList() {
         </div>
       </form>
     </div>
-  )
+  );
 }
