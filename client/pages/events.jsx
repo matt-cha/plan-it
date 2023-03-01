@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 
 export default function Events() {
@@ -7,8 +7,8 @@ export default function Events() {
 
   useEffect(() => {
     fetch('/api/events')
-      .then((res) => res.json())
-      .then((events) => setEvents(events));
+      .then(res => res.json())
+      .then(events => setEvents(events));
   }, []);
 
   return (
@@ -17,7 +17,7 @@ export default function Events() {
 
       <div className="">
         {
-          events?.map((event) => (
+          events?.map(event => (
             <div key={event.eventId} className="">
               <EventCard event={event} />
             </div>
