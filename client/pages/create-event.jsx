@@ -53,17 +53,19 @@ export default function CreateEvent() {
     }
     try {
       data.image = imageUrl;
-      await fetch('/api/events', {
+      const response = await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json'
         }
       });
+      const { eventId } = await response.json();
+
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
-      /* navigate(`/events/${eventId}`); */
-      navigate('/event');
+      navigate(`/events/${eventId}`);
+      /* navigate('/event'); */
     } catch (error) {
       console.error('Error:', error);
     }

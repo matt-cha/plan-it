@@ -133,6 +133,7 @@ app.post('/api/events', (req, res) => {
     values ($1, $2, $3, $4, $5, $6)
     returning *;
     `;
+
   const params = [name, startDate, endDate, location, details, image];
   db.query(sql, params)
     .then(result => {
