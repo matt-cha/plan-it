@@ -1,21 +1,18 @@
-
-import React, { useMemo, useEffect, useState } from 'react';
+/* import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import formatDate from '../lib/format-date';
 import GuestList from '../components/guest-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
-import '@reach/combobox/styles.css'; // maybe not needed
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
-export default function Event( ) {
+export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState({ lat: 53.812511, lng: -117.918976 });
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
 
   const mapContainerStyle = {
-    width: '100%',
+    width: '95%',
     margin: '.5rem',
     height: '300px',
     borderRadius: '.25rem'
@@ -34,17 +31,19 @@ export default function Event( ) {
   }, []);
 
   useEffect(() => {
-    const locationMap = async address => {
+    const eventLocation = async address => {
       try {
-        const results = await getGeocode({ address });
+        const results = await getGeocode({location});
         const { lat, lng } = await getLatLng(results[0]);
+        setSelected( { lat, lng })
       } catch (error) {
         console.error('Error!:', error);
       }
     };
-    locationMap(location)
-  })
+    eventLocation(location);
+  }, [location])
 
+  if (!isLoaded) return <div>Loading...</div>;
   if (!event) return null;
   const { name, startDate, endDate, location, details, image } = event;
 
@@ -90,3 +89,4 @@ export default function Event( ) {
     </>
   );
 }
+ */
