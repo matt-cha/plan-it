@@ -61,7 +61,7 @@ export default function Event() {
       <div>
         <box-icon name='chevron-left' />
       </div>
-      <div className='h-52 w-74 max-w-xs mx-auto rounded bg-blue-300'>
+      <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded bg-blue-300'>
         <img className="object-contain rounded h-full w-full" src={image} />
       </div>
       <div className='flex m-2'>

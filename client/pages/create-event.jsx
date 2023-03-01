@@ -80,7 +80,7 @@ export default function CreateEvent() {
           <div className='m-2'>
             <label className=''>Event Name
               <div>
-                <input type='text' autoFocus className=' border rounded border-black  container' {...register('name', {
+                <input type='text' autoFocus className=' border rounded border-black container max-w-2xl' {...register('name', {
                   required: 'Event name is required.',
                   minLength: {
                     value: 4,
@@ -103,7 +103,7 @@ export default function CreateEvent() {
                 <Controller
                 name="startDate"
                 control={control}
-                render={({ field }) => <Datetime inputProps={{ className: 'rounded border border-black' }} {...field} />}
+                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-black container max-w-2xl' }} {...field} />}
               />
               </div>
             </label>
@@ -114,7 +114,7 @@ export default function CreateEvent() {
                 <Controller
                 name="endDate"
                 control={control}
-                render={({ field }) => <Datetime inputProps={{ className: 'rounded border border-black' }} {...field} />}
+                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-black container max-w-2xl' }} {...field} />}
               />
               </div>
             </label>
@@ -150,7 +150,7 @@ export default function CreateEvent() {
           <div className='m-2'>
             <label className=''>Details
               <div>
-                <textarea className='container border rounded border-black h-20' {...register('details')} />
+                <textarea className=' border rounded border-black container max-w-2xl' {...register('details')} />
               </div>
             </label>
           </div>
@@ -220,7 +220,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className=' container rounded border border-black mx-auto'
+        className='border rounded border-black container max-w-2xl'
         placeholder='search here placeholder'/>
       <ComboboxPopover className='rounded'>
         <ComboboxList>
@@ -238,19 +238,19 @@ const FileForm = ({ handleImageSubmit, fileInputRef }) => {
     <div className='m-2 max-w-min'>
       <form onSubmit={handleImageSubmit} className='max-w-min'>
         <div className='max-w-min'>
-          <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min">
+          <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">
             <input
               required
               type="file"
               name="image"
               ref={fileInputRef}
-              className="bg-orange-300 rounded max-w-min"
+              className="bg-orange-400 rounded w-max"
               id='file-upload-button'
               accept=".png, .jpg, .jpeg, .gif" />
           </label>
         </div>
         <div>
-          <button type="submit" className="bg-yellow-200 rounded ">
+          <button type="submit" className="bg-yellow-300 rounded ">
             Upload
           </button>
         </div>
