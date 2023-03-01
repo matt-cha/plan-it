@@ -36,7 +36,7 @@ export default function Event() {
     fetch(`/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests));
-  }, [eventId]);
+  }, [eventId, guests]);
 
   useEffect(() => {
     async function displayLocation(address) {

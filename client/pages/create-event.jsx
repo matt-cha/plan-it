@@ -62,7 +62,8 @@ export default function CreateEvent() {
       });
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
-      navigate('/events');
+      /* navigate(`/events/${eventId}`); */
+      navigate('/event');
     } catch (error) {
       console.error('Error:', error);
     }
