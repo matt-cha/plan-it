@@ -5,16 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Final Project</title>
   <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/reset.css">
   <link rel="stylesheet" href="/layout.css">
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-image: url('../images/checklist.webp');
+        background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.40);
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+  </style>
 </head>
-<body class="bg-wedding bg-no-repeat bg-cover bg-center bg-fixed bg-black-300">
-
+<body>
+  <!-- <div class="bg-black opacity-50 absolute h-screen w-screen"></div> -->
+  <div class="overlay"></div>
   <div id="root"></div>
-
-
   <script src="/main.js"></script>
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 </html>
+<!-- <body class="bg-wedding bg-no-repeat bg-cover bg-center bg-fixed bg-black-300">
+ -->

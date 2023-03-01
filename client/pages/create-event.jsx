@@ -17,7 +17,7 @@ export default function CreateEvent() {
   const navigate =  useNavigate()
 
   const mapContainerStyle = {
-    width: '100%',
+    width: '95%',
     margin: '.5rem',
     height: '300px',
     borderRadius: '.25rem'
@@ -170,10 +170,10 @@ export default function CreateEvent() {
             type="file"
             name="image"
             ref={fileInputRef}
-            className="bg-orange-300 rounded"
+            className="bg-orange-300 w-28 rounded"
             accept=".png, .jpg, .jpeg, .gif" />
           <button type="submit" className="bg-yellow-200 rounded">
-            Upload the image now
+            Upload
           </button>
         </div>
       </form>
