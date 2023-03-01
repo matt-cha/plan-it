@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-/* import sendInvite from '../lib/twilio.js'; */
+
 export default function GuestList() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
@@ -25,7 +25,6 @@ export default function GuestList() {
         }
       });
       // eslint-disable-next-line no-console
-      /* sendInvite(data.phoneNumber); */
       console.log('line:14 data:::data added to DB ', data);
     } catch (error) {
       console.error('Error:', error);
