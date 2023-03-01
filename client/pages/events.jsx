@@ -29,7 +29,7 @@ export default function Events() {
 }
 
 function EventCard({ event }) {
-  const { eventId, name, startDate, endDate, location, details, image } = event;
+  const { eventId, name, startDate, location, image } = event;
   return (
     <Link to={`/events/${eventId}`}>
       <div className='h-52 w-74 max-w-xs mx-auto rounded bg-blue-300'>

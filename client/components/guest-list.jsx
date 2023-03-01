@@ -38,7 +38,7 @@ export default function GuestList() {
         <div>
           <label>Guest Name
             <div>
-              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guest', {
+              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guestName', {
                 required: 'Guest name is required.',
                 minLength: {
                   value: 2,
@@ -51,7 +51,7 @@ export default function GuestList() {
               })} />
             </div>
             <div>
-              <p>{errors?.guest?.message}</p>
+              <p>{errors?.guestName?.message}</p>
             </div>
           </label>
         </div>
