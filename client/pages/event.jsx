@@ -66,7 +66,7 @@ export default function Event() {
       </div>
       <div className='flex m-2'>
         <h2>
-          <i className="fa-solid fa-calendar-day" />
+          <i className="fa-solid fa-calendar-days" />
           {name}
         </h2>
       </div>

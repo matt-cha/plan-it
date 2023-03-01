@@ -36,13 +36,19 @@ function EventCard({ event }) {
         <img src={image} className="object-contain  rounded h-full w-full" />
       </div>
       <div>
-        <h5 className="mx-auto">{name}</h5>
+        <h5 className="mx-auto">
+          <i className="fa-solid fa-calendar-days" />
+          {name}</h5>
       </div>
       <div>
-        <p className="mx-auto">{formatDate(startDate)}</p>
+        <p className="mx-auto">
+          <i className="fa-solid fa-clock" />
+          {formatDate(startDate)}</p>
       </div>
       <div>
-        <p className="mx-auto" >{location}</p>
+        <p className="mx-auto" >
+          <i className="fa-solid fa-location-dot" />
+          {location}</p>
       </div>
     </Link>
   );
