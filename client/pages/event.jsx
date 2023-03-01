@@ -28,7 +28,7 @@ export default function Event() {
       .then((event) => {
         setEvent(event)
       })
-  }, []);
+  }, [eventId]);
 
   useEffect(() => {
     const eventLocation = async address => {

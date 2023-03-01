@@ -23,7 +23,7 @@ app.get('/api/hello', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-app.get('/api/events', (req, res) => {
+app.get('/api/events', (req, res, next) => {
   const sql = `
   select "eventId",
       "name",
@@ -35,16 +35,16 @@ app.get('/api/events', (req, res) => {
     from "Events"
   `;
   db.query(sql)
-    .then((result) => res.json(result.rows))
-    .catch((err) => next(err));
-})
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
 
 app.get('/api/events/:eventId', (req, res) => {
   const eventId = Number(req.params.eventId);
   if (!Number.isInteger(eventId) || eventId <= 0) {
     res.status(400).json({
-      error: `id ${eventId} is not a positive integer`,
-    })
+      error: `id ${eventId} is not a positive integer`
+    });
     return;
   }
   const sql = `
@@ -60,26 +60,26 @@ app.get('/api/events/:eventId', (req, res) => {
   `;
   const params = [eventId];
   db.query(sql, params)
-    .then((result) => {
+    .then(result => {
       const event = result.rows[0];
       if (!event) {
         res.status(404).json({
-          error: `Cannot find event with eventId '${eventId}'`,
+          error: `Cannot find event with eventId '${eventId}'`
         });
       } else {
         res.json(event);
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
       res.status(500).json({
-        error: 'An unexpected error occurred in dbquery.',
-      })
-    })
-})
+        error: 'An unexpected error occurred in dbquery.'
+      });
+    });
+});
 
 app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
-  const url = `/images/${req.file.filename}`
+  const url = `/images/${req.file.filename}`;
   res.status(200).json(url);
 });
 
@@ -121,9 +121,8 @@ app.post('/api/events', (req, res) => {
 
 app.post('/api/guests', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
-  const guest = req.body.guest;
-  const phoneNumber = req.body.phoneNumber;
-  const eventId = req.body.eventId;
+  const guest = req.body.data.guest;
+  const phoneNumber = req.body.data.phoneNumber;
 
   if (!guest) {
     throw new ClientError(400, 'guest name is a required field');
@@ -138,18 +137,18 @@ app.post('/api/guests', (req, res) => {
   db.query(sql, params)
     .then(result => {
       const guestId = result.rows[0].guestId;
+      const eventId = req.body.eventId;
       const paramsEventGuests = [eventId, guestId];
       const sqlEventGuests = `
         insert into "EventGuests" ("eventId", "guestId")
         values ($1, $2)
         returning *;
         `;
-      return db.query(sqlEventGuests, paramsEventGuests)
+      return db.query(sqlEventGuests, paramsEventGuests);
     })
     .then(result => {
-      /* res.status(201).json(result.rows[0]); */
       const eventGuest = result.rows[0];
-      res.send(eventGuest)
+      res.send(eventGuest);
     })
     .catch(err => {
       console.error(err);
@@ -169,7 +168,6 @@ app.post('/api/guests', (req, res) => {
         });
       });
 
-
     db.query(sql, params)
       .then(result => {
         res.status(201).json(result.rows[0]);
@@ -181,9 +179,6 @@ app.post('/api/guests', (req, res) => {
         });
       }); */
 });
-
-
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
