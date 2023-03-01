@@ -72,11 +72,12 @@ export default function CreateEvent() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='m-2'>
+    <div>
+        <form onSubmit={handleSubmit(onSubmit)} className=''>
+          <div className='m-2'>
           <label className=''>Event Name
             <div>
-              <input type='text' autoFocus className=' border rounded border-black bg-green-300 container' {...register('name', {
+              <input type='text' autoFocus className=' border rounded border-black  container' {...register('name', {
                 required: 'Event name is required.',
                 minLength: {
                   value: 4,
@@ -89,7 +90,7 @@ export default function CreateEvent() {
               })} />
             </div>
             <div>
-              <p>{errors?.name?.message}</p>
+              <p className='text-red-300'>{errors?.name?.message}</p>
             </div>
           </label>
         </div>
@@ -118,7 +119,7 @@ export default function CreateEvent() {
         <div className='m-2'>
           <p>Location</p>
         </div>
-        <div>
+        <div className='m-2'>
           <Controller
             name="location"
             control={control}
@@ -146,7 +147,7 @@ export default function CreateEvent() {
         <div className='m-2'>
           <label className=''>Details
             <div>
-              <textarea className=' border rounded border-black bg-green-300' {...register('details')} />
+              <textarea className='container border rounded border-black h-20' {...register('details')} />
             </div>
           </label>
         </div>
@@ -162,21 +163,25 @@ export default function CreateEvent() {
           </button>
         </div>
       </form>
-
+    </div>
+    <div className='m-2'>
       <form onSubmit={handleImageSubmit}>
-        <div className='m-2'>
+        <div>
           <input
-            required
-            type="file"
-            name="image"
-            ref={fileInputRef}
-            className="bg-orange-300 w-28 rounded"
-            accept=".png, .jpg, .jpeg, .gif" />
+          required
+          type="file"
+          name="image"
+          ref={fileInputRef}
+          className="bg-orange-300 rounded"
+          accept=".png, .jpg, .jpeg, .gif" />
+        </div>
+        <div>
           <button type="submit" className="bg-yellow-200 rounded">
             Upload
           </button>
         </div>
       </form>
+    </div>
     </>
   );
 }
@@ -208,9 +213,9 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black m-2'
+        className=' container rounded border border-black mx-auto'
         placeholder='search here placeholder'/>
-      <ComboboxPopover>
+      <ComboboxPopover className='rounded'>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }, index) => (
             <ComboboxOption key={index} value={description} />

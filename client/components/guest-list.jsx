@@ -33,12 +33,12 @@ export default function GuestList() {
 
   return (
     <div className='h-screen'>
-      <p>Guest List Form starts</p>
+      <p className=''>Guest List Form starts</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Guest Name
             <div>
-              <input type='text' className='w-full mx-auto border rounded border-black bg-green-300' {...register('guest', {
+              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guest', {
                 required: 'Guest name is required.',
                 minLength: {
                   value: 2,
@@ -58,7 +58,7 @@ export default function GuestList() {
         <div>
           <label>Phone Number
             <div>
-              <input type='number' className='w-full mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
+              <input type='number' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
                 required: 'Phone number is required.',
                 minLength: {
                   value: 2,

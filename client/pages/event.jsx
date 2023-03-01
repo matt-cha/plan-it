@@ -13,7 +13,7 @@ export default function Event() {
   const libraries = useMemo(() => ['places'], []);
 
   const mapContainerStyle = {
-    width: '97%',
+    width: '95%',
     margin: '.5rem',
     height: '300px',
     borderRadius: '.25rem'
@@ -55,20 +55,24 @@ export default function Event() {
       <div>
         <box-icon name='chevron-left' ></box-icon>
       </div>
-      <div className='items-center content-center flex h-52 w-72 max-w-xs rounded bg-blue-300'>
+      <div className='h-52 w-74 max-w-xs mx-auto rounded bg-blue-300'>
         <img className="object-contain rounded h-full w-full" src={image}></img>
       </div>
       <div className='flex m-2'>
-        <box-icon className='flex-shrink-0' name='calendar-event'></box-icon>
-        <h2>{name}</h2>
+        <h2>
+          <i class="fa-solid fa-calendar-day"></i>
+          {name}
+        </h2>
       </div>
       <div className='flex m-2'>
-        <box-icon name='time' type='solid' ></box-icon>
-        <p>{formatDate(startDate)} - {formatDate(endDate)}</p>
+        <p>
+          <i class="fa-solid fa-clock"></i>
+          {formatDate(startDate)} - {formatDate(endDate)}</p>
       </div>
       <div className='flex m-2'>
-        <box-icon name='map' ></box-icon>
-        <p>{location}</p>
+        <p>
+          <i class="fa-solid fa-location-dot"></i>
+          {location}</p>
       </div>
       <div>
         <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)}/>
@@ -85,10 +89,11 @@ export default function Event() {
         </GoogleMap>
       </div>
       <div className='flex m-2 '>
-        <box-icon name='detail' type='solid' ></box-icon>
-        <p>{details}</p>
+        <p>
+          <i class="fa-solid fa-circle-info"></i>
+          {details}</p>
       </div>
-    <div>
+    <div className='mx-2'>
       <button>Guest List</button>
       <GuestList></GuestList>
     </div>
