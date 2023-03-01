@@ -164,24 +164,28 @@ export default function CreateEvent() {
         </div>
       </form>
     </div>
-    <div className='m-2'>
-      <form onSubmit={handleImageSubmit}>
-        <div>
-          <input
-          required
-          type="file"
-          name="image"
-          ref={fileInputRef}
-          className="bg-orange-300 rounded"
-          accept=".png, .jpg, .jpeg, .gif" />
+      <div className='m-2 max-w-min'>
+        <form onSubmit={handleImageSubmit} className='max-w-min'>
+          <div className='max-w-min'>
+            <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min">
+              <input
+              required
+              type="file"
+              name="image"
+              ref={fileInputRef}
+              className="bg-orange-300 rounded max-w-min"
+              id='file-upload-button'
+              accept=".png, .jpg, .jpeg, .gif" />
+            </label>
         </div>
         <div>
-          <button type="submit" className="bg-yellow-200 rounded">
+          <button type="submit" className="bg-yellow-200 rounded ">
             Upload
           </button>
         </div>
       </form>
     </div>
+   {/*  <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef}></FileForm> */}
     </>
   );
 }
@@ -225,3 +229,30 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
+
+/* const FileForm = ({ handleImageSubmit, fileInputRef }) => {
+  return (
+    <div className='m-2 max-w-min'>
+      <form onSubmit={handleImageSubmit} className='max-w-min'>
+        <div className='max-w-min'>
+          <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min">
+            <input
+              required
+              type="file"
+              name="image"
+              ref={fileInputRef}
+              className="bg-orange-300 rounded max-w-min"
+              id='file-upload-button'
+              accept=".png, .jpg, .jpeg, .gif" />
+          </label>
+        </div>
+        <div>
+          <button type="submit" className="bg-yellow-200 rounded ">
+            Upload
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+ */
