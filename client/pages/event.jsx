@@ -1,4 +1,4 @@
-/* import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import formatDate from '../lib/format-date';
 import GuestList from '../components/guest-list';
@@ -32,21 +32,19 @@ export default function Event() {
   }, [eventId]);
 
   useEffect(() => {
+
     const displayLocation = async address => {
       try {
         const results = await getGeocode({ address });
-        console.log('line:38 results::: ', results);
-        console.log('line:38 { address }::: ', { address });
         const { lat, lng } = await getLatLng(results[0]);
-        console.log('line:41 { lat, lng }::: ', { lat, lng });
-        console.log('line:41 results[0]::: ', results[0]);
         setSelected( { lat, lng })
       } catch (error) {
         console.error('Error!:', error);
       }
     };
-    displayLocation(location);
-  }, [location])
+    if (!event) return;
+    displayLocation(event.location);
+  }, [event])
 
   if (!isLoaded) return <div>Loading...</div>;
   if (!event) return null;
@@ -61,7 +59,7 @@ export default function Event() {
         <img className="object-contain rounded h-full w-full" src={image}></img>
       </div>
       <div className='flex m-2'>
-        <box-icon name='calendar-event'></box-icon>
+        <box-icon className='flex-shrink-0' name='calendar-event'></box-icon>
         <h2>{name}</h2>
       </div>
       <div className='flex m-2'>
@@ -137,4 +135,3 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
- */

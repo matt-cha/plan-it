@@ -11,9 +11,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
 
     return (
-        <div className='App'>
+        <div className='App '>
           <Navbar />
-          <div className='content'>
+          <div className='content '>
             <Routes>
               <Route path='/' element={ <Home />}></Route>
               <Route path='/create-event' element={<CreateEvent />}></Route>
