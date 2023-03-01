@@ -1,21 +1,49 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import formatDate from '../lib/format-date';
+import GuestList from '../components/guest-list';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import '@reach/combobox/styles.css'; // maybe not needed
 
 export default function Event( ) {
   const [event, setEvent] = useState();
+  const [selected, setSelected] = useState({ lat: 53.812511, lng: -117.918976 });
   const { eventId } = useParams();
+  const libraries = useMemo(() => ['places'], []);
+
+  const mapContainerStyle = {
+    width: '100%',
+    margin: '.5rem',
+    height: '300px',
+    borderRadius: '.25rem'
+  };
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
+    libraries
+  });
 
   useEffect(() => {
-    console.log('line:9 eventId::: ', eventId);
     fetch(`/api/events/${eventId}`)
       .then((res) => res.json())
       .then((event) => {
         setEvent(event)
-        console.log('line:10 event::: ', event);
       })
   }, []);
+
+  useEffect(() => {
+    const locationMap = async address => {
+      try {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0]);
+      } catch (error) {
+        console.error('Error!:', error);
+      }
+    };
+    locationMap(location)
+  })
 
   if (!event) return null;
   const { name, startDate, endDate, location, details, image } = event;
@@ -40,32 +68,25 @@ export default function Event( ) {
         <box-icon name='map' ></box-icon>
         <p>{location}</p>
       </div>
+      <div>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={10}
+          center={selected}
+          className='h-1/4 p-11'
+          mapContainerClassName='w-full h-1/2 rounded'
+        >
+          <Marker position={selected} />
+        </GoogleMap>
+      </div>
       <div className='flex m-2 '>
         <box-icon name='detail' type='solid' ></box-icon>
         <p>{details}</p>
       </div>
-
-{/*
-      <div>
-        <p>Individual Event Page </p>
-        <box-icon name='chevron-left' ></box-icon>
-      </div>
-      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
-        <img className="object-contain rounded h-full w-full" src='https://memestemplates.in/uploads/1643224858.jpeg'></img>
-      </div>
-      <div className='h-52 w-72 max-w-xs rounded bg-green-300'>
-        <img className="object-contain rounded h-full w-full" src='https://d.newsweek.com/en/full/2042519/captain-jack-sparrow-run-viral-tiktok.jpg?w=1600&h=1200&q=88&f=600b670045f214f172807b570e075526'></img>
-      </div>
-      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
-        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/n2o4dmyytme91.jpg'></img>
-      </div>
-      <div className='h-52 w-72 max-w-xs rounded bg-green-300'>
-        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/ttok7ngyylw91.jpg'></img>
-      </div>
-      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
-        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/vldfqmszljy91.jpg'></img>
-      </div> */}
-
+    <div>
+      <button>Guest List</button>
+      <GuestList></GuestList>
+    </div>
     </>
   );
 }

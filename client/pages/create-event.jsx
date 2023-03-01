@@ -20,7 +20,7 @@ export default function CreateEvent() {
     width: '100%',
     margin: '.5rem',
     height: '300px',
-    'border-radius': '.25rem'
+    borderRadius: '.25rem'
   };
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
