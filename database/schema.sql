@@ -33,7 +33,7 @@ CREATE TABLE "public"."Tasks" (
 
 
 CREATE TABLE "public"."Guests" (
-	"guestId" int NOT NULL,
+	"guestId" serial NOT NULL,
 	"guest" TEXT NOT NULL,
 	"phoneNumber" int NOT NULL,
 	CONSTRAINT "Guests_pk" PRIMARY KEY ("guestId")
