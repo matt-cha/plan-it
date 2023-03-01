@@ -29,20 +29,26 @@ export default function Events() {
 }
 
 function EventCard({ event }) {
-  const { eventId, name, startDate, endDate, location, details, image } = event;
+  const { eventId, name, startDate, location, image } = event;
   return (
     <Link to={`/events/${eventId}`}>
       <div className='h-52 w-74 max-w-xs mx-auto rounded bg-blue-300'>
         <img src={image} className="object-contain  rounded h-full w-full" />
       </div>
       <div>
-        <h5 className="mx-auto">{name}</h5>
+        <h5 className="mx-auto">
+          <i className="fa-solid fa-calendar-days" />
+          {name}</h5>
       </div>
       <div>
-        <p className="mx-auto">{formatDate(startDate)}</p>
+        <p className="mx-auto">
+          <i className="fa-solid fa-clock" />
+          {formatDate(startDate)}</p>
       </div>
       <div>
-        <p className="mx-auto" >{location}</p>
+        <p className="mx-auto" >
+          <i className="fa-solid fa-location-dot" />
+          {location}</p>
       </div>
     </Link>
   );

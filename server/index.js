@@ -78,6 +78,33 @@ app.get('/api/events/:eventId', (req, res) => {
     });
 });
 
+app.get('/api/events/:eventId/guests', (req, res, next) => {
+  const eventId = Number(req.params.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) {
+    res.status(400).json({
+      error: `id ${eventId} is not a positive integer`
+    });
+    return;
+  }
+  const sql = `
+  select "guestId",
+      "guestName",
+      "phoneNumber"
+  from "Guests"
+  join "EventGuests" using ("guestId")
+  where "EventGuests"."eventId" = $1
+  `;
+  const params = [eventId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.'
+      });
+    });
+});
+
 app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
   const url = `/images/${req.file.filename}`;
   res.status(200).json(url);
@@ -121,18 +148,18 @@ app.post('/api/events', (req, res) => {
 
 app.post('/api/guests', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
-  const guest = req.body.data.guest;
+  const guestName = req.body.data.guestName;
   const phoneNumber = req.body.data.phoneNumber;
 
-  if (!guest) {
-    throw new ClientError(400, 'guest name is a required field');
+  if (!guestName) {
+    throw new ClientError(400, 'guestName name is a required field');
   }
   const sql = `
-    insert into "Guests" ("guest", "phoneNumber")
+    insert into "Guests" ("guestName", "phoneNumber")
     values ($1, $2)
     returning *;
     `;
-  const params = [guest, phoneNumber];
+  const params = [guestName, phoneNumber];
 
   db.query(sql, params)
     .then(result => {

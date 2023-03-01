@@ -9,6 +9,7 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
+  const [guests, setGuests] = useState();
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
 
@@ -29,6 +30,12 @@ export default function Event() {
       .then(event => {
         setEvent(event);
       });
+  }, [eventId]);
+
+  useEffect(() => {
+    fetch(`/api/events/${eventId}/guests`)
+      .then(res => res.json())
+      .then(guests => setGuests(guests));
   }, [eventId]);
 
   useEffect(() => {
@@ -59,7 +66,7 @@ export default function Event() {
       </div>
       <div className='flex m-2'>
         <h2>
-          <i className="fa-solid fa-calendar-day" />
+          <i className="fa-solid fa-calendar-days" />
           {name}
         </h2>
       </div>
@@ -93,7 +100,19 @@ export default function Event() {
           {details}</p>
       </div>
       <div className='mx-2'>
-        <button>Guest List</button>
+        <p>Guest List Here</p>
+      </div>
+      <div className="">
+        {
+            guests?.map(guest => (
+              <div key={guest.guestId} className="">
+                <GuestCard guest={guest} />
+              </div>
+            ))
+          }
+      </div>
+      <div>
+        <button>New Invite</button>
         <GuestList />
       </div>
     </>
@@ -139,3 +158,17 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
+
+function GuestCard({ guest }) {
+  const { guestName, phoneNumber } = guest;
+  return (
+    <>
+      <div>
+        <p>{guestName}</p>
+      </div>
+      <div>
+        <p>{phoneNumber}</p>
+      </div>
+    </>
+  );
+}

@@ -34,7 +34,7 @@ CREATE TABLE "public"."Tasks" (
 
 CREATE TABLE "public"."Guests" (
 	"guestId" serial NOT NULL,
-	"guest" TEXT NOT NULL,
+	"guestName" TEXT NOT NULL,
 	"phoneNumber" int NOT NULL,
 	CONSTRAINT "Guests_pk" PRIMARY KEY ("guestId")
 ) WITH (
