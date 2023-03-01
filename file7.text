@@ -1,0 +1,147 @@
+import React, { useMemo, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import formatDate from '../lib/format-date';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import '@reach/combobox/styles.css'; // maybe not needed
+import GuestList from '../components/guest-list';
+
+export default function Event() {
+  const [event, setEvent] = useState();
+  const { eventId } = useParams();
+  const libraries = useMemo(() => ['places'], []);
+  const [selected, setSelected] = useState({ lat: 50.812511, lng: -117.918976 });
+
+
+  useEffect(() => {
+    fetch(`/api/events/${eventId}`)
+      .then(res => res.json())
+      .then(event => {
+        setEvent(event)
+      });
+  }, []);
+
+  const mapContainerStyle = {
+    width: '99%',
+    margin: '.5rem',
+    height: '300px',
+    borderRadius: '.25rem'
+  };
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
+    libraries
+  });
+  if (!isLoaded) return <div>Loading...</div>;
+  if (!event) return null;
+  const { name, startDate, endDate, location, details, image } = event;
+
+  return (
+    <>
+      <div>
+        <box-icon name='chevron-left' />
+      </div>
+      <div className='items-center content-center flex h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img className="object-contain rounded h-full w-full" src={image} />
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='calendar-event' />
+        <h2>{name}</h2>
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='time' type='solid' />
+        <p>{formatDate(startDate)} - {formatDate(endDate)}</p>
+      </div>
+      <div className='flex m-2'>
+        <box-icon name='map' />
+        <p>{location}</p>
+      </div>
+      <div>
+        <PlacesAutoComplete onSelect={(latLng, address) => {
+          setSelected(latLng);
+        }}
+        />
+      </div>
+      <div>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={10}
+          center={selected}
+          className=''
+          mapContainerClassName=''
+        >
+          <Marker position={selected} />
+        </GoogleMap>
+      </div>
+      <div className='flex m-2 '>
+        <box-icon name='detail' type='solid' />
+        <p>{details}</p>
+      </div>
+      <div>
+        <button className='bg-red-300'>Guest List</button>
+      </div>
+      <GuestList></GuestList>
+      {/*
+      <div>
+        <p>Individual Event Page </p>
+        <box-icon name='chevron-left' ></box-icon>
+      </div>
+      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img className="object-contain rounded h-full w-full" src='https://memestemplates.in/uploads/1643224858.jpeg'></img>
+      </div>
+      <div className='h-52 w-72 max-w-xs rounded bg-green-300'>
+        <img className="object-contain rounded h-full w-full" src='https://d.newsweek.com/en/full/2042519/captain-jack-sparrow-run-viral-tiktok.jpg?w=1600&h=1200&q=88&f=600b670045f214f172807b570e075526'></img>
+      </div>
+      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/n2o4dmyytme91.jpg'></img>
+      </div>
+      <div className='h-52 w-72 max-w-xs rounded bg-green-300'>
+        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/ttok7ngyylw91.jpg'></img>
+      </div>
+      <div className='h-52 w-72 max-w-xs rounded bg-blue-300'>
+        <img className="object-contain rounded h-full w-full" src='https://i.redd.it/vldfqmszljy91.jpg'></img>
+      </div> */}
+    </>
+  );
+}
+
+const PlacesAutoComplete = ({ onSelect }) => {
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions
+  } = usePlacesAutocomplete();
+
+  const handleSelect = async address => {
+    setValue(address, false);
+    clearSuggestions();
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      onSelect({ lat, lng }, address);
+    } catch (error) {
+      console.error('Error!:', error);
+    }
+  };
+// this was done fbefore errors handling
+  return (
+    <Combobox onSelect={handleSelect}>
+      <ComboboxInput
+        value={value}
+        onChange={event => setValue(event.target.value)}
+        disabled={!ready}
+        className=''
+         />
+      <ComboboxPopover>
+        <ComboboxList>
+          {status === 'OK' && data.map(({ placeId, description }, index) => (
+            <ComboboxOption key={index} value={description} />
+          ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+  );
+};
