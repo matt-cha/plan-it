@@ -10,7 +10,6 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
-  /*   const [guests, setGuests] = useState(); */
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
 
@@ -32,12 +31,6 @@ export default function Event() {
         setEvent(event);
       });
   }, [eventId]);
-
-  /*   useEffect(() => {
-    fetch(`/api/events/${eventId}/guests`)
-      .then(res => res.json())
-      .then(guests => setGuests(guests));
-  }, [eventId, guests]); */
 
   useEffect(() => {
     async function displayLocation(address) {
@@ -103,7 +96,6 @@ export default function Event() {
       <div>
         <GuestList />
       </div>
-
       <div>
         <GuestForm />
       </div>
