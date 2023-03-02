@@ -65,7 +65,6 @@ export default function CreateEvent() {
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
       navigate(`/events/${eventId}`);
-      /* navigate('/event'); */
     } catch (error) {
       console.error('Error:', error);
     }
@@ -74,10 +73,10 @@ export default function CreateEvent() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div >
+    <>
       <div className=' flex-wrap justify-center flex'>
         <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-3xl'>
-          <div className='m-2'>
+          <div className=''>
             <label className=''>Event Name
               <div>
                 <input type='text' autoFocus className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('name', {
@@ -97,7 +96,7 @@ export default function CreateEvent() {
               </div>
             </label>
           </div>
-          <div className='m-2'>
+          <div className=''>
             <label> <span className=''>Start Date and Time</span>
               <div>
                 <Controller
@@ -108,7 +107,7 @@ export default function CreateEvent() {
               </div>
             </label>
           </div>
-          <div className='m-2'>
+          <div className=''>
             <label><span className=''>End Date and Time</span>
               <div>
                 <Controller
@@ -119,14 +118,14 @@ export default function CreateEvent() {
               </div>
             </label>
           </div>
-          <div className='m-2'>
+          <div className=''>
             <p>Location</p>
           </div>
-          <div className='m-2'>
+          <div className=''>
             <Controller
             name="location"
             control={control}
-            inputProps={{ className: 'rounded border border-[#f2dec8] m-2' }}
+            inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
             render={({ field }) =>
               <PlacesAutoComplete onSelect={(latLng, address) => {
                 setSelected(latLng);
@@ -147,17 +146,15 @@ export default function CreateEvent() {
               <Marker position={selected} />
             </GoogleMap>
           </div>
-          <div className='m-2'>
+          <div className=''>
             <label className=''>Details
               <div>
                 <textarea className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('details')} />
               </div>
             </label>
           </div>
-
           {imageUrl && <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
-
-          <div className='m-2'>
+          <div className=''>
             <button
             className='rounded right-0 top-0 border border-[#f2dec8] bg-red-300'
             type="submit"
@@ -167,7 +164,7 @@ export default function CreateEvent() {
           </div>
         </form>
       </div>
-      {/* <div className='m-2 max-w-min'>
+      {/* <div className=' max-w-min'>
         <form onSubmit={handleImageSubmit} className='max-w-min'>
           <div className='max-w-min'>
             <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min">
@@ -189,7 +186,7 @@ export default function CreateEvent() {
         </form>
       </div> */}
       <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
-    </div>
+    </>
   );
 }
 
@@ -235,8 +232,8 @@ const PlacesAutoComplete = ({ onSelect }) => {
 
 const FileForm = ({ handleImageSubmit, fileInputRef }) => {
   return (
-    <div className='container flex-wrap flex'>
-      <form onSubmit={handleImageSubmit} className='max-w-min'>
+    <div className='flex-wrap justify-center flex'>
+      <form onSubmit={handleImageSubmit} className='w-full max-w-3xl '>
         <div className='max-w-min'>
           <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">
             <input

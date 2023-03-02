@@ -12,12 +12,12 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="m-2 justify-center flex container "> {/* starting to ppsition here */}
-      <div>
+    <div className="flex-wrap justify-center flex ">
+      <div className='w-full max-w-3xl'>
         <h1>All Events</h1>
       </div>
 
-      <div className="">
+      <div className='w-full max-w-3xl'>
         {
           events?.map(event => (
             <div key={event.eventId} className="">

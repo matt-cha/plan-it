@@ -51,54 +51,57 @@ export default function Event() {
   const { name, startDate, endDate, location, details, image } = event;
 
   return (
-    <div className='m-2'>
-      <div>
-        <box-icon name='chevron-left' />
+    <div className='flex-wrap justify-center flex'>
+      <div className='w-full max-w-3xl'>
+        <div>
+          <box-icon name='chevron-left' />
+        </div>
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
+          <img className="object-contain rounded h-full w-full" src={image} />
+        </div>
+        <div className='flex'>
+          <h2>
+            <i className="fa-solid fa-calendar-days" />
+            {name}
+          </h2>
+        </div>
+        <div className='flex'>
+          <p>
+            <i className="fa-solid fa-clock" />
+            {formatDate(startDate)} - {formatDate(endDate)}</p>
+        </div>
+        <div className='flex'>
+          <p>
+            <i className="fa-solid fa-location-dot" />
+            {location}</p>
+        </div>
+        <div>
+          <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)} />
+        </div>
+        <div>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={10}
+            center={selected}
+            className='h-1/4 p-11'
+            mapContainerClassName='w-full h-1/2 rounded'
+          >
+            <Marker position={selected} />
+          </GoogleMap>
+        </div>
+        <div className='flex  '>
+          <p>
+            <i className="fa-solid fa-circle-info" />
+            {details}</p>
+        </div>
+        <div>
+          <GuestList />
+        </div>
+        <div>
+          <GuestForm />
+        </div>
       </div>
-      <div className='h-96 min-w-min max-w-3xl mx-auto rounded m-2 bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
-        <img className="object-contain rounded h-full w-full" src={image} />
-      </div>
-      <div className='flex'>
-        <h2>
-          <i className="fa-solid fa-calendar-days" />
-          {name}
-        </h2>
-      </div>
-      <div className='flex'>
-        <p>
-          <i className="fa-solid fa-clock" />
-          {formatDate(startDate)} - {formatDate(endDate)}</p>
-      </div>
-      <div className='flex'>
-        <p>
-          <i className="fa-solid fa-location-dot" />
-          {location}</p>
-      </div>
-      <div>
-        <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)}/>
-      </div>
-      <div>
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={10}
-          center={selected}
-          className='h-1/4 p-11'
-          mapContainerClassName='w-full h-1/2 rounded'
-        >
-          <Marker position={selected} />
-        </GoogleMap>
-      </div>
-      <div className='flex m-2 '>
-        <p>
-          <i className="fa-solid fa-circle-info" />
-          {details}</p>
-      </div>
-      <div>
-        <GuestList />
-      </div>
-      <div>
-        <GuestForm />
-      </div>
+
     </div>
   );
 }
@@ -130,7 +133,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black m-2'
+        className='bg-purple-200 rounded border border-black '
         placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>
