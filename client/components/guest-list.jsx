@@ -10,13 +10,13 @@ export default function GuestList({ guests }) {
   return (
     <>
       <div className=''>
-        <button onClick={handleClick} className='bg-blue-400' >{showGuestList ? 'Show Guests' : 'Hide Guests'}</button>
+        <button onClick={handleClick} className='bg-blue-400' >{showGuestList ? 'Hide Guests' : 'Show Guests'}</button>
       </div>
       <div className="">
         {
           guests?.map(guest => (
             <div key={guest.guestId}
-              className={`${showGuestList ? 'test1' : 'test2 '}`}>
+              className={`${showGuestList ? 'test2' : 'test1 '}`}>
               <GuestCard guest={guest} />
             </div>
           ))

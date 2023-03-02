@@ -66,15 +66,15 @@ export default function GuestForm({ onAdd }) {
   return (
     <div className=''>
       <div>
-        <button onClick={handleClick} className='bg-blue-300'>{showGuestForm ? 'Invite a New Guest' : 'Hide Form'}</button>
+        <button onClick={handleClick} className='bg-blue-300'>{showGuestForm ? 'Hide Form' : 'Invite a New Guest'}</button>
       </div>
 
-      <div className={`${showGuestForm ? 'test1' : 'test2 '}`}>
+      <div className={`${showGuestForm ? 'test2' : 'test1'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label>Guest Name
               <div>
-                <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guestName', {
+                <input type='text' className='container mx-auto border rounded border-[#f2dec8]' {...register('guestName', {
                   required: 'Guest name is required.',
                   minLength: {
                     value: 1,
@@ -94,7 +94,7 @@ export default function GuestForm({ onAdd }) {
           <div>
             <label>Phone Number
               <div>
-                <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
+                <input type='text' className='container mx-auto border rounded border-[#f2dec8]' {...register('phoneNumber', {
                   required: 'Phone number is required.',
                   pattern: {
                     value: /^\d{10}$/,
@@ -109,7 +109,7 @@ export default function GuestForm({ onAdd }) {
           </div>
           <div className=''>
             <button
-              className='rounded right-0 top-0 border border-black bg-red-300'
+              className='rounded border border-black bg-red-300'
               type="submit"
               value='Create Event'>
               Invite Guest

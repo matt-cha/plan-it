@@ -46,7 +46,7 @@ export default function CreateEvent() {
   const onSubmit = async data => {
     const debug = false;
     if (debug) {
-    // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.log('line:14 data:::browser only ', data);
       return;
     }
@@ -72,122 +72,105 @@ export default function CreateEvent() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <>
-      <div className=' flex-wrap justify-center flex m-3'>
-        <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-3xl'>
-          <div className=''>
-            <label className=''>Event Name
-              <div>
-                <input type='text' autoFocus className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('name', {
-                  required: 'Event name is required.',
-                  minLength: {
-                    value: 4,
-                    message: 'Event name cannot be shorter than 4 characters'
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: 'Event name cannot be longer than 20 characters'
+    <div className=' flex-wrap justify-center flex m-3'>
+      <div className='w-full max-w-3xl'>
+        <div className='firstform'>
+          <form onSubmit={handleSubmit(onSubmit)} className=''>
+            <div className=''>
+              <label className=''>Event Name
+                <div>
+                  <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8]' {...register('name', {
+                    required: 'Event name is required.',
+                    minLength: {
+                      value: 4,
+                      message: 'Event name cannot be shorter than 4 characters'
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: 'Event name cannot be longer than 20 characters'
+                    }
+                  })} />
+                </div>
+                <div>
+                  <p className='text-red-300'>{errors?.name?.message}</p>
+                </div>
+              </label>
+            </div>
+            <div className=''>
+              <label> <span className=''>Start Date and Time</span>
+                <div>
+                  <Controller
+                      name="startDate"
+                      control={control}
+                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                    />
+                </div>
+              </label>
+            </div>
+            <div className=''>
+              <label><span className=''>End Date and Time</span>
+                <div>
+                  <Controller
+                      name="endDate"
+                      control={control}
+                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                    />
+                </div>
+              </label>
+            </div>
+            <div className=''>
+              <p>Location</p>
+            </div>
+            <div className=''>
+              <Controller
+                  name="location"
+                  control={control}
+                  inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
+                  render={({ field }) =>
+                    <PlacesAutoComplete onSelect={(latLng, address) => {
+                      setSelected(latLng);
+                      field.onChange(address);
+                    }}
+                    />
                   }
-                })} />
-              </div>
-              <div>
-                <p className='text-red-300'>{errors?.name?.message}</p>
-              </div>
-            </label>
-          </div>
-          <div className=''>
-            <label> <span className=''>Start Date and Time</span>
-              <div>
-                <Controller
-                name="startDate"
-                control={control}
-                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container max-w-2xl' }} {...field} />}
-              />
-              </div>
-            </label>
-          </div>
-          <div className=''>
-            <label><span className=''>End Date and Time</span>
-              <div>
-                <Controller
-                name="endDate"
-                control={control}
-                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container max-w-2xl' }} {...field} />}
-              />
-              </div>
-            </label>
-          </div>
-          <div className=''>
-            <p>Location</p>
-          </div>
-          <div className=''>
-            <Controller
-            name="location"
-            control={control}
-            inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
-            render={({ field }) =>
-              <PlacesAutoComplete onSelect={(latLng, address) => {
-                setSelected(latLng);
-                field.onChange(address);
-              }}
-              />
-            }
-          />
-          </div>
-          <div className='w-full max-w-2xl'>
-            <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={10}
-            center={selected}
-            className='h-1/4 p-11 object-contain'
-            mapContainerClassName='w-full h-1/2 rounded'
-          >
-              <Marker position={selected} />
-            </GoogleMap>
-          </div>
-          <div className=''>
-            <label className=''>Details
-              <div>
-                <textarea className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('details')} />
-              </div>
-            </label>
-          </div>
-          {imageUrl &&
-          <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
-            <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
-          <div className=''>
-            <button
-            className='rounded right-0 top-0 border border-[#f2dec8] bg-red-300'
-            type="submit"
-            value='Create Event'>
-              Create the event!! move this up to nav bar later
-            </button>
-          </div>
-        </form>
+                />
+            </div>
+            <div className='w-full '>
+              <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  zoom={10}
+                  center={selected}
+                  className='h-1/4 p-11 object-contain'
+                  mapContainerClassName='w-full h-1/2 rounded'
+                >
+                <Marker position={selected} />
+              </GoogleMap>
+            </div>
+            <div className=''>
+              <label className=''>Details
+                <div>
+                  <textarea className=' border rounded border-[#f2dec8] container ' {...register('details')} />
+                </div>
+              </label>
+            </div>
+            {imageUrl &&
+              <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
+                <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+            <div className=''>
+              <button
+                  className='rounded right-0 top-0 border border-[#f2dec8] bg-red-300'
+                  type="submit"
+                  value='Create Event'>
+                Create the event!! move this up to nav bar later
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className='seconform'>
+          <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
+        </div>
       </div>
-      {/* <div className=' max-w-min'>
-        <form onSubmit={handleImageSubmit} className='max-w-min'>
-          <div className='max-w-min'>
-            <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min">
-              <input
-              required
-              type="file"
-              name="image"
-              ref={fileInputRef}
-              className="bg-orange-300 rounded max-w-min"
-              id='file-upload-button'
-              accept=".png, .jpg, .jpeg, .gif" />
-            </label>
-          </div>
-          <div>
-            <button type="submit" className="bg-yellow-200 rounded ">
-              Upload
-            </button>
-          </div>
-        </form>
-      </div> */}
-      <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
-    </>
+    </div>
   );
 }
 
@@ -218,8 +201,8 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='border rounded border-[#f2dec8] container max-w-2xl'
-        placeholder='search here placeholder'/>
+        className='border rounded border-[#f2dec8] container '
+        placeholder='search here placeholder' />
       <ComboboxPopover className='rounded'>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }, index) => (
@@ -233,11 +216,10 @@ const PlacesAutoComplete = ({ onSelect }) => {
 
 const FileForm = ({ handleImageSubmit, fileInputRef }) => {
   return (
-    <div className='flex-wrap justify-center flex m-3'>
-      <form onSubmit={handleImageSubmit} className='w-full max-w-3xl '>
-        <div className='max-w-min'>
-          <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">
-            <input
+    <form onSubmit={handleImageSubmit} className=' '>
+      <div className=''>
+        <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">
+          <input
               required
               type="file"
               name="image"
@@ -245,14 +227,13 @@ const FileForm = ({ handleImageSubmit, fileInputRef }) => {
               className="bg-orange-400 rounded w-max"
               id='file-upload-button'
               accept=".png, .jpg, .jpeg, .gif" />
-          </label>
-        </div>
-        <div>
-          <button type="submit" className="bg-yellow-300 rounded ">
-            Upload
-          </button>
-        </div>
-      </form>
-    </div>
+        </label>
+      </div>
+      <div>
+        <button type="submit" className="bg-yellow-300 rounded ">
+          Upload
+        </button>
+      </div>
+    </form>
   );
 };

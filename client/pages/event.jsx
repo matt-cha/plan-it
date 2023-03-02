@@ -23,8 +23,7 @@ export default function Event() {
   }, [eventId, guests]);
 
   const mapContainerStyle = {
-    width: '95%',
-    margin: '.5rem',
+    width: '100%',
     height: '300px',
     borderRadius: '.25rem'
   };
@@ -110,7 +109,6 @@ export default function Event() {
           <GuestForm onAdd={() => setGuests(undefined)} />
         </div>
       </div>
-
     </div>
   );
 }
@@ -142,7 +140,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black '
+        className='bg-purple-200 rounded border border-black'
         placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>
