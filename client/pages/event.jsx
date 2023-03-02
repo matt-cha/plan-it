@@ -102,6 +102,7 @@ export default function Event() {
       <div className='mx-2'>
         <p>Guest List Here</p>
       </div>
+      <div />
       <div className="">
         {
             guests?.map(guest => (

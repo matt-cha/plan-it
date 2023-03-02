@@ -26,6 +26,18 @@ export default function GuestList() {
       });
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
+
+      try {
+        await fetch(`/api/events/${eventId}/guests/message`, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      } catch (error) {
+        console.error('Error line 39:', error);
+      }
     } catch (error) {
       console.error('Error:', error);
     }

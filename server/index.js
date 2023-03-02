@@ -100,7 +100,7 @@ app.get('/api/events/:eventId/guests', (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        error: 'An unexpected error occurred.'
+        error: 'An unexpected error occurred103.'
       });
     });
 });
@@ -142,7 +142,7 @@ app.post('/api/events', (req, res) => {
     .catch(err => {
       console.error('line 54:', err);
       res.status(500).json({
-        error: 'An unexpected error occurred.'
+        error: 'An unexpected error occurred.145'
       });
     });
 });
@@ -181,31 +181,31 @@ app.post('/api/guests', (req, res) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        error: 'An unexpected error occurred.'
+        error: 'An unexpected error occurred.184'
       });
     });
+});
 
-  /*   db.query(sql, params)
-      .then(result => {
-        res.status(201).json(result.rows[0]);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json({
-          error: 'An unexpected error occurred.'
-        });
-      });
+const accountSid = 'AC16c88cb51171dd7a4b08dcd9c237ad3b';
+const authToken = '8e916127cf5d4df8001d339cda26933b';
+const client = require('twilio')(accountSid, authToken);
 
-    db.query(sql, params)
-      .then(result => {
-        res.status(201).json(result.rows[0]);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).json({
-          error: 'An unexpected error occurred.'
-        });
-      }); */
+app.post('/api/events/:eventId/guests/message', (req, res) => {
+  res.header('Content-Type', 'application/json');
+  client.messages
+    .create({
+      from: req.body.from,
+
+      to: req.body.to,
+      body: req.body.body
+    })
+    .then(() => {
+      res.send(JSON.stringify({ sucess: true }));
+    })
+    .catch(err => {
+      console.error(err);
+      res.send(JSON.stringify({ sucess: false }));
+    });
 });
 
 app.get('*', (req, res) => {
