@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 export default function GuestForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
+  const [showGuestForm, setShowGuestForm] = useState(false);
+
+  function handleClick() {
+    setShowGuestForm(!showGuestForm);
+  }
 
   const onSubmit = async data => {
     const debug = false;
@@ -30,6 +35,12 @@ export default function GuestForm() {
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
 
+      const debugTextMessage = true;
+      if (debugTextMessage) {
+        // eslint-disable-next-line no-console
+        console.log('dont send text ');
+        return;
+      }
       const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
         method: 'POST',
         headers: {
@@ -38,7 +49,7 @@ export default function GuestForm() {
         body: JSON.stringify({
           from: '+18446990230',
           to: data.phoneNumber,
-          body: 'join ma event http://localhost:3000/events/1'
+          body: 'Test event link: http://localhost:3000/events/1'
         })
       });
       if (!messageResponse.ok) {
@@ -52,54 +63,60 @@ export default function GuestForm() {
   };
 
   return (
-    <div className='h-screen'>
-      <p className=''>Guest List Form. You agree to be sent a text that will link you an RSVP to the event page.</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Guest Name
-            <div>
-              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guestName', {
-                required: 'Guest name is required.',
-                minLength: {
-                  value: 1,
-                  message: 'Guest name cannot be shorter than 1 characters'
-                },
-                maxLength: {
-                  value: 25,
-                  message: 'Guest name cannot be longer than 25 characters'
-                }
-              })} />
-            </div>
-            <div>
-              <p>{errors?.guestName?.message}</p>
-            </div>
-          </label>
-        </div>
-        <div>
-          <label>Phone Number
-            <div>
-              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
-                required: 'Phone number is required.',
-                pattern: {
-                  value: /^\d{10}$/,
-                  message: 'Please enter a valid 10-digit phone number.'
-                }
-              })} />
-            </div>
-            <div>
-              <p>{errors?.phoneNumber?.message}</p>
-            </div>
-          </label>
-        </div>
-        <div className='m-2'>
-          <button
-            className='rounded right-0 top-0 border border-black bg-red-300'
-            type="submit"
-            value='Create Event'>
-            Invite Guest
-          </button>
-        </div>
-      </form>
+    <div className=''>
+      <div>
+        <button onClick={handleClick} className='bg-blue-300'>{showGuestForm ? 'Invite a New Guest' : 'Hide Form'}</button>
+      </div>
+
+      <div className={`${showGuestForm ? 'test1' : 'test2 '}`}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label>Guest Name
+              <div>
+                <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guestName', {
+                  required: 'Guest name is required.',
+                  minLength: {
+                    value: 1,
+                    message: 'Guest name cannot be shorter than 1 characters'
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: 'Guest name cannot be longer than 25 characters'
+                  }
+                })} />
+              </div>
+              <div>
+                <p>{errors?.guestName?.message}</p>
+              </div>
+            </label>
+          </div>
+          <div>
+            <label>Phone Number
+              <div>
+                <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
+                  required: 'Phone number is required.',
+                  pattern: {
+                    value: /^\d{10}$/,
+                    message: 'Please enter a valid 10-digit phone number.'
+                  }
+                })} />
+              </div>
+              <div>
+                <p>{errors?.phoneNumber?.message}</p>
+              </div>
+            </label>
+          </div>
+          <div className=''>
+            <button
+              className='rounded right-0 top-0 border border-black bg-red-300'
+              type="submit"
+              value='Create Event'>
+              Invite Guest
+            </button>
+          </div>
+        </form>
+      </div>
+
     </div>
   );
 }

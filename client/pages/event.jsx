@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
-import GuestList from '../components/guest-list2';
+import GuestList from '../components/guest-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';

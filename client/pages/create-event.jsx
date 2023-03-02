@@ -17,7 +17,7 @@ export default function CreateEvent() {
   const navigate = useNavigate();
 
   const mapContainerStyle = {
-    width: '95%',
+    width: '100%',
     margin: '.5rem',
     height: '300px',
     borderRadius: '.25rem'
@@ -74,9 +74,9 @@ export default function CreateEvent() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div className=''>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)} className=''>
+    <div >
+      <div className=' flex-wrap justify-center flex'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-3xl'>
           <div className='m-2'>
             <label className=''>Event Name
               <div>
@@ -136,12 +136,12 @@ export default function CreateEvent() {
             }
           />
           </div>
-          <div>
+          <div className='w-full max-w-3xl'>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={10}
             center={selected}
-            className='h-1/4 p-11'
+            className='h-1/4 p-11 object-contain'
             mapContainerClassName='w-full h-1/2 rounded'
           >
               <Marker position={selected} />
@@ -235,7 +235,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
 
 const FileForm = ({ handleImageSubmit, fileInputRef }) => {
   return (
-    <div className='m-2 max-w-min'>
+    <div className='container flex-wrap flex'>
       <form onSubmit={handleImageSubmit} className='max-w-min'>
         <div className='max-w-min'>
           <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">

@@ -10,7 +10,7 @@ export default function GuestList() {
     fetch(`/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests));
-  }, [eventId, guests]);
+  }, [eventId]);
 
   function handleClick() {
     setShowGuestList(!showGuestList);
@@ -19,7 +19,7 @@ export default function GuestList() {
   return (
     <>
       <div className='mx-2'>
-        <button onClick={handleClick} className='bg-blue-400' >{showGuestList ? 'Hide Guests' : 'Show Guests'}</button>
+        <button onClick={handleClick} className='bg-blue-400' >{showGuestList ? 'Show Guests' : 'Hide Guests'}</button>
       </div>
       <div className="">
         {
