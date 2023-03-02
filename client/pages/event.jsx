@@ -57,25 +57,25 @@ export default function Event() {
   const { name, startDate, endDate, location, details, image } = event;
 
   return (
-    <>
+    <div className='m-2'>
       <div>
         <box-icon name='chevron-left' />
       </div>
-      <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded bg-blue-300'>
+      <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded m-2 bg-blue-300'>
         <img className="object-contain rounded h-full w-full" src={image} />
       </div>
-      <div className='flex m-2'>
+      <div className='flex'>
         <h2>
           <i className="fa-solid fa-calendar-days" />
           {name}
         </h2>
       </div>
-      <div className='flex m-2'>
+      <div className='flex'>
         <p>
           <i className="fa-solid fa-clock" />
           {formatDate(startDate)} - {formatDate(endDate)}</p>
       </div>
-      <div className='flex m-2'>
+      <div className='flex'>
         <p>
           <i className="fa-solid fa-location-dot" />
           {location}</p>
@@ -115,7 +115,7 @@ export default function Event() {
         <button>New Invite</button>
         <GuestList />
       </div>
-    </>
+    </div>
   );
 }
 

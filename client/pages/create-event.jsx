@@ -80,7 +80,7 @@ export default function CreateEvent() {
           <div className='m-2'>
             <label className=''>Event Name
               <div>
-                <input type='text' autoFocus className=' border rounded border-black container max-w-2xl' {...register('name', {
+                <input type='text' autoFocus className='text-center border rounded border-black container max-w-2xl' {...register('name', {
                   required: 'Event name is required.',
                   minLength: {
                     value: 4,
@@ -155,7 +155,7 @@ export default function CreateEvent() {
             </label>
           </div>
 
-          {imageUrl && <div className='h-52 w-72 max-w-xs rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+          {imageUrl && <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
           <div className='m-2'>
             <button
