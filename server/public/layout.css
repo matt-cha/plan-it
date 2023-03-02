@@ -1,12 +1,12 @@
 .test1 {
-  transition: 0.7s ease-in-out;
+  transition: 1s ease-in-out;
   max-height: 0;
   overflow: hidden;
-  color: white;
+  color: transparent;
 }
 
 .test2 {
-  transition: 0.7s ease-in-out;
+  transition: 1s ease-in-out;
   max-height: 7rem;
   overflow: hidden;
 }

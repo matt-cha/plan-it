@@ -14,7 +14,7 @@ export default function GuestForm() {
       return;
     }
     try {
-      await fetch('/api/guests', {
+      const response = await fetch('/api/guests', {
         method: 'POST',
         body: JSON.stringify({
           data,
@@ -24,22 +24,30 @@ export default function GuestForm() {
           'Content-Type': 'application/json'
         }
       });
+      if (!response.ok) {
+        throw new Error(`Failed to add data to DB : ${response.status}`);
+      }
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
 
-      try {
-        await fetch(`/api/events/${eventId}/guests/message`, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      } catch (error) {
-        console.error('Error line 39:', error);
+      const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: '+18446990230',
+          to: data.phoneNumber,
+          body: 'join ma event http://localhost:3000/events/1'
+        })
+      });
+      if (!messageResponse.ok) {
+        throw new Error(`Failed to send message: ${messageResponse.status}`);
       }
+      // eslint-disable-next-line no-console
+      console.log('message was sent successfully');
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error line 39:', error);
     }
   };
 
@@ -53,12 +61,12 @@ export default function GuestForm() {
               <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('guestName', {
                 required: 'Guest name is required.',
                 minLength: {
-                  value: 2,
-                  message: 'Guest name cannot be shorter than 2 characters'
+                  value: 1,
+                  message: 'Guest name cannot be shorter than 1 characters'
                 },
                 maxLength: {
-                  value: 20,
-                  message: 'Guest name cannot be longer than 20 characters'
+                  value: 25,
+                  message: 'Guest name cannot be longer than 25 characters'
                 }
               })} />
             </div>
@@ -70,15 +78,11 @@ export default function GuestForm() {
         <div>
           <label>Phone Number
             <div>
-              <input type='number' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
+              <input type='text' className='container mx-auto border rounded border-black bg-green-300' {...register('phoneNumber', {
                 required: 'Phone number is required.',
-                minLength: {
-                  value: 2,
-                  message: 'Phone number cannot be shorter than 2 characters'
-                },
-                maxLength: {
-                  value: 11,
-                  message: 'Phone number cannot be longer than 11 characters'
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: 'Please enter a valid 10-digit phone number.'
                 }
               })} />
             </div>

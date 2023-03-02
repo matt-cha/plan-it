@@ -74,7 +74,7 @@ export default function CreateEvent() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <>
+    <div className=''>
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className=''>
           <div className='m-2'>
@@ -189,7 +189,7 @@ export default function CreateEvent() {
         </form>
       </div> */}
       <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
-    </>
+    </div>
   );
 }
 

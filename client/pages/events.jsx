@@ -12,8 +12,10 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="m-2">
-      <h1>All Events</h1>
+    <div className="m-2 justify-center flex container "> {/* starting to ppsition here */}
+      <div>
+        <h1>All Events</h1>
+      </div>
 
       <div className="">
         {

@@ -19,7 +19,7 @@ export default function GuestList() {
   return (
     <>
       <div className='mx-2'>
-        <button onClick={handleClick} className='bg-blue-400' >Show Guests</button>
+        <button onClick={handleClick} className='bg-blue-400' >{showGuestList ? 'Hide Guests' : 'Show Guests'}</button>
       </div>
       <div className="">
         {

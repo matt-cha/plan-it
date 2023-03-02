@@ -195,7 +195,6 @@ app.post('/api/events/:eventId/guests/message', (req, res) => {
   client.messages
     .create({
       from: req.body.from,
-
       to: req.body.to,
       body: req.body.body
     })
