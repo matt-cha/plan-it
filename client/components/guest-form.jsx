@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-export default function GuestForm() {
+export default function GuestForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
   const [showGuestForm, setShowGuestForm] = useState(false);
@@ -32,6 +32,7 @@ export default function GuestForm() {
       if (!response.ok) {
         throw new Error(`Failed to add data to DB : ${response.status}`);
       }
+      onAdd(await response.json());
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
 
@@ -116,7 +117,6 @@ export default function GuestForm() {
           </div>
         </form>
       </div>
-
     </div>
   );
 }

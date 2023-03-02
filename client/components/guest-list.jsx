@@ -1,16 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 
-export default function GuestList() {
-  const [guests, setGuests] = useState();
-  const { eventId } = useParams();
+export default function GuestList({ guests }) {
   const [showGuestList, setShowGuestList] = useState(false);
-
-  useEffect(() => {
-    fetch(`/api/events/${eventId}/guests`)
-      .then(res => res.json())
-      .then(guests => setGuests(guests));
-  }, [eventId]);
 
   function handleClick() {
     setShowGuestList(!showGuestList);
@@ -31,6 +22,7 @@ export default function GuestList() {
           ))
         }
       </div>
+
     </>
   );
 }

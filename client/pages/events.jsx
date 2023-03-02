@@ -12,11 +12,7 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="flex-wrap justify-center flex ">
-      <div className='w-full max-w-3xl'>
-        <h1>All Events</h1>
-      </div>
-
+    <div className="flex-wrap justify-center flex m-3">
       <div className='w-full max-w-3xl'>
         {
           events?.map(event => (
@@ -35,7 +31,7 @@ function EventCard({ event }) {
   return (
     <Link to={`/events/${eventId}`}>
       <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
-        <img src={image} className="object-contain  rounded h-full w-full" />
+        <img src={image} className="object-contain rounded h-full w-full" />
       </div>
       <div>
         <h5 className="mx-auto">

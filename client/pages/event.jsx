@@ -12,6 +12,15 @@ export default function Event() {
   const [selected, setSelected] = useState(null);
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
+  const [guests, setGuests] = useState();
+
+  useEffect(() => {
+    if (!guests) {
+      fetch(`/api/events/${eventId}/guests`)
+        .then(res => res.json())
+        .then(guests => setGuests(guests));
+    }
+  }, [eventId, guests]);
 
   const mapContainerStyle = {
     width: '95%',
@@ -51,7 +60,7 @@ export default function Event() {
   const { name, startDate, endDate, location, details, image } = event;
 
   return (
-    <div className='flex-wrap justify-center flex'>
+    <div className='flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
         <div>
           <box-icon name='chevron-left' />
@@ -95,10 +104,10 @@ export default function Event() {
             {details}</p>
         </div>
         <div>
-          <GuestList />
+          <GuestList guests={guests}/>
         </div>
         <div>
-          <GuestForm />
+          <GuestForm onAdd={() => setGuests(undefined)} />
         </div>
       </div>
 
