@@ -32,7 +32,7 @@ function EventCard({ event }) {
   const { eventId, name, startDate, location, image } = event;
   return (
     <Link to={`/events/${eventId}`}>
-      <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded bg-blue-300'>
+      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
         <img src={image} className="object-contain  rounded h-full w-full" />
       </div>
       <div>

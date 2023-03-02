@@ -45,7 +45,7 @@ export default function GuestList() {
 
   return (
     <div className='h-screen'>
-      <p className=''>Guest List Form starts</p>
+      <p className=''>Guest List Form. You agree to be sent a text that will link you an RSVP to the event page.</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Guest Name
@@ -77,8 +77,8 @@ export default function GuestList() {
                   message: 'Phone number cannot be shorter than 2 characters'
                 },
                 maxLength: {
-                  value: 10,
-                  message: 'Phone number cannot be longer than 10 characters'
+                  value: 11,
+                  message: 'Phone number cannot be longer than 11 characters'
                 }
               })} />
             </div>

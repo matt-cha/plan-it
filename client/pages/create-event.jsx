@@ -80,7 +80,7 @@ export default function CreateEvent() {
           <div className='m-2'>
             <label className=''>Event Name
               <div>
-                <input type='text' autoFocus className='text-center border rounded border-black container max-w-2xl' {...register('name', {
+                <input type='text' autoFocus className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('name', {
                   required: 'Event name is required.',
                   minLength: {
                     value: 4,
@@ -103,7 +103,7 @@ export default function CreateEvent() {
                 <Controller
                 name="startDate"
                 control={control}
-                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-black container max-w-2xl' }} {...field} />}
+                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container max-w-2xl' }} {...field} />}
               />
               </div>
             </label>
@@ -114,7 +114,7 @@ export default function CreateEvent() {
                 <Controller
                 name="endDate"
                 control={control}
-                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-black container max-w-2xl' }} {...field} />}
+                  render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container max-w-2xl' }} {...field} />}
               />
               </div>
             </label>
@@ -126,7 +126,7 @@ export default function CreateEvent() {
             <Controller
             name="location"
             control={control}
-            inputProps={{ className: 'rounded border border-black m-2' }}
+            inputProps={{ className: 'rounded border border-[#f2dec8] m-2' }}
             render={({ field }) =>
               <PlacesAutoComplete onSelect={(latLng, address) => {
                 setSelected(latLng);
@@ -150,16 +150,16 @@ export default function CreateEvent() {
           <div className='m-2'>
             <label className=''>Details
               <div>
-                <textarea className=' border rounded border-black container max-w-2xl' {...register('details')} />
+                <textarea className=' border rounded border-[#f2dec8] container max-w-2xl' {...register('details')} />
               </div>
             </label>
           </div>
 
-          {imageUrl && <div className='h-80 min-w-min w-74 max-w-2xl mx-auto rounded bg-blue-300'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+          {imageUrl && <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'><img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
 
           <div className='m-2'>
             <button
-            className='rounded right-0 top-0 border border-black bg-red-300'
+            className='rounded right-0 top-0 border border-[#f2dec8] bg-red-300'
             type="submit"
             value='Create Event'>
               Create the event!! move this up to nav bar later
@@ -220,7 +220,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='border rounded border-black container max-w-2xl'
+        className='border rounded border-[#f2dec8] container max-w-2xl'
         placeholder='search here placeholder'/>
       <ComboboxPopover className='rounded'>
         <ComboboxList>
