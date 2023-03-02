@@ -1,7 +1,8 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import formatDate from '../lib/format-date';
-import GuestList from '../components/guest-list';
+import GuestForm from '../components/guest-form';
+import GuestList from '../components/guest-list2';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
@@ -9,7 +10,7 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
-  const [guests, setGuests] = useState();
+  /*   const [guests, setGuests] = useState(); */
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
 
@@ -32,11 +33,11 @@ export default function Event() {
       });
   }, [eventId]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     fetch(`/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests));
-  }, [eventId, guests]);
+  }, [eventId, guests]); */
 
   useEffect(() => {
     async function displayLocation(address) {
@@ -99,22 +100,12 @@ export default function Event() {
           <i className="fa-solid fa-circle-info" />
           {details}</p>
       </div>
-      <div className='mx-2'>
-        <p>Guest List Here</p>
-      </div>
-      <div />
-      <div className="">
-        {
-            guests?.map(guest => (
-              <div key={guest.guestId} className="">
-                <GuestCard guest={guest} />
-              </div>
-            ))
-          }
-      </div>
       <div>
-        <button>New Invite</button>
         <GuestList />
+      </div>
+
+      <div>
+        <GuestForm />
       </div>
     </div>
   );
@@ -159,17 +150,3 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
-
-function GuestCard({ guest }) {
-  const { guestName, phoneNumber } = guest;
-  return (
-    <>
-      <div>
-        <p>{guestName}</p>
-      </div>
-      <div>
-        <p>{phoneNumber}</p>
-      </div>
-    </>
-  );
-}
