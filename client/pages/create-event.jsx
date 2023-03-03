@@ -39,6 +39,7 @@ export default function CreateEvent() {
       .then(response => response.json())
       .then(data => {
         setImageUrl(data);
+        console.log('line:42 data::: ', data);
         fileInputRef.current.value = null;
       })
       .catch(error => console.error('Error:', error));
@@ -53,6 +54,7 @@ export default function CreateEvent() {
     }
     try {
       data.image = imageUrl;
+      console.log('line:56 data.image::: ', data.image);
       const response = await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -75,13 +77,13 @@ export default function CreateEvent() {
   return (
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        <div className='firstform'>
+        <div className='first form'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className=''>
 
               <label className='text-xl text-[#0d2137]'>Event Name
                 <div>
-                  <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8]' {...register('name', {
+                  <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
                     required: 'Event name is required.',
                     minLength: {
                       value: 4,
@@ -163,12 +165,12 @@ export default function CreateEvent() {
                 className='rounded border border-[#f2dec8] bg-[#f2dec8]'
                 type="submit"
                 value='Create Event'>
-                Create the event!! move this up to nav bar later
+                Create the event!
               </button>
             </div>
           </form>
         </div>
-        <div className='secondform'>
+        <div className='second form'>
           <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
         </div>
       </div>
@@ -234,7 +236,7 @@ const FileForm = ({ handleImageSubmit, fileInputRef }) => {
       </div>
       <div>
         <button type="submit" className="bg-yellow-300 rounded ">
-          Upload
+          Upload the image
         </button>
       </div>
     </form>

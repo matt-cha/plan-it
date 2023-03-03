@@ -44,7 +44,7 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className={`${overlay}`} onClick={handleBurgerCloseClick} />
+      {menu && <div className={`${overlay}`} onClick={handleBurgerCloseClick} />}
     </div>
   );
 }
