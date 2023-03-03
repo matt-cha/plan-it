@@ -227,20 +227,20 @@ const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
         <label htmlFor="file-upload-button" className=" rounded max-w-min ">Cover Photo
           <div className='my-2'>
             <input
-              required
-              type="file"
-              name="image"
-              ref={fileInputRef}
-              className="rounded w-full"
-              /* style={{ display: 'none' }} */
-              id='file-upload-button'
-              accept=".png, .jpg, .jpeg, .gif, .webp" />
+                required
+                type="file"
+                name="image"
+                ref={fileInputRef}
+                className="rounded w-full"
+                /* style={{ display: 'none' }} */
+                id='file-upload-button'
+                accept=".png, .jpg, .jpeg, .gif, .webp" />
           </div>
 
         </label>
       </div>
       <div>
-        <button type="submit" className="bg-yellow-300 rounded ">
+        <button id="imageTest" type="submit" className="bg-yellow-300 rounded ">
           Upload
         </button>
       </div>
