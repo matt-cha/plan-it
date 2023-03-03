@@ -22,7 +22,6 @@ export default function GuestList({ guests }) {
           ))
         }
       </div>
-
     </>
   );
 }
@@ -32,10 +31,10 @@ function GuestCard({ guest }) {
   return (
     <>
       <div>
-        <p>{guestName}</p>
+        <p>Name: {guestName}</p>
       </div>
       <div>
-        <p>{phoneNumber}</p>
+        <p>Phone Number: {phoneNumber}</p>
       </div>
     </>
   );

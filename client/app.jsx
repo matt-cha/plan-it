@@ -13,8 +13,7 @@ export default function App() {
   return (
     <div className='App '>
       <Navbar />
-
-      <div className=''>
+      <div className='pt-10'>
         <Routes>
           <Route path='/' element={ <Home />} />
           <Route path='/create-event' element={<CreateEvent />} />

@@ -7,6 +7,7 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css'; // maybe not needed
 import { useNavigate } from 'react-router-dom';
+/* import styled from 'styled-components'; */
 
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
@@ -77,6 +78,7 @@ export default function CreateEvent() {
         <div className='firstform'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className=''>
+
               <label className='text-xl text-[#0d2137]'>Event Name
                 <div>
                   <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8]' {...register('name', {
@@ -100,10 +102,10 @@ export default function CreateEvent() {
               <label className='text-xl text-[#0d2137]'>  Start Date and Time
                 <div>
                   <Controller
-                      name="startDate"
-                      control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
-                    />
+                    name="startDate"
+                    control={control}
+                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                  />
                 </div>
               </label>
             </div>
@@ -111,10 +113,10 @@ export default function CreateEvent() {
               <label className='text-xl text-[#0d2137]'>End Date and Time
                 <div>
                   <Controller
-                      name="endDate"
-                      control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
-                    />
+                    name="endDate"
+                    control={control}
+                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                  />
                 </div>
               </label>
             </div>
@@ -123,26 +125,26 @@ export default function CreateEvent() {
             </div>
             <div className=''>
               <Controller
-                  name="location"
-                  control={control}
-                  inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
-                  render={({ field }) =>
-                    <PlacesAutoComplete onSelect={(latLng, address) => {
-                      setSelected(latLng);
-                      field.onChange(address);
-                    }}
-                    />
-                  }
-                />
+                name="location"
+                control={control}
+                inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
+                render={({ field }) =>
+                  <PlacesAutoComplete onSelect={(latLng, address) => {
+                    setSelected(latLng);
+                    field.onChange(address);
+                  }}
+                  />
+                }
+              />
             </div>
             <div className='w-full '>
               <GoogleMap
-                  mapContainerStyle={mapContainerStyle}
-                  zoom={10}
-                  center={selected}
-                  className='h-1/4 p-11 object-contain'
-                  mapContainerClassName='w-full h-1/2 rounded'
-                >
+                mapContainerStyle={mapContainerStyle}
+                zoom={10}
+                center={selected}
+                className='h-1/4 p-11 object-contain'
+                mapContainerClassName='w-full h-1/2 rounded'
+              >
                 <Marker position={selected} />
               </GoogleMap>
             </div>
@@ -158,15 +160,15 @@ export default function CreateEvent() {
                 <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
             <div className=''>
               <button
-                  className='rounded right-0 top-0 border border-[#f2dec8] bg-red-300'
-                  type="submit"
-                  value='Create Event'>
+                className='rounded border border-[#f2dec8] bg-[#f2dec8]'
+                type="submit"
+                value='Create Event'>
                 Create the event!! move this up to nav bar later
               </button>
             </div>
           </form>
         </div>
-        <div className='seconform'>
+        <div className='secondform'>
           <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
         </div>
       </div>
@@ -218,15 +220,16 @@ const FileForm = ({ handleImageSubmit, fileInputRef }) => {
   return (
     <form onSubmit={handleImageSubmit} className=' '>
       <div className=''>
-        <label htmlFor="file-upload-button" className="bg-orange-300 rounded max-w-min flex">
+        <label htmlFor="file-upload-button" className=" rounded max-w-min flex">
           <input
-              required
-              type="file"
-              name="image"
-              ref={fileInputRef}
-              className="bg-orange-400 rounded w-max"
-              id='file-upload-button'
-              accept=".png, .jpg, .jpeg, .gif" />
+            required
+            type="file"
+            name="image"
+            ref={fileInputRef}
+            className="rounded w-max"
+            /* style={{ display: 'none' }} */
+            id='file-upload-button'
+            accept=".png, .jpg, .jpeg, .gif, .webp" />
         </label>
       </div>
       <div>

@@ -109,10 +109,10 @@ export default function GuestForm({ onAdd }) {
           </div>
           <div className=''>
             <button
-              className='rounded border border-black bg-red-300'
+              className='rounded border-[#f2dec8] bg-[#f2dec8]'
               type="submit"
               value='Create Event'>
-              Invite Guest
+              Send Invite to Guest Phone Number
             </button>
           </div>
         </form>
