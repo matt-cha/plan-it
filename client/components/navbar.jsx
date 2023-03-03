@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React/* , { useState } */ from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
-  const [menu, setMenu] = useState(false);
+/*   const [menu, setMenu] = useState(false);
   const burger = menu ? 'hide-burger' : 'show-burger';
   const menuModal = menu ? ' show-menu' : 'hide-menu';
   const overlay = menu ? 'show-overlay' : 'hide-overlay';
@@ -12,29 +12,34 @@ export default function Navbar() {
   }
   function handleBurgerCloseClick() {
     setMenu(false);
-  }
+  } */
 
   return (
     <div>
       <nav className='fixed top-0 z-10 w-full'>
-        <div className="mx-auto p-2 bg-[#f2dec8] flex flex-wrap ">
+        <div className=" p-3 bg-[#f2dec8] flex justify-between">
+          <div className='flex '>
+            <p className='bg-[#C8DCF2] '>acoolprojectname</p>
+          </div>
+          <div className='flex content-end '>
+            <Link to='/events'>
+              <p className=' text-[#0d213] mr-4'>All </p>
+            </Link>
+            <Link to='/'>
+              <button className=''>New</button>
+            </Link>
+          </div>
 
-          {/* <p className='bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-2 left-2'>Events</p> */}
-          <i className={`${burger} fa-solid fa-burger bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-10 right-2`}
-              onClick={handleBurgerOpenClick}
-            />
-
-          <p className='bg-[#C8DCF2]'>acoolprojectname</p>
-          {/*      <Link to='/'>
-            <button className='absolute top2 right-2 bg-[#C8DCF2] rounded-md'>?</button>
-          </Link> */}
+          {/* <i className={`${burger} fa-solid fa-burger bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-3`}
+            onClick={handleBurgerOpenClick}
+          /> */}
 
         </div>
       </nav>
-      <div className={`menu ${menuModal}`}>
+      {/*    <div className={`menu ${menuModal}`}>
         <div>
           <Link to='/events'>
-            <p onClick={handleBurgerCloseClick}>Created Events</p>
+            <p onClick={handleBurgerCloseClick}>Events</p>
           </Link>
         </div>
         <div>
@@ -43,7 +48,7 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      {menu && <div className={`${overlay}`} onClick={handleBurgerCloseClick} />}
+      {menu && <div className={`${overlay}`} onClick={handleBurgerCloseClick} />} */}
     </div>
   );
 }

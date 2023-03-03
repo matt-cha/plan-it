@@ -101,27 +101,30 @@ export default function CreateEvent() {
                 </div>
               </label>
             </div>
-            <div className=''>
-              <label className='text-xl text-[#0d2137]'>  Start Date and Time
-                <div className='my-2'>
-                  <Controller
-                    name="startDate"
-                    control={control}
-                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'start date placeholder' }} {...field} />}
-                  />
-                </div>
-              </label>
-            </div>
-            <div className=''>
-              <label className='text-xl text-[#0d2137]'>End Date and Time
-                <div className='my-2'>
-                  <Controller
+            <div className="flex flex-col sm:flex-row">
+              <div className='flex-1 sm:mr-2'>
+                <label className='text-xl text-[#0d2137]'>  Start Date and Time
+                  <div className='my-2'>
+                    <Controller
+                      name="startDate"
+                      control={control}
+                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'start date placeholder' }} {...field} />}
+                    /> {/* this is where new begins  */}
+                  </div>
+                </label>
+              </div>
+              <div className='flex-1 sm:ml-2'>
+                <label className='text-xl text-[#0d2137]'>End Date and Time
+                  <div className='my-2'>
+                    <Controller
                     name="endDate"
                     control={control}
                     render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'end date placeholder' }} {...field} />}
                   />
-                </div>
-              </label>
+                  </div>
+                </label>
+              </div>
+
             </div>
             <div className=''>
               <p className='text-xl text-[#0d2137]'>Location</p>
@@ -241,9 +244,9 @@ const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
           Upload
         </button>
       </div>
-      {imageUrl &&
-        <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-          <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+
+      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+        <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>
     </form>
   );
 };

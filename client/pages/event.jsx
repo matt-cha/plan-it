@@ -91,7 +91,7 @@ export default function Event() {
             <Marker position={selected} />
           </GoogleMap>
         </div>
-        <div className='flex  '>
+        <div className='flex my-2 '>
           <p>
             <i className="fa-solid fa-circle-info mr-2 text-lg" />
             {details}</p>
