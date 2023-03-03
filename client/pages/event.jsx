@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import formatDate from '../lib/format-date';
+import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
@@ -9,13 +10,20 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
-  const [guests, setGuests] = useState();
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
+  const [guests, setGuests] = useState();
+
+  useEffect(() => {
+    if (!guests) {
+      fetch(`/api/events/${eventId}/guests`)
+        .then(res => res.json())
+        .then(guests => setGuests(guests));
+    }
+  }, [eventId, guests]);
 
   const mapContainerStyle = {
-    width: '95%',
-    margin: '.5rem',
+    width: '100%',
     height: '300px',
     borderRadius: '.25rem'
   };
@@ -30,12 +38,6 @@ export default function Event() {
       .then(event => {
         setEvent(event);
       });
-  }, [eventId]);
-
-  useEffect(() => {
-    fetch(`/api/events/${eventId}/guests`)
-      .then(res => res.json())
-      .then(guests => setGuests(guests));
   }, [eventId]);
 
   useEffect(() => {
@@ -57,65 +59,51 @@ export default function Event() {
   const { name, startDate, endDate, location, details, image } = event;
 
   return (
-    <>
-      <div>
-        <box-icon name='chevron-left' />
+    <div className='flex-wrap justify-center flex m-3'>
+      <div className='w-full max-w-3xl'>
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+          <img className="object-contain rounded h-full w-full" src={image} />
+        </div>
+        <div className='flex my-2'>
+          <p className='text-2xl'>{name}</p>
+        </div>
+        <div className='flex my-2'>
+          <p>
+            <i className="fa-solid fa-clock mr-2" />
+            {formatDate(startDate)} - {formatDate(endDate)}</p>
+        </div>
+        <div className='flex my-2'>
+          <p>
+            <i className="fa-solid fa-location-dot mr-2 text-lg" />
+            {location}</p>
+        </div>
+        <div>
+          <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)} />
+        </div>
+        <div>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={10}
+            center={selected}
+            className='h-1/4 p-11'
+            mapContainerClassName='w-full h-1/2 rounded'
+          >
+            <Marker position={selected} />
+          </GoogleMap>
+        </div>
+        <div className='flex my-2 '>
+          <p>
+            <i className="fa-solid fa-circle-info mr-2 text-lg" />
+            {details}</p>
+        </div>
+        <div>
+          <GuestList guests={guests}/>
+        </div>
+        <div>
+          <GuestForm onAdd={() => setGuests(undefined)} />
+        </div>
       </div>
-      <div className='h-52 w-74 max-w-xs mx-auto rounded bg-blue-300'>
-        <img className="object-contain rounded h-full w-full" src={image} />
-      </div>
-      <div className='flex m-2'>
-        <h2>
-          <i className="fa-solid fa-calendar-days" />
-          {name}
-        </h2>
-      </div>
-      <div className='flex m-2'>
-        <p>
-          <i className="fa-solid fa-clock" />
-          {formatDate(startDate)} - {formatDate(endDate)}</p>
-      </div>
-      <div className='flex m-2'>
-        <p>
-          <i className="fa-solid fa-location-dot" />
-          {location}</p>
-      </div>
-      <div>
-        <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)}/>
-      </div>
-      <div>
-        <GoogleMap
-          mapContainerStyle={mapContainerStyle}
-          zoom={10}
-          center={selected}
-          className='h-1/4 p-11'
-          mapContainerClassName='w-full h-1/2 rounded'
-        >
-          <Marker position={selected} />
-        </GoogleMap>
-      </div>
-      <div className='flex m-2 '>
-        <p>
-          <i className="fa-solid fa-circle-info" />
-          {details}</p>
-      </div>
-      <div className='mx-2'>
-        <p>Guest List Here</p>
-      </div>
-      <div className="">
-        {
-            guests?.map(guest => (
-              <div key={guest.guestId} className="">
-                <GuestCard guest={guest} />
-              </div>
-            ))
-          }
-      </div>
-      <div>
-        <button>New Invite</button>
-        <GuestList />
-      </div>
-    </>
+    </div>
   );
 }
 
@@ -146,7 +134,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black m-2'
+        className='bg-purple-200 rounded border border-black'
         placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>
@@ -158,17 +146,3 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
-
-function GuestCard({ guest }) {
-  const { guestName, phoneNumber } = guest;
-  return (
-    <>
-      <div>
-        <p>{guestName}</p>
-      </div>
-      <div>
-        <p>{phoneNumber}</p>
-      </div>
-    </>
-  );
-}
