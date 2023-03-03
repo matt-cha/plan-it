@@ -64,20 +64,17 @@ export default function Event() {
         <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
           <img className="object-contain rounded h-full w-full" src={image} />
         </div>
-        <div className='flex'>
-          <h2>
-            <i className="fa-solid fa-calendar-days" />
-            {name}
-          </h2>
+        <div className='flex my-2'>
+          <p className='text-2xl'>{name}</p>
         </div>
-        <div className='flex'>
+        <div className='flex my-2'>
           <p>
-            <i className="fa-solid fa-clock" />
+            <i className="fa-solid fa-clock mr-2" />
             {formatDate(startDate)} - {formatDate(endDate)}</p>
         </div>
-        <div className='flex'>
+        <div className='flex my-2'>
           <p>
-            <i className="fa-solid fa-location-dot" />
+            <i className="fa-solid fa-location-dot mr-2 text-lg" />
             {location}</p>
         </div>
         <div>
@@ -96,7 +93,7 @@ export default function Event() {
         </div>
         <div className='flex  '>
           <p>
-            <i className="fa-solid fa-circle-info" />
+            <i className="fa-solid fa-circle-info mr-2 text-lg" />
             {details}</p>
         </div>
         <div>

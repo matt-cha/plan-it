@@ -17,29 +17,28 @@ export default function Navbar() {
   return (
     <div>
       <nav className='fixed top-0 z-10 w-full'>
-        <div className="mx-auto p-2 bg-[#f2dec8] flex justify-center flex-wrap ">
-          <Link to='/events'>
-            {/* <p className='bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-2 left-2'>Events</p> */}
-            <i className={`${burger} fa-solid fa-burger bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-3 left-2`}
+        <div className="mx-auto p-2 bg-[#f2dec8] flex flex-wrap ">
+
+          {/* <p className='bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-2 left-2'>Events</p> */}
+          <i className={`${burger} fa-solid fa-burger bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-10 right-2`}
               onClick={handleBurgerOpenClick}
             />
-          </Link>
 
           <p className='bg-[#C8DCF2]'>acoolprojectname</p>
-          <Link to='/create-event'>
+          {/*      <Link to='/'>
             <button className='absolute top2 right-2 bg-[#C8DCF2] rounded-md'>?</button>
-          </Link>
+          </Link> */}
 
         </div>
       </nav>
       <div className={`menu ${menuModal}`}>
         <div>
           <Link to='/events'>
-            <p onClick={handleBurgerCloseClick}>Events</p>
+            <p onClick={handleBurgerCloseClick}>Created Events</p>
           </Link>
         </div>
         <div>
-          <Link to='/create-event'>
+          <Link to='/'>
             <p onClick={handleBurgerCloseClick}>New Event</p>
           </Link>
         </div>

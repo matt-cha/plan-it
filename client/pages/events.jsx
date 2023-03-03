@@ -15,11 +15,13 @@ export default function Events() {
     <div className="flex-wrap justify-center flex m-3">
       <div className='w-full max-w-3xl'>
         {
-          events?.map(event => (
-            <div key={event.eventId} className="">
-              <EventCard event={event} />
-            </div>
-          ))
+          events?.length > 0
+            ? events?.map(event => (
+              <div key={event.eventId} className="">
+                <EventCard event={event} />
+              </div>
+            ))
+            : <p>No events have been made. Click <Link to='/'><span className='text-6xl'>here</span></Link> to make one!</p>
         }
       </div>
     </div>
@@ -33,19 +35,17 @@ function EventCard({ event }) {
       <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
         <img src={image} className="object-contain rounded h-full w-full" />
       </div>
-      <div>
-        <p className=" text-xl text-[#0d2137]">
-          <i className="fa-solid fa-calendar-days" />
-          {name}</p>
+      <div className='my-2'>
+        <p className=" text-2xl text-[#0d2137]">{name}</p>
       </div>
-      <div>
-        <p className="text-xl text-[#0d2137]">
-          <i className="fa-solid fa-clock" />
+      <div className='my-2'>
+        <p className=" text-[#0d2137]">
+          <i className="fa-solid fa-clock mr-2" />
           {formatDate(startDate)}</p>
       </div>
-      <div>
+      <div className='my-2'>
         <p className="mx-auto" >
-          <i className="fa-solid fa-location-dot" />
+          <i className="fa-solid fa-location-dot mr-2 text-lg" />
           {location}</p>
       </div>
     </Link>

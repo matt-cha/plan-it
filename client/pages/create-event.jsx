@@ -39,7 +39,6 @@ export default function CreateEvent() {
       .then(response => response.json())
       .then(data => {
         setImageUrl(data);
-        console.log('line:42 data::: ', data);
         fileInputRef.current.value = null;
       })
       .catch(error => console.error('Error:', error));
@@ -54,7 +53,6 @@ export default function CreateEvent() {
     }
     try {
       data.image = imageUrl;
-      console.log('line:56 data.image::: ', data.image);
       const response = await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -77,13 +75,16 @@ export default function CreateEvent() {
   return (
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
+        <div className='second form'>
+          <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} imageUrl={imageUrl}/>
+        </div>
         <div className='first form'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className=''>
 
               <label className='text-xl text-[#0d2137]'>Event Name
-                <div>
-                  <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
+                <div className='my-2'>
+                  <input type='text' autoFocus placeholder='event name placeholder' className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
                     required: 'Event name is required.',
                     minLength: {
                       value: 4,
@@ -102,22 +103,22 @@ export default function CreateEvent() {
             </div>
             <div className=''>
               <label className='text-xl text-[#0d2137]'>  Start Date and Time
-                <div>
+                <div className='my-2'>
                   <Controller
                     name="startDate"
                     control={control}
-                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'start date placeholder' }} {...field} />}
                   />
                 </div>
               </label>
             </div>
             <div className=''>
               <label className='text-xl text-[#0d2137]'>End Date and Time
-                <div>
+                <div className='my-2'>
                   <Controller
                     name="endDate"
                     control={control}
-                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ' }} {...field} />}
+                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'end date placeholder' }} {...field} />}
                   />
                 </div>
               </label>
@@ -125,7 +126,7 @@ export default function CreateEvent() {
             <div className=''>
               <p className='text-xl text-[#0d2137]'>Location</p>
             </div>
-            <div className=''>
+            <div className='my-2'>
               <Controller
                 name="location"
                 control={control}
@@ -144,22 +145,22 @@ export default function CreateEvent() {
                 mapContainerStyle={mapContainerStyle}
                 zoom={10}
                 center={selected}
-                className='h-1/4 p-11 object-contain'
+                className='h-1/4 p-11 object-contain my-2'
                 mapContainerClassName='w-full h-1/2 rounded'
               >
                 <Marker position={selected} />
               </GoogleMap>
             </div>
-            <div className=''>
+            <div className='my-2'>
               <label className='text-xl text-[#0d2137]'>Details
-                <div>
-                  <textarea className=' border rounded border-[#f2dec8] container ' {...register('details')} />
+                <div className='my-2'>
+                  <textarea rows='5' className=' border min-h-2 rounded border-[#f2dec8] container ' placeholder='details placeholder' {...register('details')} />
                 </div>
               </label>
             </div>
-            {imageUrl &&
+            {/*          {imageUrl &&
               <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-                <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
+                <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>} */}
             <div className=''>
               <button
                 className='rounded border border-[#f2dec8] bg-[#f2dec8]'
@@ -170,9 +171,7 @@ export default function CreateEvent() {
             </div>
           </form>
         </div>
-        <div className='second form'>
-          <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} />
-        </div>
+
       </div>
     </div>
   );
@@ -218,27 +217,33 @@ const PlacesAutoComplete = ({ onSelect }) => {
   );
 };
 
-const FileForm = ({ handleImageSubmit, fileInputRef }) => {
+const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
   return (
     <form onSubmit={handleImageSubmit} className=' '>
       <div className=''>
-        <label htmlFor="file-upload-button" className=" rounded max-w-min flex">
-          <input
-            required
-            type="file"
-            name="image"
-            ref={fileInputRef}
-            className="rounded w-max"
-            /* style={{ display: 'none' }} */
-            id='file-upload-button'
-            accept=".png, .jpg, .jpeg, .gif, .webp" />
+        <label htmlFor="file-upload-button" className=" rounded max-w-min ">Cover Photo
+          <div className='my-2'>
+            <input
+              required
+              type="file"
+              name="image"
+              ref={fileInputRef}
+              className="rounded w-max"
+              /* style={{ display: 'none' }} */
+              id='file-upload-button'
+              accept=".png, .jpg, .jpeg, .gif, .webp" />
+          </div>
+
         </label>
       </div>
       <div>
         <button type="submit" className="bg-yellow-300 rounded ">
-          Upload the image
+          Upload
         </button>
       </div>
+      {imageUrl &&
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+          <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
     </form>
   );
 };

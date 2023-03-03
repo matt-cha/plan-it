@@ -20,7 +20,6 @@
 .show-burger {
   position: absolute;
   left: 0;
-  color: white;
   transition: left 0.5s ease;
 }
 
