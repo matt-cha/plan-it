@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
+import TaskForm from '../components/task-form';
+import TaskList from '../components/task-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
@@ -96,11 +98,24 @@ export default function Event() {
             <i className="fa-solid fa-circle-info mr-2 text-lg" />
             {details}</p>
         </div>
-        <div>
-          <GuestList guests={guests}/>
-        </div>
-        <div>
-          <GuestForm onAdd={() => setGuests(undefined)} />
+        <div className='flex flex-col sm:flex-row'>
+          <div className='flex-1 sm:mr-2'>
+            <div>
+              <GuestForm onAdd={() => setGuests(undefined)} />
+            </div>
+            <div>
+              <GuestList guests={guests} />
+            </div>
+          </div>
+          <div className='flex-1 sm:mr-2 '>
+            <div className='mt-2 sm:mt-0'>
+              <TaskForm />
+            </div>
+            <div>
+              <TaskList />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

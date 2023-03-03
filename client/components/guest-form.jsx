@@ -66,7 +66,7 @@ export default function GuestForm({ onAdd }) {
   return (
     <div className=''>
       <div>
-        <button onClick={handleClick} className='bg-blue-300'>{showGuestForm ? 'Hide Form' : 'Invite a New Guest'}</button>
+        <button onClick={handleClick} className='bg-[#C8F2DE] hover:bg-blue-700  py-2 px-4 w-full rounded'>{showGuestForm ? 'Hide Form' : 'Invite a New Guest'}</button>
       </div>
 
       <div className={`${showGuestForm ? 'test2' : 'test1'}`}>

@@ -231,7 +231,7 @@ const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
               type="file"
               name="image"
               ref={fileInputRef}
-              className="rounded w-max"
+              className="rounded w-full"
               /* style={{ display: 'none' }} */
               id='file-upload-button'
               accept=".png, .jpg, .jpeg, .gif, .webp" />
