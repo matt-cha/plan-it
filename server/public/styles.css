@@ -673,6 +673,10 @@ video {
   z-index: 30;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .float-right {
   float: right;
 }
@@ -1795,6 +1799,11 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.border-blue-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(147 197 253 / var(--tw-border-opacity));
+}
+
 .bg-\[\#f2dec8\] {
   --tw-bg-opacity: 1;
   background-color: rgb(242 222 200 / var(--tw-bg-opacity));
@@ -1879,12 +1888,21 @@ video {
   background-color: rgb(222 200 242 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#C8DCF2\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(200 220 242 / var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
 .bg-wedding {
   background-image: url('../images/checklist.webp');
+}
+
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
 .from-\[\#f2dec8\] {
@@ -1895,6 +1913,10 @@ video {
 
 .to-\[\#C8F2DE\] {
   --tw-gradient-to: #C8F2DE;
+}
+
+.to-\[\#C8DCF2\] {
+  --tw-gradient-to: #C8DCF2;
 }
 
 .decoration-slice {
@@ -2099,6 +2121,26 @@ video {
   vertical-align: super;
 }
 
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2192,6 +2234,16 @@ video {
 
 .text-\[\#0d213\] {
   color: #0d213;
+}
+
+.text-\[\#0d2137\] {
+  --tw-text-opacity: 1;
+  color: rgb(13 33 55 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .underline {

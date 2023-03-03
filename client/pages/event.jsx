@@ -61,10 +61,7 @@ export default function Event() {
   return (
     <div className='flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        <div>
-          <box-icon name='chevron-left' />
-        </div>
-        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
           <img className="object-contain rounded h-full w-full" src={image} />
         </div>
         <div className='flex'>

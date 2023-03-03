@@ -77,7 +77,7 @@ export default function CreateEvent() {
         <div className='firstform'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className=''>
-              <label className=''>Event Name
+              <label className='text-xl text-[#0d2137]'>Event Name
                 <div>
                   <input type='text' autoFocus className='container mx-auto border rounded border-[#f2dec8]' {...register('name', {
                     required: 'Event name is required.',
@@ -97,7 +97,7 @@ export default function CreateEvent() {
               </label>
             </div>
             <div className=''>
-              <label> <span className=''>Start Date and Time</span>
+              <label className='text-xl text-[#0d2137]'>  Start Date and Time
                 <div>
                   <Controller
                       name="startDate"
@@ -108,7 +108,7 @@ export default function CreateEvent() {
               </label>
             </div>
             <div className=''>
-              <label><span className=''>End Date and Time</span>
+              <label className='text-xl text-[#0d2137]'>End Date and Time
                 <div>
                   <Controller
                       name="endDate"
@@ -119,7 +119,7 @@ export default function CreateEvent() {
               </label>
             </div>
             <div className=''>
-              <p>Location</p>
+              <p className='text-xl text-[#0d2137]'>Location</p>
             </div>
             <div className=''>
               <Controller
@@ -147,14 +147,14 @@ export default function CreateEvent() {
               </GoogleMap>
             </div>
             <div className=''>
-              <label className=''>Details
+              <label className='text-xl text-[#0d2137]'>Details
                 <div>
                   <textarea className=' border rounded border-[#f2dec8] container ' {...register('details')} />
                 </div>
               </label>
             </div>
             {imageUrl &&
-              <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
+              <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
                 <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>}
             <div className=''>
               <button
@@ -201,8 +201,8 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='border rounded border-[#f2dec8] container '
-        placeholder='search here placeholder' />
+        className='border rounded border-[#f2dec8] container text-xl text-[#0d2137]'
+        placeholder='Romanian Prison' />
       <ComboboxPopover className='rounded'>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }, index) => (

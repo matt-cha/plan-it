@@ -6,7 +6,7 @@ import Events from './pages/events';
 import Event from './pages/event';
 import NotFound from './pages/not-found';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 export default function App() {
 
@@ -14,7 +14,7 @@ export default function App() {
     <div className='App '>
       <Navbar />
 
-      <div className=' '>
+      <div className=''>
         <Routes>
           <Route path='/' element={ <Home />} />
           <Route path='/create-event' element={<CreateEvent />} />

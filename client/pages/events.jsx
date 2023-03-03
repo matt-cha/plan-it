@@ -30,16 +30,16 @@ function EventCard({ event }) {
   const { eventId, name, startDate, location, image } = event;
   return (
     <Link to={`/events/${eventId}`}>
-      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-r from-[#f2dec8] to-[#C8F2DE]'>
+      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
         <img src={image} className="object-contain rounded h-full w-full" />
       </div>
       <div>
-        <h5 className="mx-auto">
+        <p className=" text-xl text-[#0d2137]">
           <i className="fa-solid fa-calendar-days" />
-          {name}</h5>
+          {name}</p>
       </div>
       <div>
-        <p className="mx-auto">
+        <p className="text-xl text-[#0d2137]">
           <i className="fa-solid fa-clock" />
           {formatDate(startDate)}</p>
       </div>
