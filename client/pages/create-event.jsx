@@ -12,10 +12,15 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [selected, setSelected] = useState({ lat: 33.812511, lng: -117.918976 });
-  /*   const [imageUrl, setImageUrl] = useState();
-  const fileInputRef = useRef(); */
+  const [imageUrl, setImageUrl] = useState();
   const libraries = useMemo(() => ['places'], []);
   const navigate = useNavigate();
+
+  const handleFileChange = event => {
+    const file = event.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setImageUrl(imageUrl);
+  };
 
   const mapContainerStyle = {
     width: '100%',
@@ -26,23 +31,6 @@ export default function CreateEvent() {
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
     libraries
   });
-
-  /*  function handleImageSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('image', fileInputRef.current.files[0]);
-
-    fetch('/api/events/upload', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        setImageUrl(data);
-        fileInputRef.current.value = null;
-      })
-      .catch(error => console.error('Error:', error));
-  } */
 
   const onSubmit = async data => {
     try {
@@ -59,20 +47,11 @@ export default function CreateEvent() {
         method: 'POST',
         body: formData
       });
-      /* data.image = imageUrl; */
 
-      /* const response = await fetch('/api/events', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }); */
       const { eventId } = await response.json();
-
+      navigate(`/events/${eventId}`);
       // eslint-disable-next-line no-console
       console.log('line:14 data:::data added to DB ', data);
-      navigate(`/events/${eventId}`);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -83,16 +62,13 @@ export default function CreateEvent() {
   return (
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        {/* <div className='second form'>
-          <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} imageUrl={imageUrl}/>
-        </div> */}
         <div className='first form'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className='event-name'>
 
-              <label className='text-xl text-[#0d2137]'>Event Name
+              <label className=' text-[#0d2137]'>Event Name
                 <div className='my-2'>
-                  <input type='text' autoFocus placeholder='event name placeholder' className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
+                  <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
                     required: 'Event name is required.',
                     minLength: {
                       value: 4,
@@ -111,23 +87,23 @@ export default function CreateEvent() {
             </div>
             <div className="calendar flex flex-col sm:flex-row">
               <div className='flex-1 sm:mr-2'>
-                <label className='text-xl text-[#0d2137]'>  Start Date and Time
+                <label className=' text-[#0d2137]'>  Start Date and Time
                   <div className='my-2'>
                     <Controller
                       name="startDate"
                       control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'start date placeholder' }} {...field} />}
+                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: '2023-08-12T11:00:00' }} {...field} />}
                     />
                   </div>
                 </label>
               </div>
               <div className='flex-1 sm:ml-2'>
-                <label className='text-xl text-[#0d2137]'>End Date and Time
+                <label className=' text-[#0d2137]'>End Date and Time
                   <div className='my-2'>
                     <Controller
                     name="endDate"
                     control={control}
-                    render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'end date placeholder' }} {...field} />}
+                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: '2023-08-12T16:00:00' }} {...field} />}
                   />
                   </div>
                 </label>
@@ -142,16 +118,18 @@ export default function CreateEvent() {
                     {...register('image')}
                     required
                     type="file"
-
+                    onChange={handleFileChange}
                     className="rounded w-full"
                     id='file-upload-button'
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
                 </div>
+                <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE]'>
+                  <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>
               </label>
             </div>
 
             <div className='gmaps'>
-              <p className='text-xl text-[#0d2137]'>Location</p>
+              <p className=' text-[#0d2137]'>Location</p>
             </div>
             <div className='my-2'>
               <Controller
@@ -179,15 +157,17 @@ export default function CreateEvent() {
               </GoogleMap>
             </div>
             <div className='my-2'>
-              <label className='text-xl text-[#0d2137]'>Details
+              <label className=' text-[#0d2137]'>Details
                 <div className='my-2'>
-                  <textarea rows='5' className=' border min-h-2 rounded border-[#f2dec8] container ' placeholder='details placeholder' {...register('details')} />
+                  <textarea
+                    rows='8'
+                    className=' border min-h-2 rounded border-[#f2dec8] container '
+                    placeholder='It’s that time of year again! The Annual Company Picnic is a beloved tradition that brings together employees, their families, and friends for a day of fun and relaxation. This year, we’re excited to host the picnic in Central Park, which provides the perfect setting for a summer day outdoors. There will be plenty of delicious food to enjoy, including burgers, hot dogs, and vegetarian options, as well as refreshing drinks and desserts. For the kids, we’ll have a range of activities and games, including face painting, a bounce house, and a scavenger hunt. Adults can take part in a friendly game of volleyball, cornhole, or just relax in the shade with a good book. We’ll also have a photobooth set up to capture memories of the day. Whether you’re a longtime employee or a new hire, the Annual Company Picnic is a great opportunity to get to know your colleagues outside of the office and have some fun!'
+                    {...register('details')} />
                 </div>
               </label>
+
             </div>
-            {/*          {imageUrl &&
-              <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-                <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>} */}
             <div className=''>
               <button
                 className='rounded border border-[#f2dec8] bg-[#f2dec8]'
@@ -198,7 +178,6 @@ export default function CreateEvent() {
             </div>
           </form>
         </div>
-
       </div>
     </div>
   );
@@ -231,8 +210,8 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='border rounded border-[#f2dec8] container text-xl text-[#0d2137]'
-        placeholder='Romanian Prison' />
+        className='border rounded border-[#f2dec8] container  text-[#0d2137]'
+        placeholder='Central Park, New York, NY, USA' />
       <ComboboxPopover className='rounded'>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }, index) => (
@@ -243,34 +222,3 @@ const PlacesAutoComplete = ({ onSelect }) => {
     </Combobox>
   );
 };
-
-/* const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
-  return (
-    <form onSubmit={handleImageSubmit} className=' '>
-      <div className=''>
-        <label htmlFor="file-upload-button" className=" rounded max-w-min ">Cover Photo
-          <div className='my-2'>
-            <input
-                required
-                type="file"
-                name="image"
-                ref={fileInputRef}
-                className="rounded w-full"
-
-                id='file-upload-button'
-                accept=".png, .jpg, .jpeg, .gif, .webp" />
-          </div>
-
-        </label>
-      </div>
-      <div>
-        <button id="imageTest" type="submit" className="bg-yellow-300 rounded ">
-          Upload
-        </button>
-      </div>
-
-      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-        <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>
-    </form>
-  );
-}; */

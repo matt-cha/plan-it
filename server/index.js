@@ -120,8 +120,6 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const details = req.body.details;
   const image = req.file.filename;
 
-  console.log('line:115 req.body::: ', req.body);
-
   if (!name) {
     throw new ClientError(400, 'event name is a required field');
   }
