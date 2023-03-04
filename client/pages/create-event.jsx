@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [selected, setSelected] = useState({ lat: 33.812511, lng: -117.918976 });
-  const [imageUrl, setImageUrl] = useState();
-  const fileInputRef = useRef();
+  /*   const [imageUrl, setImageUrl] = useState();
+  const fileInputRef = useRef(); */
   const libraries = useMemo(() => ['places'], []);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export default function CreateEvent() {
     libraries
   });
 
-  function handleImageSubmit(event) {
+  /*  function handleImageSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
     formData.append('image', fileInputRef.current.files[0]);
@@ -42,24 +42,32 @@ export default function CreateEvent() {
         fileInputRef.current.value = null;
       })
       .catch(error => console.error('Error:', error));
-  }
+  } */
 
   const onSubmit = async data => {
-    const debug = false;
-    if (debug) {
-      // eslint-disable-next-line no-console
-      console.log('line:14 data:::browser only ', data);
-      return;
-    }
     try {
-      data.image = imageUrl;
+      const formData = new FormData();
+
+      formData.append('name', data.name);
+      formData.append('startDate', data.startDate);
+      formData.append('endDate', data.endDate);
+      formData.append('location', data.location);
+      formData.append('details', data.details);
+      formData.append('image', data.image[0]);
+
       const response = await fetch('/api/events', {
+        method: 'POST',
+        body: formData
+      });
+      /* data.image = imageUrl; */
+
+      /* const response = await fetch('/api/events', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json'
         }
-      });
+      }); */
       const { eventId } = await response.json();
 
       // eslint-disable-next-line no-console
@@ -75,12 +83,12 @@ export default function CreateEvent() {
   return (
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        <div className='second form'>
+        {/* <div className='second form'>
           <FileForm handleImageSubmit={handleImageSubmit} fileInputRef={fileInputRef} imageUrl={imageUrl}/>
-        </div>
+        </div> */}
         <div className='first form'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
-            <div className=''>
+            <div className='event-name'>
 
               <label className='text-xl text-[#0d2137]'>Event Name
                 <div className='my-2'>
@@ -101,7 +109,7 @@ export default function CreateEvent() {
                 </div>
               </label>
             </div>
-            <div className="flex flex-col sm:flex-row">
+            <div className="calendar flex flex-col sm:flex-row">
               <div className='flex-1 sm:mr-2'>
                 <label className='text-xl text-[#0d2137]'>  Start Date and Time
                   <div className='my-2'>
@@ -109,7 +117,7 @@ export default function CreateEvent() {
                       name="startDate"
                       control={control}
                       render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: 'start date placeholder' }} {...field} />}
-                    /> {/* this is where new begins  */}
+                    />
                   </div>
                 </label>
               </div>
@@ -126,7 +134,23 @@ export default function CreateEvent() {
               </div>
 
             </div>
-            <div className=''>
+
+            <div className='new-image-submission'>
+              <label htmlFor="file-upload-button" className=" rounded max-w-min ">Cover Photo
+                <div className='my-2'>
+                  <input
+                    {...register('image')}
+                    required
+                    type="file"
+
+                    className="rounded w-full"
+                    id='file-upload-button'
+                    accept=".png, .jpg, .jpeg, .gif, .webp" />
+                </div>
+              </label>
+            </div>
+
+            <div className='gmaps'>
               <p className='text-xl text-[#0d2137]'>Location</p>
             </div>
             <div className='my-2'>
@@ -220,7 +244,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
   );
 };
 
-const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
+/* const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
   return (
     <form onSubmit={handleImageSubmit} className=' '>
       <div className=''>
@@ -232,7 +256,7 @@ const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
                 name="image"
                 ref={fileInputRef}
                 className="rounded w-full"
-                /* style={{ display: 'none' }} */
+
                 id='file-upload-button'
                 accept=".png, .jpg, .jpeg, .gif, .webp" />
           </div>
@@ -249,4 +273,4 @@ const FileForm = ({ handleImageSubmit, fileInputRef, imageUrl }) => {
         <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>
     </form>
   );
-};
+}; */

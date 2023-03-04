@@ -64,7 +64,7 @@ export default function Event() {
     <div className='flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
         <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-          <img className="object-contain rounded h-full w-full" src={image} />
+          <img className="object-contain rounded h-full w-full" src={`/images/${image}`} />
         </div>
         <div className='flex my-2'>
           <p className='text-2xl'>{name}</p>

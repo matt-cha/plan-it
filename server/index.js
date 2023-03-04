@@ -110,14 +110,17 @@ app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
   res.status(200).json(url);
 });
 
-app.post('/api/events', (req, res) => {
+app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
+
   const name = req.body.name;
-  const startDate = req.body.startDate;
-  const endDate = req.body.endDate;
+  const startDate = new Date(req.body.startDate);
+  const endDate = new Date(req.body.endDate);
   const location = req.body.location;
   const details = req.body.details;
-  const image = req.body.image;
+  const image = req.file.filename;
+
+  console.log('line:115 req.body::: ', req.body);
 
   if (!name) {
     throw new ClientError(400, 'event name is a required field');

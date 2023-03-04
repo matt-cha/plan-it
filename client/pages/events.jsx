@@ -33,7 +33,7 @@ function EventCard({ event }) {
   return (
     <Link to={`/events/${eventId}`}>
       <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-        <img src={image} className="object-contain rounded h-full w-full" />
+        <img src={`/images/${image}`} className="object-contain rounded h-full w-full" />
       </div>
       <div className='my-2'>
         <p className=" text-2xl text-[#0d2137]">{name}</p>
