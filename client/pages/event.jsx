@@ -63,11 +63,11 @@ export default function Event() {
   return (
     <div className='flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-          <img className="object-contain rounded h-full w-full" src={`/images/${image}`} />
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+          <img className="object-contain rounded h-full w-full " src={`/images/${image}`} />
         </div>
-        <div className='flex my-2'>
-          <p className='text-3xl font-bold mb-4 text-[#0d2137]'>{name}</p>
+        <div className='flex my-1'>
+          <p className='text-4xl py-2 font-bold  text-[#0d2137]'>{name}</p>
         </div>
 
         <div className='flex my-2'>
@@ -78,7 +78,7 @@ export default function Event() {
         </div>
         <div className='flex my-2'>
           <p className='flex'>
-            <i className="fa-solid fa-location-dot mr-2 text-lg text-[#EA4335]" />
+            <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
             <span className='text-justify text-[#0d2137] font-bold'>{location}</span>
           </p>
         </div>

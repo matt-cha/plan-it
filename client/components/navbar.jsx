@@ -19,14 +19,14 @@ export default function Navbar() {
       <nav className='fixed top-0 z-10 w-full'>
         <div className=" p-3 bg-[#f2dec8] flex justify-between">
           <div className='flex '>
-            <p className='bg-[#C8DCF2] '>acoolprojectname</p>
+            <p className='rounded text-[#0d213] bg-[#C8F2DE] mr-4 px-2 '>acoolprojectname</p>
           </div>
           <div className='flex content-end '>
             <Link to='/events'>
-              <p className=' text-[#0d213] mr-4'>All </p>
+              <button className='rounded text-[#0d213] bg-[#C8F2DE] mr-4 px-3'>All </button>
             </Link>
             <Link to='/'>
-              <button className=''>New</button>
+              <button className='rounded text-[#0d213] bg-[#C8F2DE] mr-4 px-2'>New</button>
             </Link>
           </div>
 

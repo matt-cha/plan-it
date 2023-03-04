@@ -11,8 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
-  const [selected, setSelected] = useState({ lat: 33.812511, lng: -117.918976 });
+  const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
   const [imageUrl, setImageUrl] = useState();
+  const [showEndDate, setShowEndDate] = useState(false);
   const libraries = useMemo(() => ['places'], []);
   const navigate = useNavigate();
 
@@ -67,7 +68,7 @@ export default function CreateEvent() {
             <div className='event-name'>
 
               <label className='pl-2  text-[#0d2137]'>
-                <span className="text-lg font-medium">Event Time</span>
+                <span className="text-lg font-medium">Event Name</span>
                 <div className='my-2'>
                   <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' {...register('name', {
                     required: 'Event name is required.',
@@ -99,17 +100,25 @@ export default function CreateEvent() {
                   </div>
                 </label>
               </div>
-              <div className='flex-1 sm:ml-2'>
-                <label className='pl-2 text-[#0d2137]'>
-                  <span className="text-lg font-medium">End Date and Time</span>
-                  <div className='my-2'>
-                    <Controller
-                    name="endDate"
-                    control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 5:00PM' }} {...field} />}
-                  />
-                  </div>
-                </label>
+              {showEndDate && (
+                <div className='flex-1 sm:ml-2'>
+                  <label className='pl-2 text-[#0d2137]'>
+                    <span className="text-lg font-medium">End Date and Time</span>
+                    <div className='my-2'>
+                      <Controller
+                        name="endDate"
+                        control={control}
+                        render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 5:00PM' }} {...field} />}
+                      />
+                    </div>
+
+                  </label>
+                </div>
+              )}
+              <div className='flex flex-1 sm:ml-2 items-center'>
+                <button className='flex justify-center items-center w-full px-4 py-3 text-center bg-[#f2dec8] rounded-md shadow-md hover:bg-blue-600 focus:outline-none' onClick={() => setShowEndDate(!showEndDate)}>
+                  {showEndDate ? 'Hide End Date and Time' : 'Add an End Date and Time'}
+                </button>
               </div>
 
             </div>

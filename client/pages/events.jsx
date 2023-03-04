@@ -32,21 +32,23 @@ function EventCard({ event }) {
   const { eventId, name, startDate, location, image } = event;
   return (
     <Link to={`/events/${eventId}`}>
-      <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+      <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
         <img src={`/images/${image}`} className="object-contain rounded h-full w-full" />
       </div>
-      <div className='my-2'>
-        <p className=" text-2xl text-[#0d2137]">{name}</p>
+      <div className='my-1'>
+        <p className="text-4xl py-2 font-bold text-[#0d2137]">{name}</p>
       </div>
-      <div className='my-2'>
-        <p className=" text-[#0d2137]">
-          <i className="fa-solid fa-clock mr-2" />
-          {formatDate(startDate)}</p>
+      <div className='flex my-2'>
+        <p className='flex'>
+          <i className="fa-solid fa-clock mr-2 mt-1 text-gray-500" />
+          <span className='text-justify text-gray-500'>{formatDate(startDate)}</span>
+        </p>
       </div>
-      <div className='my-2'>
-        <p className="mx-auto" >
-          <i className="fa-solid fa-location-dot mr-2 text-lg" />
-          {location}</p>
+      <div className='flex my-2'>
+        <p className='flex'>
+          <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
+          <span className='text-justify text-[#0d2137] font-bold'>{location}</span>
+        </p>
       </div>
     </Link>
   );
