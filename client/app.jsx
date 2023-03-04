@@ -13,7 +13,7 @@ export default function App() {
   return (
     <div className='App '>
       <Navbar />
-      <div className='pt-10'>
+      <div className='pt-14'>
         <Routes>
           {/* <Route path='/' element={ <Home />} /> */}
           <Route path='/' element={<CreateEvent />} />

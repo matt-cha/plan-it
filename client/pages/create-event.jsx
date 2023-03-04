@@ -66,9 +66,10 @@ export default function CreateEvent() {
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className='event-name'>
 
-              <label className=' text-[#0d2137]'>Event Name
+              <label className='pl-2  text-[#0d2137]'>
+                <span className="text-lg font-medium">Event Time</span>
                 <div className='my-2'>
-                  <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='container mx-auto border rounded border-[#f2dec8] ' {...register('name', {
+                  <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' {...register('name', {
                     required: 'Event name is required.',
                     minLength: {
                       value: 4,
@@ -81,29 +82,31 @@ export default function CreateEvent() {
                   })} />
                 </div>
                 <div>
-                  <p className='text-red-300'>{errors?.name?.message}</p>
+                  <p className='text-red-500'>{errors?.name?.message}</p>
                 </div>
               </label>
             </div>
             <div className="calendar flex flex-col sm:flex-row">
               <div className='flex-1 sm:mr-2'>
-                <label className=' text-[#0d2137]'>  Start Date and Time
+                <label className='pl-2 text-[#0d2137]'>
+                  <span className="text-lg font-medium">Start Date and Time</span>
                   <div className='my-2'>
                     <Controller
                       name="startDate"
                       control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: '2023-08-12T11:00:00' }} {...field} />}
+                      render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 11:00AM' }} {...field} />}
                     />
                   </div>
                 </label>
               </div>
               <div className='flex-1 sm:ml-2'>
-                <label className=' text-[#0d2137]'>End Date and Time
+                <label className='pl-2 text-[#0d2137]'>
+                  <span className="text-lg font-medium">End Date and Time</span>
                   <div className='my-2'>
                     <Controller
                     name="endDate"
                     control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: ' border rounded border-[#f2dec8] container ', placeholder: '2023-08-12T16:00:00' }} {...field} />}
+                      render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 5:00PM' }} {...field} />}
                   />
                   </div>
                 </label>
@@ -112,30 +115,45 @@ export default function CreateEvent() {
             </div>
 
             <div className='new-image-submission'>
-              <label htmlFor="file-upload-button" className=" rounded max-w-min ">Cover Photo
+              <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
+                <span className="text-lg font-medium">Cover Photo</span>
                 <div className='my-2'>
                   <input
                     {...register('image')}
                     required
                     type="file"
                     onChange={handleFileChange}
-                    className="rounded w-full"
+                    className="sr-only"
                     id='file-upload-button'
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
+                  <div className='relative w-full'>
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none" />
+                    <div className="inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300">
+                      Choose file
+                    </div>
+                  </div>
                 </div>
                 <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE]'>
-                  <img className="object-contain rounded h-full w-full" src={imageUrl} /> </div>
+                  {imageUrl
+                    ? (
+                      <img className="object-contain rounded h-full w-full" src={imageUrl} />
+                      )
+                    : (
+                      <div className="flex items-center justify-center h-full w-full text-gray-400">
+                        Choose a file
+                      </div>
+                      )} </div>
               </label>
             </div>
 
             <div className='gmaps'>
-              <p className=' text-[#0d2137]'>Location</p>
+              <p className='pl-2 text-[#0d2137] text-lg font-medium'>Location</p>
             </div>
             <div className='my-2'>
               <Controller
                 name="location"
                 control={control}
-                inputProps={{ className: 'rounded border border-[#f2dec8] ' }}
+                inputProps={{ className: '' }}
                 render={({ field }) =>
                   <PlacesAutoComplete onSelect={(latLng, address) => {
                     setSelected(latLng);
@@ -157,11 +175,12 @@ export default function CreateEvent() {
               </GoogleMap>
             </div>
             <div className='my-2'>
-              <label className=' text-[#0d2137]'>Details
+              <label className='pl-2 text-[#0d2137]'>
+                <span className='text-lg font-medium'>Details</span>
                 <div className='my-2'>
                   <textarea
-                    rows='8'
-                    className=' border min-h-2 rounded border-[#f2dec8] container '
+                    rows='9'
+                    className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
                     placeholder='It’s that time of year again! The Annual Company Picnic is a beloved tradition that brings together employees, their families, and friends for a day of fun and relaxation. This year, we’re excited to host the picnic in Central Park, which provides the perfect setting for a summer day outdoors. There will be plenty of delicious food to enjoy, including burgers, hot dogs, and vegetarian options, as well as refreshing drinks and desserts. For the kids, we’ll have a range of activities and games, including face painting, a bounce house, and a scavenger hunt. Adults can take part in a friendly game of volleyball, cornhole, or just relax in the shade with a good book. We’ll also have a photobooth set up to capture memories of the day. Whether you’re a longtime employee or a new hire, the Annual Company Picnic is a great opportunity to get to know your colleagues outside of the office and have some fun!'
                     {...register('details')} />
                 </div>
@@ -170,7 +189,7 @@ export default function CreateEvent() {
             </div>
             <div className=''>
               <button
-                className='rounded border border-[#f2dec8] bg-[#f2dec8]'
+                className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300'
                 type="submit"
                 value='Create Event'>
                 Create the event!
@@ -210,9 +229,9 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='border rounded border-[#f2dec8] container  text-[#0d2137]'
+        className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
         placeholder='Central Park, New York, NY, USA' />
-      <ComboboxPopover className='rounded'>
+      <ComboboxPopover className='rounded '>
         <ComboboxList>
           {status === 'OK' && data.map(({ placeId, description }, index) => (
             <ComboboxOption key={index} value={description} />

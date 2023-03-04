@@ -107,7 +107,7 @@ export default function Event() {
               <GuestList guests={guests} />
             </div>
           </div>
-          <div className='flex-1 sm:mr-2 '>
+          <div className='flex-1  '>
             <div className='mt-2 sm:mt-0'>
               <TaskForm />
             </div>
