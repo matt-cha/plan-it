@@ -67,18 +67,22 @@ export default function Event() {
           <img className="object-contain rounded h-full w-full" src={`/images/${image}`} />
         </div>
         <div className='flex my-2'>
-          <p className='text-2xl'>{name}</p>
+          <p className='text-3xl font-bold mb-4 text-[#0d2137]'>{name}</p>
+        </div>
+
+        <div className='flex my-2'>
+          <p className='flex'>
+            <i className="fa-solid fa-clock mr-2 mt-1 text-gray-500" />
+            <span className='text-justify text-gray-500'>{formatDate(startDate)} - {formatDate(endDate)}</span>
+          </p>
         </div>
         <div className='flex my-2'>
-          <p>
-            <i className="fa-solid fa-clock mr-2" />
-            {formatDate(startDate)} - {formatDate(endDate)}</p>
+          <p className='flex'>
+            <i className="fa-solid fa-location-dot mr-2 text-lg text-[#EA4335]" />
+            <span className='text-justify text-[#0d2137] font-bold'>{location}</span>
+          </p>
         </div>
-        <div className='flex my-2'>
-          <p>
-            <i className="fa-solid fa-location-dot mr-2 text-lg" />
-            {location}</p>
-        </div>
+
         <div>
           <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)} />
         </div>
@@ -93,11 +97,14 @@ export default function Event() {
             <Marker position={selected} />
           </GoogleMap>
         </div>
-        <div className='flex my-2 '>
-          <p>
-            <i className="fa-solid fa-circle-info mr-2 text-lg" />
-            {details}</p>
+
+        <div className='flex my-2'>
+          <p className='flex'>
+            <i className="fa-solid fa-circle-info text-lg mr-2 text-[#185784]" />
+            <span className='text-justify'>{details}</span>
+          </p>
         </div>
+
         <div className='flex flex-col sm:flex-row'>
           <div className='flex-1 sm:mr-2'>
             <div>
@@ -115,7 +122,6 @@ export default function Event() {
               <TaskList />
             </div>
           </div>
-
         </div>
       </div>
     </div>

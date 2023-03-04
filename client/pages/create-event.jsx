@@ -135,13 +135,8 @@ export default function CreateEvent() {
                 </div>
                 <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE]'>
                   {imageUrl
-                    ? (
-                      <img className="object-contain rounded h-full w-full" src={imageUrl} />
-                      )
-                    : (
-                      <div className="flex items-center justify-center h-full w-full text-gray-400">
-                        Choose a file
-                      </div>
+                    ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)
+                    : (<div className="flex items-center justify-center h-full w-full text-gray-400">Choose a file</div>
                       )} </div>
               </label>
             </div>
