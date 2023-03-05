@@ -66,7 +66,7 @@ export default function CreateEvent() {
           <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className='event-name'>
 
-              <label className='pl-2  text-[#0d2137]'>
+              <label className='pl-2  text-[#0d2137] cursor-pointer'>
                 <span className="text-lg font-medium">Event Name</span>
                 <div className='my-2'>
                   <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' {...register('name', {
@@ -88,7 +88,7 @@ export default function CreateEvent() {
             </div>
             <div className="calendar flex flex-col sm:flex-row">
               <div className='flex-1 sm:mr-2'>
-                <label className='pl-2 text-[#0d2137]'>
+                <label className='cursor-pointer pl-2 text-[#0d2137]'>
                   <span className="text-lg font-medium">Start Date and Time</span>
                   <div className='my-2'>
                     <Controller
@@ -101,7 +101,7 @@ export default function CreateEvent() {
               </div>
 
               <div className='flex-1 sm:ml-2'>
-                <label className='pl-2 text-[#0d2137]'>
+                <label className='cursor-pointer pl-2 text-[#0d2137]'>
                   <span className="text-lg font-medium">End Date and Time</span>
                   <div className='my-2'>
                     <Controller
@@ -130,12 +130,12 @@ export default function CreateEvent() {
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
                   <div className='relative w-full'>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none" />
-                    <div className="inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#f2dec8] bg-[#f2dec8] hover:bg-[#c8a57f] hover:border-[#c8a57f] transition-colors duration-300">
+                    <div className="cursor-pointer inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#f2dec8] bg-[#f2dec8] hover:bg-[#e8c59f] hover:border-[#e8c59f] transition-colors duration-300">
                       Choose file
                     </div>
                   </div>
                 </div>
-                <div className='h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE]'>
+                <div className='cursor-pointer h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#e8c59f] hover:to-[#94e8bf] transition-all duration-300'>
                   {imageUrl
                     ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)
                     : (<div className="flex items-center justify-center h-full w-full text-gray-400">Choose a file</div>
@@ -178,7 +178,7 @@ export default function CreateEvent() {
                   <textarea
                     rows='9'
                     className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
-                    placeholder='It’s that time of year again! The Annual Company Picnic is a beloved tradition that brings together employees, their families, and friends for a day of fun and relaxation. This year, we’re excited to host the picnic in Central Park, which provides the perfect setting for a summer day outdoors. There will be plenty of delicious food to enjoy, including burgers, hot dogs, and vegetarian options, as well as refreshing drinks and desserts. For the kids, we’ll have a range of activities and games, including face painting, a bounce house, and a scavenger hunt. Adults can take part in a friendly game of volleyball, cornhole, or just relax in the shade with a good book. We’ll also have a photobooth set up to capture memories of the day. Whether you’re a longtime employee or a new hire, the Annual Company Picnic is a great opportunity to get to know your colleagues outside of the office and have some fun!'
+                    placeholder="It's that time of year again! The Annual Company Picnic is a beloved tradition that brings together employees, their families, and friends for a day of fun and relaxation. This year, we're excited to host the picnic in Central Park, which provides the perfect setting for a summer day outdoors. There will be plenty of delicious food to enjoy, including burgers, hot dogs, and vegetarian options, as well as refreshing drinks and desserts. For the kids, we'll have a range of activities and games, including face painting, a bounce house, and a scavenger hunt. Adults can take part in a friendly game of volleyball, cornhole, or just relax in the shade with a good book. We'll also have a photobooth set up to capture memories of the day. Whether you're a longtime employee or a new hire, the Annual Company Picnic is a great opportunity to get to know your colleagues outside of the office and have some fun!"
                     {...register('details')} />
                 </div>
               </label>
