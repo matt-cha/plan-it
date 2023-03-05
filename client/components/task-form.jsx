@@ -24,11 +24,11 @@ export default function TaskForm() {
       <div className='flex justify-center items-center'>
         <button
           onClick={handleClick}
-          className='rounded border w-full px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300'
+          className='rounded border w-full px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
         >{showTaskForm ? 'Hide Task Form' : 'Create a New Task'}
         </button>
       </div>
-      <div className={`overflow-hidden ${showTaskForm ? 'test3 max-h-60' : 'test3 max-h-0 text-transparent'}`}>
+      <div className={`overflow-hidden transition-ease-in-out-1 ${showTaskForm ? 'max-h-60' : 'max-h-0 text-transparent'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='my-2'>
             <label className='pl-2'>
@@ -53,7 +53,7 @@ export default function TaskForm() {
           </div>
           <div className='my-2'>
             <button
-              className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300'
+              className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
               type="submit"
               value='Create Event'>
               Add Task
