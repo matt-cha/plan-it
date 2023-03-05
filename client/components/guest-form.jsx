@@ -66,15 +66,20 @@ export default function GuestForm({ onAdd }) {
   return (
     <div className=''>
       <div>
-        <button onClick={handleClick} className='bg-[#C8F2DE] hover:bg-blue-700  py-2 px-4 w-full rounded'>{showGuestForm ? 'Hide Form' : 'Invite a New Guest'}</button>
+        <button
+          onClick={handleClick}
+          className='rounded border w-full px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300'
+          >{showGuestForm ? 'Hide Form' : 'Invite a New Guest'}
+        </button>
       </div>
 
-      <div className={`${showGuestForm ? 'test2' : 'test1'}`}>
+      <div className={`overflow-hidden ${showGuestForm ? 'test3 max-h-60 ' : 'test3 max-h-0 text-transparent'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>Guest Name
+          <div className='my-2'>
+            <label className='pl-2'>
+              <span className='text-lg font-medium'>Guest Name</span>
               <div>
-                <input type='text' className='container mx-auto border rounded border-[#f2dec8]' {...register('guestName', {
+                <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='Anthony Davis' {...register('guestName', {
                   required: 'Guest name is required.',
                   minLength: {
                     value: 1,
@@ -92,9 +97,10 @@ export default function GuestForm({ onAdd }) {
             </label>
           </div>
           <div>
-            <label>Phone Number
+            <label className='pl-2'>
+              <span className='text-lg font-medium'>Phone Number</span>
               <div>
-                <input type='text' className='container mx-auto border rounded border-[#f2dec8]' {...register('phoneNumber', {
+                <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='8186453513' {...register('phoneNumber', {
                   required: 'Phone number is required.',
                   pattern: {
                     value: /^\d{10}$/,
@@ -107,9 +113,9 @@ export default function GuestForm({ onAdd }) {
               </div>
             </label>
           </div>
-          <div className=''>
+          <div className='my-2'>
             <button
-              className='rounded border-[#f2dec8] bg-[#f2dec8]'
+              className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300'
               type="submit"
               value='Create Event'>
               Send Invite to Guest Phone Number

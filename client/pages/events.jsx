@@ -36,18 +36,18 @@ function EventCard({ event }) {
         <img src={`/images/${image}`} className="object-contain rounded h-full w-full" />
       </div>
       <div className='my-1'>
-        <p className="text-4xl py-2 font-bold text-[#0d2137]">{name}</p>
+        <p className="text-3xl py-2 font-bold text-[#0d2137]">{name}</p>
       </div>
       <div className='flex my-2'>
         <p className='flex'>
-          <i className="fa-solid fa-clock mr-2 mt-1 text-gray-500" />
-          <span className='text-justify text-gray-500'>{formatDate(startDate)}</span>
+          <i className="fa-regular fa-clock mr-2 mt-1 text-[#5f6e82]" />
+          <span className=' '>{formatDate(startDate)}</span>
         </p>
       </div>
       <div className='flex my-2'>
         <p className='flex'>
           <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
-          <span className='text-justify text-[#0d2137] font-bold'>{location}</span>
+          <span className=' text-[#0d2137] font-bold'>{location}</span>
         </p>
       </div>
     </Link>

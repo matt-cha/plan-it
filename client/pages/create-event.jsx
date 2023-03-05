@@ -13,7 +13,6 @@ export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
   const [imageUrl, setImageUrl] = useState();
-  const [showEndDate, setShowEndDate] = useState(false);
   const libraries = useMemo(() => ['places'], []);
   const navigate = useNavigate();
 
@@ -100,25 +99,19 @@ export default function CreateEvent() {
                   </div>
                 </label>
               </div>
-              {showEndDate && (
-                <div className='flex-1 sm:ml-2'>
-                  <label className='pl-2 text-[#0d2137]'>
-                    <span className="text-lg font-medium">End Date and Time</span>
-                    <div className='my-2'>
-                      <Controller
+
+              <div className='flex-1 sm:ml-2'>
+                <label className='pl-2 text-[#0d2137]'>
+                  <span className="text-lg font-medium">End Date and Time</span>
+                  <div className='my-2'>
+                    <Controller
                         name="endDate"
                         control={control}
                         render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 5:00PM' }} {...field} />}
                       />
-                    </div>
+                  </div>
 
-                  </label>
-                </div>
-              )}
-              <div className='flex flex-1 sm:ml-2 items-center'>
-                <button className='flex justify-center items-center w-full px-4 py-3 text-center bg-[#f2dec8] rounded-md shadow-md hover:bg-blue-600 focus:outline-none' onClick={() => setShowEndDate(!showEndDate)}>
-                  {showEndDate ? 'Hide End Date and Time' : 'Add an End Date and Time'}
-                </button>
+                </label>
               </div>
 
             </div>
@@ -137,7 +130,7 @@ export default function CreateEvent() {
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
                   <div className='relative w-full'>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none" />
-                    <div className="inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#4bffa8] hover:border-[#4bffa8] transition-colors duration-300">
+                    <div className="inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#f2dec8] bg-[#f2dec8] hover:bg-[#c8a57f] hover:border-[#c8a57f] transition-colors duration-300">
                       Choose file
                     </div>
                   </div>

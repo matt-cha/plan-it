@@ -67,19 +67,19 @@ export default function Event() {
           <img className="object-contain rounded h-full w-full " src={`/images/${image}`} />
         </div>
         <div className='flex my-1'>
-          <p className='text-4xl py-2 font-bold  text-[#0d2137]'>{name}</p>
+          <p className='text-3xl py-2 font-bold  text-[#0d2137]'>{name}</p>
         </div>
 
         <div className='flex my-2'>
           <p className='flex'>
-            <i className="fa-solid fa-clock mr-2 mt-1 text-gray-500" />
-            <span className='text-justify text-gray-500'>{formatDate(startDate)} - {formatDate(endDate)}</span>
+            <i className="fa-regular fa-clock mr-2 mt-1 text-[#5f6e82]" />
+            <span className=' '>{formatDate(startDate)} - {formatDate(endDate)}</span>
           </p>
         </div>
         <div className='flex my-2'>
           <p className='flex'>
             <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
-            <span className='text-justify text-[#0d2137] font-bold'>{location}</span>
+            <span className=' text-[#0d2137] font-bold'>{location}</span>
           </p>
         </div>
 
@@ -155,7 +155,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black'
+        className='bg-purple-200 rounded border border-black hidden'
         placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>

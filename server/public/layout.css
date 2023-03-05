@@ -11,8 +11,12 @@
 
 .test2 {
   transition: 1s ease-in-out;
-  max-height: 10rem;
+  max-height: 20rem;
   overflow: hidden;
+}
+
+.test3 {
+  transition: 1s ease-in-out;
 }
 
 /* .hide-burger {
