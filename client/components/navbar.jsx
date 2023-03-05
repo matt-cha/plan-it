@@ -6,7 +6,7 @@ export default function Navbar() {
     <nav className='fixed top-0 z-10 w-full'>
       <div className="p-2 bg-[#f2dec8] flex justify-between items-center">
         <div className='flex'>
-          <p className='rounded text-[#0d2137] bg-[#C8F2DE] mr-4 px-2 py-1 text-lg font-medium'>acoolprojectname</p>
+          <p className='rounded text-[#0d2137]  mr-4 px-2 py-1 text-xl font-medium'>acoolprojectname</p>
         </div>
         <div className='flex'>
           <Link to='/events'>

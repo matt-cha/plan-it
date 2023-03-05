@@ -1,36 +1,30 @@
-import React, { useMemo, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import Datetime from 'react-datetime';
-import 'react-datetime/css/react-datetime.css';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import '@reach/combobox/styles.css'; // maybe not needed
 import { useNavigate } from 'react-router-dom';
-/* import styled from 'styled-components'; */
 
+import StartDateTime from '../components/start-date-time';
+import EndDateTime from '../components/end-date-time';
+import EventNameField from '../components/event-name-field';
+/* import ImageUpload from '../components/image-upload'; */
+import EventDetailsField from '../components/event-details-field';
+import Location from '../components/location';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
-  const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
+
   const [imageUrl, setImageUrl] = useState();
-  const libraries = useMemo(() => ['places'], []);
+
   const navigate = useNavigate();
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleFileChange = event => {
     const file = event.target.files[0];
     const imageUrl = URL.createObjectURL(file);
     setImageUrl(imageUrl);
   };
-
-  const mapContainerStyle = {
-    width: '100%',
-    height: '300px',
-    borderRadius: '.25rem'
-  };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
-    libraries
-  });
 
   const onSubmit = async data => {
     try {
@@ -51,72 +45,39 @@ export default function CreateEvent() {
       const { eventId } = await response.json();
       navigate(`/events/${eventId}`);
       // eslint-disable-next-line no-console
-      console.log('line:14 data:::data added to DB ', data);
+      console.log('data:::data added to DB ', data);
     } catch (error) {
       console.error('Error:', error);
     }
   };
-
-  if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
         <div className='first form'>
           <form onSubmit={handleSubmit(onSubmit)} className=''>
+
             <div className='event-name'>
-
-              <label className='pl-2  text-[#0d2137] cursor-pointer'>
-                <span className="text-lg font-medium">Event Name</span>
-                <div className='my-2'>
-                  <input type='text' autoFocus placeholder='Annual Company Picnic 2023' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' {...register('name', {
-                    required: 'Event name is required.',
-                    minLength: {
-                      value: 4,
-                      message: 'Event name cannot be shorter than 4 characters'
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: 'Event name cannot be longer than 20 characters'
-                    }
-                  })} />
-                </div>
-                <div>
-                  <p className='text-red-500'>{errors?.name?.message}</p>
-                </div>
-              </label>
+              <EventNameField register={register} errors={errors} />
             </div>
-            <div className="calendar flex flex-col sm:flex-row">
-              <div className='flex-1 sm:mr-2'>
-                <label className='cursor-pointer pl-2 text-[#0d2137]'>
-                  <span className="text-lg font-medium">Start Date and Time</span>
-                  <div className='my-2'>
-                    <Controller
-                      name="startDate"
-                      control={control}
-                      render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 11:00AM' }} {...field} />}
-                    />
-                  </div>
-                </label>
-              </div>
 
-              <div className='flex-1 sm:ml-2'>
-                <label className='cursor-pointer pl-2 text-[#0d2137]'>
-                  <span className="text-lg font-medium">End Date and Time</span>
-                  <div className='my-2'>
-                    <Controller
-                        name="endDate"
-                        control={control}
-                        render={({ field }) => <Datetime inputProps={{ className: 'pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]', placeholder: '03/20/2023 5:00PM' }} {...field} />}
-                      />
-                  </div>
-
-                </label>
-              </div>
-
+            <div className="date-and-time flex flex-col sm:flex-row">
+              <StartDateTime
+                name="startDate"
+                control={control}
+                value={startDate}
+                onChange={setStartDate}
+              />
+              <EndDateTime
+                name="endDate"
+                control={control}
+                value={endDate}
+                onChange={setEndDate}
+                />
             </div>
 
             <div className='new-image-submission'>
+              {/* <ImageUpload register={register} onChange={handleFileChange} /> */}
               <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
                 <span className="text-lg font-medium">Cover Photo</span>
                 <div className='my-2'>
@@ -143,48 +104,19 @@ export default function CreateEvent() {
               </label>
             </div>
 
-            <div className='gmaps'>
-              <p className='pl-2 text-[#0d2137] text-lg font-medium'>Location</p>
-            </div>
-            <div className='my-2'>
-              <Controller
+            <div className='google-maps'>
+              <Location
                 name="location"
                 control={control}
-                inputProps={{ className: '' }}
-                render={({ field }) =>
-                  <PlacesAutoComplete onSelect={(latLng, address) => {
-                    setSelected(latLng);
-                    field.onChange(address);
-                  }}
-                  />
-                }
+                value={location}
+                onChange={setLocation}
               />
             </div>
-            <div className='w-full '>
-              <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                zoom={10}
-                center={selected}
-                className='h-1/4 p-11 object-contain my-2'
-                mapContainerClassName='w-full h-1/2 rounded'
-              >
-                <Marker position={selected} />
-              </GoogleMap>
-            </div>
-            <div className='my-2'>
-              <label className='pl-2 text-[#0d2137]'>
-                <span className='text-lg font-medium'>Details</span>
-                <div className='my-2'>
-                  <textarea
-                    rows='9'
-                    className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
-                    placeholder="It's that time of year again! The Annual Company Picnic is a beloved tradition that brings together employees, their families, and friends for a day of fun and relaxation. This year, we're excited to host the picnic in Central Park, which provides the perfect setting for a summer day outdoors. There will be plenty of delicious food to enjoy, including burgers, hot dogs, and vegetarian options, as well as refreshing drinks and desserts. For the kids, we'll have a range of activities and games, including face painting, a bounce house, and a scavenger hunt. Adults can take part in a friendly game of volleyball, cornhole, or just relax in the shade with a good book. We'll also have a photobooth set up to capture memories of the day. Whether you're a longtime employee or a new hire, the Annual Company Picnic is a great opportunity to get to know your colleagues outside of the office and have some fun!"
-                    {...register('details')} />
-                </div>
-              </label>
 
+            <div className='details my-2'>
+              <EventDetailsField register={register} errors={errors} />
             </div>
-            <div className=''>
+            <div className='submit-button'>
               <button
                 className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
                 type="submit"
@@ -198,43 +130,3 @@ export default function CreateEvent() {
     </div>
   );
 }
-
-const PlacesAutoComplete = ({ onSelect }) => {
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: { status, data },
-    clearSuggestions
-  } = usePlacesAutocomplete();
-
-  const handleSelect = async address => {
-    setValue(address, false);
-    clearSuggestions();
-    try {
-      const results = await getGeocode({ address });
-      const { lat, lng } = await getLatLng(results[0]);
-      onSelect({ lat, lng }, address);
-    } catch (error) {
-      console.error('Error!:', error);
-    }
-  };
-
-  return (
-    <Combobox onSelect={handleSelect}>
-      <ComboboxInput
-        value={value}
-        onChange={event => setValue(event.target.value)}
-        disabled={!ready}
-        className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
-        placeholder='Central Park, New York, NY, USA' />
-      <ComboboxPopover className='rounded '>
-        <ComboboxList>
-          {status === 'OK' && data.map(({ placeId, description }, index) => (
-            <ComboboxOption key={index} value={description} />
-          ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
-  );
-};
