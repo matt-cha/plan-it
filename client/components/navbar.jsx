@@ -27,6 +27,9 @@ export default function Navbar() {
           <Link to='/events'>
             <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-3 px-2 py-1 transition-colors duration-300'>Communication</button>
           </Link>
+          <div className='max-w-[25px] mx-3 flex items-center '>
+            <img className='max-w-full h-auto rounded' src='/images/a.jpeg' alt='rock' />
+          </div>
         </div>
       </nav>
     </>

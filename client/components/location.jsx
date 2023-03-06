@@ -1,12 +1,14 @@
 import React, { useMemo, useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css';
 export default function Location({ control }) {
+  const { formState: { errors } } = useForm();
 
   const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
+  /* value is only computed once when component is first mounted */
   const libraries = useMemo(() => ['places'], []);
 
   const mapContainerStyle = {
@@ -29,6 +31,7 @@ export default function Location({ control }) {
         <Controller
           name="location"
           control={control}
+          rules={{ required: true }}
           render={({ field }) =>
             <PlacesAutoComplete onSelect={(latLng, address) => {
               setSelected(latLng);
@@ -37,8 +40,12 @@ export default function Location({ control }) {
             />
           }
         />
+        {errors.location && (
+          <span className="text-red-500">{errors.location.message}</span>
+        )}
       </div>
       <div className='w-full '>
+        {/* selected will be the lat and long returned from selecting an address that positions the map and its marker */}
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={10}
@@ -54,23 +61,26 @@ export default function Location({ control }) {
 }
 
 const PlacesAutoComplete = ({ onSelect }) => {
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: { status, data },
-    clearSuggestions
-  } = usePlacesAutocomplete();
+  const { ready, value, setValue, suggestions: { status, data }, clearSuggestions } = usePlacesAutocomplete();
 
+  /**
+   * handles selection of the address from the autocomplete results
+   * @param {string} address - selected text
+   */
   const handleSelect = async address => {
     setValue(address, false);
     clearSuggestions();
     try {
+      /* wait for each line of code to finish because asynchronous functions */
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       onSelect({ lat, lng }, address);
     } catch (error) {
-      console.error('Error!:', error);
+      if (error instanceof TypeError) {
+        console.error('Error: Invalid address input');
+      } else {
+        console.error('Unexpected error:', error);
+      }
     }
   };
 
@@ -84,6 +94,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         placeholder='Central Park, New York, NY, USA' />
       <ComboboxPopover className='rounded '>
         <ComboboxList>
+          {/* only when request is successful, status prop allows the data from search result to be mapped to a Combobox Option or search result with the name of the location   */}
           {status === 'OK' && data.map(({ placeId, description }, index) => (
             <ComboboxOption key={index} value={description} />
           ))}

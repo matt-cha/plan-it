@@ -25,7 +25,7 @@ export default function EndDateTime({ control }) {
           />
         </div>
         {errors.endDate && (
-          <p className='text-red-50'>{errors.endDate.message}</p>
+          <p className='text-red-500'>{errors.endDate.message}</p>
         )}
       </label>
     </div>

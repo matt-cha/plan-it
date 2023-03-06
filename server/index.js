@@ -19,10 +19,6 @@ const app = express();
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.get('/api/hello', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
 app.get('/api/events', (req, res, next) => {
   const sql = `
   select "eventId",
@@ -78,6 +74,11 @@ app.get('/api/events/:eventId', (req, res) => {
     });
 });
 
+app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
+  const url = `/images/${req.file.filename}`;
+  res.status(200).json(url);
+});
+
 app.get('/api/events/:eventId/guests', (req, res, next) => {
   const eventId = Number(req.params.eventId);
   if (!Number.isInteger(eventId) || eventId <= 0) {
@@ -105,13 +106,12 @@ app.get('/api/events/:eventId/guests', (req, res, next) => {
     });
 });
 
-app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
-  const url = `/images/${req.file.filename}`;
-  res.status(200).json(url);
-});
-
 app.post('/api/events', uploadsMiddleware, (req, res, next) => {
-  if (!req.body) throw new ClientError(400, 'request requires a body');
+  if (!req.body) {
+    return res.status(400).json({
+      error: 'Request requires a body'
+    });
+  }
 
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
@@ -121,14 +121,47 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const image = req.file.filename;
 
   if (!name) {
-    throw new ClientError(400, 'event name is a required field');
+    return res.status(400).json({
+      error: 'Event name is a required field'
+    });
   }
-  /*   if (!startDate) {
-    throw new ClientError(400, 'startDate is a required field');
+
+  if (!startDate || isNaN(startDate.getTime())) {
+    return res.status(400).json({
+      error: 'Start date is not valid'
+    });
   }
-  if (!endDate) {
-    throw new ClientError(400, 'endDate is a required field');
-  } */
+
+  if (!endDate || isNaN(endDate.getTime())) {
+    return res.status(400).json({
+      error: 'End date is not valid'
+    });
+  }
+
+  if (startDate > endDate) {
+    return res.status(400).json({
+      error: 'End date must be after start date'
+    });
+  }
+
+  if (!location) {
+    return res.status(400).json({
+      error: 'Location is a required field'
+    });
+  }
+
+  if (!details) {
+    return res.status(400).json({
+      error: 'Details is a required field'
+    });
+  }
+
+  if (!image) {
+    return res.status(400).json({
+      error: 'Image is a required field'
+    });
+  }
+
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
     values ($1, $2, $3, $4, $5, $6)
@@ -141,9 +174,9 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
       res.status(201).json(result.rows[0]);
     })
     .catch(err => {
-      console.error('line 54:', err);
+      console.error('Error:', err);
       res.status(500).json({
-        error: 'An unexpected error occurred.145'
+        error: 'An unexpected error occurred.'
       });
     });
 });

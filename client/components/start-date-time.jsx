@@ -10,10 +10,12 @@ export default function StartDateTime({ control }) {
       <label className='cursor-pointer pl-2 text-[#0d2137]'>
         <span className="text-xl font-medium">Start Date and Time</span>
         <div className='my-2'>
+          {/* Controller is used to control the input value of the input */}
           <Controller
               name="startDate"
               control={control}
               rules={{ required: 'Please select a start date and time' }}
+              /* render returns the component for the Controller component to render and field is the object that binds the form field to the input element */
               render={({ field }) =>
                 <Datetime
                   inputProps={{
@@ -24,8 +26,9 @@ export default function StartDateTime({ control }) {
                 />}
             />
         </div>
+        {/* if the left of the operator is truthy, right side is evaluated and error message is shown */}
         {errors.startDate && (
-        <p className='text-red-50'>{errors.startDate.message}</p>
+        <p className='text-red-500'>{errors.startDate.message}</p>
         )}
       </label>
     </div>

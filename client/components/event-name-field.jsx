@@ -18,12 +18,13 @@ export default function EventNameField({ register, errors }) {
               message: 'Event name cannot be shorter than 4 characters'
             },
             maxLength: {
-              value: 20,
-              message: 'Event name cannot be longer than 20 characters'
+              value: 50,
+              message: 'Event name cannot be longer than 50 characters'
             }
           })} />
       </div>
       <div>
+        {/* if there is an error message for the name field, display */}
         <p className='text-red-500'>{errors?.name?.message}</p>
       </div>
     </label>
