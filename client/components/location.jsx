@@ -43,7 +43,7 @@ export default function Location({ control }) {
           mapContainerStyle={mapContainerStyle}
           zoom={10}
           center={selected}
-          className='h-1/4 p-11 object-contain my-2'
+          className='object-contain my-2 '
           mapContainerClassName='w-full h-1/2 rounded'
         >
           <Marker position={selected} />

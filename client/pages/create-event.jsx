@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-import '@reach/combobox/styles.css'; // maybe not needed
+import '@reach/combobox/styles.css';
 import { useNavigate } from 'react-router-dom';
 import StartDateTime from '../components/start-date-time';
 import EndDateTime from '../components/end-date-time';
@@ -11,7 +10,6 @@ import EventDetailsField from '../components/event-details-field';
 import Location from '../components/location';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
-
   const [imageUrl, setImageUrl] = useState();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -77,7 +75,6 @@ export default function CreateEvent() {
             </div>
 
             <div className='new-image-submission'>
-              {/* <ImageUpload register={register} onChange={handleFileChange} /> */}
               <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
                 <span className="text-xl font-medium">Cover Photo</span>
                 <div className='my-2'>
@@ -91,15 +88,12 @@ export default function CreateEvent() {
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
                   <div className='relative w-full'>
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none" />
-                    <div className="cursor-pointer inline-block py-2 px-4 border rounded-md shadow-sm text-sm font-medium border-[#f2dec8] bg-[#f2dec8] hover:bg-[#e8c59f] hover:border-[#e8c59f] transition-colors duration-300">
-                      Choose file
-                    </div>
                   </div>
                 </div>
-                <div className='cursor-pointer h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#e8c59f] hover:to-[#94e8bf] transition-all duration-300'>
+                <div className='cursor-pointer h-64 max-w-xs sm:h-96 sm:max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-300'>
                   {imageUrl
                     ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)
-                    : (<div className="flex items-center justify-center h-full w-full text-gray-600">Choose a file</div>
+                    : (<div className="flex items-center justify-center h-full w-full text-lg text-gray-600">Choose a file</div>
                       )} </div>
               </label>
             </div>

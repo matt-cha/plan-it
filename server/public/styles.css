@@ -742,6 +742,11 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .ml-1{
   margin-left: 0.25rem;
 }
@@ -764,6 +769,10 @@ video {
 
 .mt-2{
   margin-top: 0.5rem;
+}
+
+.ml-3{
+  margin-left: 0.75rem;
 }
 
 .box-border{
@@ -906,6 +915,10 @@ video {
   height: 100%;
 }
 
+.h-64{
+  height: 16rem;
+}
+
 .max-h-0{
   max-height: 0px;
 }
@@ -916,6 +929,10 @@ video {
 
 .max-h-60{
   max-height: 15rem;
+}
+
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .w-1{
@@ -1872,6 +1889,11 @@ video {
   background-color: rgb(233 213 255 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#FFCB7B\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 203 123 / var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-b{
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -1884,6 +1906,10 @@ video {
 
 .to-\[\#C8F2DE\]{
   --tw-gradient-to: #C8F2DE;
+}
+
+.to-\[\#FFCB7B\]{
+  --tw-gradient-to: #FFCB7B;
 }
 
 .decoration-slice{
@@ -2640,6 +2666,10 @@ video {
   transition-duration: 300ms;
 }
 
+.duration-1000{
+  transition-duration: 1000ms;
+}
+
 .ease-in{
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
@@ -2732,8 +2762,18 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.hover\:from-\[\#edd2b3\]:hover{
+  --tw-gradient-from: #edd2b3;
+  --tw-gradient-to: rgb(237 210 179 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .hover\:to-\[\#94e8bf\]:hover{
   --tw-gradient-to: #94e8bf;
+}
+
+.hover\:to-\[\#b3edd2\]:hover{
+  --tw-gradient-to: #b3edd2;
 }
 
 .hover\:font-bold:hover{
@@ -2786,12 +2826,44 @@ video {
     margin-top: 0px;
   }
 
+  .sm\:h-80{
+    height: 20rem;
+  }
+
+  .sm\:h-96{
+    height: 24rem;
+  }
+
+  .sm\:h-1\/2{
+    height: 50%;
+  }
+
+  .sm\:max-w-3xl{
+    max-width: 48rem;
+  }
+
   .sm\:flex-row{
     flex-direction: row;
   }
 
+  .sm\:justify-between{
+    justify-content: space-between;
+  }
+
   .sm\:underline{
     text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 768px){
+  .md\:justify-between{
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px){
+  .lg\:justify-between{
+    justify-content: space-between;
   }
 }
 

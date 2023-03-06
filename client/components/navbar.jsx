@@ -20,9 +20,12 @@ export default function Navbar() {
         </div>
       </nav>
       <nav className='fixed top-10 z-10 w-full'>
-        <div className="p-2 bg-[#f2dec8] flex justify-between items-center">
+        <div className="p-2 bg-[#f2dec8] flex items-center">
           <Link to='/events'>
             <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-1 px-2 py-1 transition-colors duration-300'>Event List</button>
+          </Link>
+          <Link to='/events'>
+            <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-3 px-2 py-1 transition-colors duration-300'>Communication</button>
           </Link>
         </div>
       </nav>

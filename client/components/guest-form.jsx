@@ -73,7 +73,7 @@ export default function GuestForm({ onAdd }) {
         </button>
       </div>
 
-      <div className={`overflow-hidden transition-ease-in-out-1 ${showGuestForm ? 'max-h-60' : 'max-h-0 text-transparent'}`}>
+      <div className={`overflow-hidden transition-ease-in-out-1 ${showGuestForm ? 'max-h-60 ' : 'max-h-0 text-transparent'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='my-2'>
             <label className='pl-2'>
