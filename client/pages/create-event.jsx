@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 
 import '@reach/combobox/styles.css'; // maybe not needed
 import { useNavigate } from 'react-router-dom';
-
 import StartDateTime from '../components/start-date-time';
 import EndDateTime from '../components/end-date-time';
 import EventNameField from '../components/event-name-field';
@@ -14,16 +13,17 @@ export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
 
   const [imageUrl, setImageUrl] = useState();
-
-  const navigate = useNavigate();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [location, setLocation] = useState('');
+  const navigate = useNavigate();
 
   const handleFileChange = event => {
     const file = event.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    setImageUrl(imageUrl);
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImageUrl(imageUrl);
+    }
   };
 
   const onSubmit = async data => {
@@ -73,13 +73,13 @@ export default function CreateEvent() {
                 control={control}
                 value={endDate}
                 onChange={setEndDate}
-                />
+              />
             </div>
 
             <div className='new-image-submission'>
               {/* <ImageUpload register={register} onChange={handleFileChange} /> */}
               <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
-                <span className="text-lg font-medium">Cover Photo</span>
+                <span className="text-xl font-medium">Cover Photo</span>
                 <div className='my-2'>
                   <input
                     {...register('image')}
@@ -99,7 +99,7 @@ export default function CreateEvent() {
                 <div className='cursor-pointer h-96 min-w-min max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#e8c59f] hover:to-[#94e8bf] transition-all duration-300'>
                   {imageUrl
                     ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)
-                    : (<div className="flex items-center justify-center h-full w-full text-gray-400">Choose a file</div>
+                    : (<div className="flex items-center justify-center h-full w-full text-gray-600">Choose a file</div>
                       )} </div>
               </label>
             </div>

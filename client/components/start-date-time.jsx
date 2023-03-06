@@ -8,7 +8,7 @@ export default function StartDateTime({ control }) {
   return (
     <div className='flex-1 sm:mr-2'>
       <label className='cursor-pointer pl-2 text-[#0d2137]'>
-        <span className="text-lg font-medium">Start Date and Time</span>
+        <span className="text-xl font-medium">Start Date and Time</span>
         <div className='my-2'>
           <Controller
               name="startDate"

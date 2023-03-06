@@ -8,7 +8,7 @@ export default function EndDateTime({ control }) {
   return (
     <div className='flex-1 sm:ml-2'>
       <label className='cursor-pointer pl-2 text-[#0d2137]'>
-        <span className="text-lg font-medium">End Date and Time</span>
+        <span className="text-xl font-medium">End Date and Time</span>
         <div className='my-2'>
           <Controller
             name="endDate"

@@ -23,7 +23,7 @@ export default function Location({ control }) {
   return (
     <>
       <div className='gmaps'>
-        <p className='pl-2 text-[#0d2137] text-lg font-medium'>Location</p>
+        <p className='pl-2 text-[#0d2137] text-xl font-medium'>Location</p>
       </div>
       <div className='my-2'>
         <Controller
