@@ -16,6 +16,7 @@ export default function Location({ control }) {
     height: '300px',
     borderRadius: '.25rem'
   };
+  /*  the useLoadScript hook loads the Google Maps API with the API key and libraries and returns a boolean isLoaded */
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
     libraries
@@ -31,7 +32,7 @@ export default function Location({ control }) {
         <Controller
           name="location"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Please select a start date and time' }}
           render={({ field }) =>
             <PlacesAutoComplete onSelect={(latLng, address) => {
               setSelected(latLng);
@@ -45,7 +46,7 @@ export default function Location({ control }) {
         )}
       </div>
       <div className='w-full '>
-        {/* selected will be the lat and long returned from selecting an address that positions the map and its marker */}
+        {/* selected will be the lat and long set by the use state hook from selecting an address that positions the map and its marker */}
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={10}
@@ -65,7 +66,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
 
   /**
    * handles selection of the address from the autocomplete results
-   * @param {string} address - selected text
+   * @param {string} address - selected option
    */
   const handleSelect = async address => {
     setValue(address, false);

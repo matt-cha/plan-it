@@ -70,7 +70,7 @@ export default function CreateEvent() {
     <div className=' flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
         {/* React Hook Form starts */}
-        <form onSubmit={handleSubmit(onSubmit)} className=''>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='event-name'>
             <EventNameField register={register} errors={errors} />
           </div>

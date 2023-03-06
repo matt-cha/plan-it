@@ -16,8 +16,8 @@ export default function EventDetailsField({ register, errors }) {
               message: 'Details cannot be shorter than 1 character.'
             },
             maxLength: {
-              value: 500,
-              message: 'Details cannot be longer than 500 characters.'
+              value: 2000,
+              message: 'Details cannot be longer than 2000 characters.'
             }
           })}
          />
