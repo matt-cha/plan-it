@@ -120,6 +120,7 @@ export default function CreateEvent() {
                 control={control}
                 value={location}
                 onChange={setLocation}
+                errors={errors}
               />
           </div>
 

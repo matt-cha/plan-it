@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import '@reach/combobox/styles.css';
-export default function Location({ control }) {
-  const { formState: { errors } } = useForm();
+export default function Location({ control, errors }) {
 
   const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
   /* value is only computed once when component is first mounted */
@@ -32,7 +31,7 @@ export default function Location({ control }) {
         <Controller
           name="location"
           control={control}
-          rules={{ required: 'Please select a start date and time' }}
+          rules={{ required: 'Please select a location.' }}
           render={({ field }) =>
             <PlacesAutoComplete onSelect={(latLng, address) => {
               setSelected(latLng);
