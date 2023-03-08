@@ -3,7 +3,13 @@ import { Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-export default function StartDateTime({ control, errors }) {
+export default function StartDateTime({ control, errors, endDate }) {
+  const validateStartDate = selectedDate => {
+    if (selectedDate <= endDate) {
+      return 'Start date must be before end date';
+    }
+    return true;
+  };
 
   return (
     <div className='flex-1 sm:mr-2'>
@@ -14,7 +20,10 @@ export default function StartDateTime({ control, errors }) {
           <Controller
               name="startDate"
               control={control}
-              rules={{ required: 'Please select a start date and time' }}
+              rules={{
+                required: 'Please select a start date and time',
+                validate: validateStartDate
+              }}
               /* render returns the component for the Controller component to render and field is the object that binds the form field to the input element */
               render={({ field }) =>
                 <div tabIndex={0}>
@@ -23,11 +32,13 @@ export default function StartDateTime({ control, errors }) {
                     className: 'pl-2 w-full mx-auto rounded-md shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]',
                     placeholder: '03/20/2023 11:00 AM'
                   }}
-                  {...field}
-                  />
+                  /* add onChange prop to update the field value */
+                  onChange={selectedDate => field.onChange(selectedDate)}
+                  value={field.value ? new Date(field.value) : null}
+                />
                 </div>
-              }
-            />
+            }
+          />
         </div>
         {/* if the left of the operator is truthy, right side is evaluated and error message is shown */}
         {errors.startDate && (

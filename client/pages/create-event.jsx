@@ -12,11 +12,11 @@ import Location from '../components/location';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [imageUrl, setImageUrl] = useState();
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
-
+  const [startEnd, setStartEnd] = useState(false);
   /**
  * Function that sets the Image URL state with the URL of the selected file
  * @param {object} event - The object containing the file to be uploaded
@@ -34,6 +34,10 @@ export default function CreateEvent() {
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
    */
   const onSubmit = async data => {
+    if (data.startDate > data.endDate) {
+      setStartEnd(true);
+      return;
+    }
     try {
       const formData = new FormData();
       /* Create a new form data object to be sent to the server */
@@ -82,6 +86,7 @@ export default function CreateEvent() {
                 value={startDate}
                 onChange={setStartDate}
                 errors={errors}
+                endDate={endDate}
               />
             <EndDateTime
                 name="endDate"
@@ -89,9 +94,11 @@ export default function CreateEvent() {
                 value={endDate}
                 onChange={setEndDate}
                 errors={errors}
+                startDate={startDate}
               />
-          </div>
 
+          </div>
+          {startEnd && <div><p className='text-red-500'>End date and time must be after the start date and time</p></div>}
           <div className='new-image-submission'>
             <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
               <span className="text-xl font-medium">Cover Photo</span>

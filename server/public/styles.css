@@ -931,6 +931,10 @@ video {
   max-height: 15rem;
 }
 
+.max-h-64{
+  max-height: 16rem;
+}
+
 .w-1{
   width: 0.25rem;
 }
