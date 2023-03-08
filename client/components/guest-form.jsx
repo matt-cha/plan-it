@@ -6,6 +6,7 @@ export default function GuestForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
   const [showGuestForm, setShowGuestForm] = useState(false);
+  const [submitText, setSubmitText] = useState(false);
 
   function handleClick() {
     setShowGuestForm(!showGuestForm);
@@ -29,6 +30,7 @@ export default function GuestForm({ onAdd }) {
           'Content-Type': 'application/json'
         }
       });
+      setSubmitText(true);
       if (!response.ok) {
         throw new Error(`Failed to add data to DB : ${response.status}`);
       }
@@ -39,7 +41,7 @@ export default function GuestForm({ onAdd }) {
       const debugTextMessage = true;
       if (debugTextMessage) {
         // eslint-disable-next-line no-console
-        console.log('dont send text ');
+        console.log('Please contact owner to send the text message, intentionlly locked due to API costs');
         return;
       }
       const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
@@ -118,7 +120,7 @@ export default function GuestForm({ onAdd }) {
               className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
               type="submit"
               value='Create Event'>
-              Send Invite to Guest Phone Number
+              {submitText ? 'Please contact owner to send the text message, intentionlly locked due to API costs' : 'Send Invite to Guest Phone Number' }
             </button>
           </div>
         </form>
