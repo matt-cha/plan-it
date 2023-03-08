@@ -220,6 +220,86 @@ app.post('/api/guests', (req, res) => {
     });
 });
 
+app.post('/api/tasksnew', (req, res) => {
+  if (!req.body) throw new ClientError(400, 'request requires a body');
+  const taskName = req.body.data.taskName;
+  if (!taskName) {
+    return res.status(400).json({
+      error: 'Task name is a required field'
+    });
+  }
+
+  const sql = `
+    insert into "Tasks" ("taskName")
+    values ($1)
+    returning *;
+    `;
+  const params = [taskName];
+
+  db.query(sql, params)
+    .then(result => {
+      const taskId = result.rows[0].taskId;
+      const eventId = req.body.eventId;
+      const paramsEventTasks = [eventId, taskId];
+      const sqlEventTasks = `
+        insert into "EventTasks" ("eventId", "taskId")
+        values ($1, $2)
+        returning *;
+        `;
+      return db.query(sqlEventTasks, paramsEventTasks);
+    })
+    .then(result => {
+      const eventTask = result.rows[0];
+      res.send(eventTask);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.184'
+      });
+    });
+});
+
+app.post('/api/tasks', (req, res) => {
+  if (!req.body) throw new ClientError(400, 'request requires a body');
+  const taskName = req.body.data.taskName;
+  if (!taskName) {
+    return res.status(400).json({
+      error: 'Task name is a required field'
+    });
+  }
+
+  const sql = `
+    insert into "Tasks" ("taskName")
+    values ($1)
+    returning *;
+    `;
+  const params = [taskName];
+
+  db.query(sql, params)
+    .then(result => {
+      const taskId = result.rows[0].taskId;
+      const eventId = req.body.eventId;
+      const paramsEventTasks = [eventId, taskId];
+      const sqlEventTasks = `
+        insert into "EventTasks" ("eventId", "taskId")
+        values ($1, $2)
+        returning *;
+        `;
+      return db.query(sqlEventTasks, paramsEventTasks);
+    })
+    .then(result => {
+      const eventTask = result.rows[0];
+      res.send(eventTask);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.184'
+      });
+    });
+});
+
 const accountSid = 'AC16c88cb51171dd7a4b08dcd9c237ad3b';
 const authToken = '8e916127cf5d4df8001d339cda26933b';
 const client = require('twilio')(accountSid, authToken);
