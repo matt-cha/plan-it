@@ -1,10 +1,9 @@
 import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-export default function EndDateTime({ control }) {
-  const { formState: { errors } } = useForm();
+export default function EndDateTime({ control, errors }) {
   return (
     <div className='flex-1 sm:ml-2'>
       <label className='cursor-pointer pl-2 text-[#0d2137]'>
@@ -15,13 +14,16 @@ export default function EndDateTime({ control }) {
             control={control}
             rules={{ required: 'Please select an end date and time' }}
             render={({ field }) =>
-              <Datetime
+              <div tabIndex={0}>
+                <Datetime
                 inputProps={{
                   className: 'pl-2 w-full mx-auto rounded-md shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]',
                   placeholder: '03/20/2023 5:00 PM'
                 }}
                 {...field}
-              />}
+              />
+              </div>
+              }
           />
         </div>
         {errors.endDate && (

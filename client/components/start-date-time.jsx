@@ -1,10 +1,10 @@
 import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-export default function StartDateTime({ control }) {
-  const { formState: { errors } } = useForm();
+export default function StartDateTime({ control, errors }) {
+
   return (
     <div className='flex-1 sm:mr-2'>
       <label className='cursor-pointer pl-2 text-[#0d2137]'>
@@ -17,13 +17,16 @@ export default function StartDateTime({ control }) {
               rules={{ required: 'Please select a start date and time' }}
               /* render returns the component for the Controller component to render and field is the object that binds the form field to the input element */
               render={({ field }) =>
-                <Datetime
+                <div tabIndex={0}>
+                  <Datetime
                   inputProps={{
                     className: 'pl-2 w-full mx-auto rounded-md shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]',
                     placeholder: '03/20/2023 11:00 AM'
                   }}
                   {...field}
-                />}
+                  />
+                </div>
+              }
             />
         </div>
         {/* if the left of the operator is truthy, right side is evaluated and error message is shown */}

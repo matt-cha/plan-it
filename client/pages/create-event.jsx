@@ -12,8 +12,8 @@ import Location from '../components/location';
 export default function CreateEvent() {
   const { control, register, handleSubmit, formState: { errors } } = useForm();
   const [imageUrl, setImageUrl] = useState();
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
 
@@ -81,12 +81,14 @@ export default function CreateEvent() {
                 control={control}
                 value={startDate}
                 onChange={setStartDate}
+                errors={errors}
               />
             <EndDateTime
                 name="endDate"
                 control={control}
                 value={endDate}
                 onChange={setEndDate}
+                errors={errors}
               />
           </div>
 

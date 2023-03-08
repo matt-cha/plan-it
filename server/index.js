@@ -138,11 +138,11 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
     });
   }
 
-  if (startDate > endDate) {
+  /*   if (startDate > endDate) {
     return res.status(400).json({
       error: 'End date must be after start date'
     });
-  }
+  } */
 
   if (!location) {
     return res.status(400).json({
