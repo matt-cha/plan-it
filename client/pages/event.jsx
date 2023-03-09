@@ -14,8 +14,8 @@ export default function Event() {
   const [selected, setSelected] = useState(null);
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
-  const [guests, setGuests] = useState();
-
+  const [guests, setGuests] = useState([]);
+  const [tasks, setTasks] = useState([]);
   useEffect(() => {
     if (!guests) {
       fetch(`/api/events/${eventId}/guests`)
@@ -23,6 +23,14 @@ export default function Event() {
         .then(guests => setGuests(guests));
     }
   }, [eventId, guests]);
+
+  useEffect(() => {
+    if (!tasks) {
+      fetch(`/api/events/${eventId}/tasks`)
+        .then(res => res.json())
+        .then(tasks => setTasks(tasks));
+    }
+  }, [eventId, tasks]);
 
   const mapContainerStyle = {
     width: '100%',
@@ -116,10 +124,10 @@ export default function Event() {
           </div>
           <div className='flex-1  '>
             <div className='mt-2 sm:mt-0'>
-              <TaskForm />
+              <TaskForm onAdd={() => setTasks(undefined)} />
             </div>
             <div>
-              <TaskList />
+              <TaskList tasks={tasks} />
             </div>
           </div>
         </div>

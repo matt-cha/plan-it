@@ -106,6 +106,32 @@ app.get('/api/events/:eventId/guests', (req, res, next) => {
     });
 });
 
+app.get('/api/events/:eventId/tasks', (req, res, next) => {
+  const eventId = Number(req.params.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) {
+    res.status(400).json({
+      error: `id ${eventId} is not a positive integer`
+    });
+    return;
+  }
+  const sql = `
+  select "taskId",
+      "taskName"
+  from "Tasks"
+  join "EventTasks" using ("taskId")
+  where "EventTasks"."eventId" = $1
+  `;
+  const params = [eventId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred105.'
+      });
+    });
+});
+
 app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   if (!req.body) {
     return res.status(400).json({
@@ -220,49 +246,10 @@ app.post('/api/guests', (req, res) => {
     });
 });
 
-app.post('/api/tasksnew', (req, res) => {
-  if (!req.body) throw new ClientError(400, 'request requires a body');
-  const taskName = req.body.data.taskName;
-  if (!taskName) {
-    return res.status(400).json({
-      error: 'Task name is a required field'
-    });
-  }
-
-  const sql = `
-    insert into "Tasks" ("taskName")
-    values ($1)
-    returning *;
-    `;
-  const params = [taskName];
-
-  db.query(sql, params)
-    .then(result => {
-      const taskId = result.rows[0].taskId;
-      const eventId = req.body.eventId;
-      const paramsEventTasks = [eventId, taskId];
-      const sqlEventTasks = `
-        insert into "EventTasks" ("eventId", "taskId")
-        values ($1, $2)
-        returning *;
-        `;
-      return db.query(sqlEventTasks, paramsEventTasks);
-    })
-    .then(result => {
-      const eventTask = result.rows[0];
-      res.send(eventTask);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occurred.184'
-      });
-    });
-});
-
 app.post('/api/tasks', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const taskName = req.body.data.taskName;
+
   if (!taskName) {
     return res.status(400).json({
       error: 'Task name is a required field'

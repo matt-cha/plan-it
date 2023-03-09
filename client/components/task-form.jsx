@@ -1,23 +1,40 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-export default function TaskForm() {
+import { useParams } from 'react-router-dom';
+export default function TaskForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [task, setTask] = useState('');
-
-  function onSubmit(event) {
-    event.preventDefault();
-    const newTodo = {
-      task,
-      isCompleted: false
-    };
-    onSubmit(newTodo);
-    setTask('');
-  }
+  const { eventId } = useParams();
 
   function handleClick() {
     setShowTaskForm(!showTaskForm);
   }
+
+  const onSubmit = async data => {
+    try {
+      const response = await fetch('/api/tasks', {
+
+        method: 'POST',
+        body: JSON.stringify({
+          data,
+          eventId
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to add data to DB2##: ${response.status}`);
+      }
+      onAdd(await response.json());
+      // eslint-disable-next-line no-console
+      console.log('data added successfully');
+    } catch (error) {
+      console.error('Error line :', error);
+    /*   alert(error.message); */
+    }
+  };
 
   return (
     <>
@@ -34,7 +51,7 @@ export default function TaskForm() {
             <label className='pl-2'>
               <span className='text-lg font-medium'>Task</span>
               <div>
-                <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='Contact vendors about food options' {...register('task', {
+                <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='Contact vendors about food options' {...register('taskName', {
                   required: 'Task is required.',
                   minLength: {
                     value: 1,

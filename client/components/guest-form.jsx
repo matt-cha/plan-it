@@ -41,7 +41,8 @@ export default function GuestForm({ onAdd }) {
       const debugTextMessage = true;
       if (debugTextMessage) {
         // eslint-disable-next-line no-console
-        console.log('Please contact owner to send the text message, intentionlly locked due to API costs');
+        const message = 'Please contact owner to send the text message, intentionlly locked due to API costs';
+        alert(message);
         return;
       }
       const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
