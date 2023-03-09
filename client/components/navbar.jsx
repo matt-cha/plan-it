@@ -1,54 +1,37 @@
-import React/* , { useState } */ from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
-/*   const [menu, setMenu] = useState(false);
-  const burger = menu ? 'hide-burger' : 'show-burger';
-  const menuModal = menu ? ' show-menu' : 'hide-menu';
-  const overlay = menu ? 'show-overlay' : 'hide-overlay';
-
-  function handleBurgerOpenClick() {
-    setMenu(true);
-  }
-  function handleBurgerCloseClick() {
-    setMenu(false);
-  } */
-
   return (
-    <div>
+    <>
       <nav className='fixed top-0 z-10 w-full'>
-        <div className=" p-3 bg-[#f2dec8] flex justify-between">
-          <div className='flex '>
-            <p className='bg-[#C8DCF2] '>acoolprojectname</p>
+        <div className="p-2 bg-[#f2dec8] flex justify-between items-center">
+          <div className='flex max-w-full'>
+            <div className='max-w-[25px] mx-1 flex items-center'>
+              <img className='max-w-full h-auto' src='/images/icon.webp' alt='Logo' />
+            </div>
+            <p className='rounded text-[#0d2137] px-1 py-1 text-xl font-medium'>Plan It</p>
           </div>
-          <div className='flex content-end '>
-            <Link to='/events'>
-              <p className=' text-[#0d213] mr-4'>All </p>
-            </Link>
+          <div className='flex'>
             <Link to='/'>
-              <button className=''>New</button>
+              <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none px-2 py-1 transition-colors duration-300'><i className="fa-solid fa-plus mr-1" />New Event</button>
             </Link>
           </div>
-
-          {/* <i className={`${burger} fa-solid fa-burger bg-[#c8dcf2] text-[#0d213] rounded-md absolute top-3`}
-            onClick={handleBurgerOpenClick}
-          /> */}
-
         </div>
       </nav>
-      {/*    <div className={`menu ${menuModal}`}>
-        <div>
+      <nav className='fixed top-10 z-10 w-full'>
+        <div className="p-2 bg-[#f2dec8] flex items-center">
           <Link to='/events'>
-            <p onClick={handleBurgerCloseClick}>Events</p>
+            <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-1 px-2 py-1 transition-colors duration-300'>Event List</button>
           </Link>
-        </div>
-        <div>
-          <Link to='/'>
-            <p onClick={handleBurgerCloseClick}>New Event</p>
+          <Link to='/events'>
+            <button className='rounded-md text-[#0d2137] bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-3 px-2 py-1 transition-colors duration-300'>Communication</button>
           </Link>
+          <div className='max-w-[25px] mx-3 flex items-center '>
+            <img className='max-w-full h-auto rounded bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none transition-colors duration-300' src='/images/r.gif' alt='rock' />
+          </div>
         </div>
-      </div>
-      {menu && <div className={`${overlay}`} onClick={handleBurgerCloseClick} />} */}
-    </div>
+      </nav>
+    </>
   );
 }

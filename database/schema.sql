@@ -9,8 +9,8 @@ create schema "public";
 CREATE TABLE "public"."Events" (
 	"name" TEXT NOT NULL,
 	"eventId" serial NOT NULL,
-	"startDate" timestamp with time zone,
-	"endDate" timestamp with time zone,
+	"startDate" timestamp with time zone NOT NULL,
+	"endDate" timestamp with time zone NOT NULL,
 	"location" TEXT,
 	"details" TEXT,
 	"image" TEXT,
@@ -22,9 +22,8 @@ CREATE TABLE "public"."Events" (
 
 
 CREATE TABLE "public"."Tasks" (
-	"eventId" int NOT NULL,
 	"taskId" serial NOT NULL,
-	"task" TEXT NOT NULL,
+	"taskName" TEXT NOT NULL,
 	CONSTRAINT "Tasks_pk" PRIMARY KEY ("taskId")
 ) WITH (
   OIDS=FALSE
@@ -53,9 +52,21 @@ CREATE TABLE "public"."EventGuests" (
 
 
 
+CREATE TABLE "public"."EventTasks" (
+	"eventId" int NOT NULL,
+	"taskId" int NOT NULL,
+	CONSTRAINT "EventTasks_pk" PRIMARY KEY ("eventId","taskId")
+) WITH (
+  OIDS=FALSE
+);
 
-ALTER TABLE "Tasks" ADD CONSTRAINT "Tasks_fk0" FOREIGN KEY ("eventId") REFERENCES "Events"("eventId");
+
+
+
 
 
 ALTER TABLE "EventGuests" ADD CONSTRAINT "EventGuests_fk0" FOREIGN KEY ("eventId") REFERENCES "Events"("eventId");
 ALTER TABLE "EventGuests" ADD CONSTRAINT "EventGuests_fk1" FOREIGN KEY ("guestId") REFERENCES "Guests"("guestId");
+
+ALTER TABLE "EventTasks" ADD CONSTRAINT "EventTasks_fk0" FOREIGN KEY ("eventId") REFERENCES "Events"("eventId");
+ALTER TABLE "EventTasks" ADD CONSTRAINT "EventTasks_fk1" FOREIGN KEY ("taskId") REFERENCES "Tasks"("taskId");

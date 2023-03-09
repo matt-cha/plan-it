@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
+import TaskForm from '../components/task-form';
+import TaskList from '../components/task-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
@@ -12,8 +14,8 @@ export default function Event() {
   const [selected, setSelected] = useState(null);
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
-  const [guests, setGuests] = useState();
-
+  const [guests, setGuests] = useState([]);
+  const [tasks, setTasks] = useState([]);
   useEffect(() => {
     if (!guests) {
       fetch(`/api/events/${eventId}/guests`)
@@ -21,6 +23,14 @@ export default function Event() {
         .then(guests => setGuests(guests));
     }
   }, [eventId, guests]);
+
+  useEffect(() => {
+    if (!tasks) {
+      fetch(`/api/events/${eventId}/tasks`)
+        .then(res => res.json())
+        .then(tasks => setTasks(tasks));
+    }
+  }, [eventId, tasks]);
 
   const mapContainerStyle = {
     width: '100%',
@@ -61,22 +71,26 @@ export default function Event() {
   return (
     <div className='flex-wrap justify-center flex m-3'>
       <div className='w-full max-w-3xl'>
-        <div className='h-96 min-w-min max-w-3xl mx-auto rounded  bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
-          <img className="object-contain rounded h-full w-full" src={image} />
+        <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE]'>
+          <img className="object-contain rounded h-full w-full " src={`/images/${image}`} />
+        </div>
+        <div className='flex my-1'>
+          <p className='text-3xl py-2 font-bold  text-[#0d2137]'>{name}</p>
+        </div>
+
+        <div className='flex my-2'>
+          <p className='flex'>
+            <i className="fa-regular fa-clock mr-2 mt-1 text-[#5f6e82]" />
+            <span className=' '>{formatDate(startDate)} - {formatDate(endDate)}</span>
+          </p>
         </div>
         <div className='flex my-2'>
-          <p className='text-2xl'>{name}</p>
+          <p className='flex'>
+            <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
+            <span className=' text-[#0d2137] font-bold'>{location}</span>
+          </p>
         </div>
-        <div className='flex my-2'>
-          <p>
-            <i className="fa-solid fa-clock mr-2" />
-            {formatDate(startDate)} - {formatDate(endDate)}</p>
-        </div>
-        <div className='flex my-2'>
-          <p>
-            <i className="fa-solid fa-location-dot mr-2 text-lg" />
-            {location}</p>
-        </div>
+
         <div>
           <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)} />
         </div>
@@ -91,16 +105,31 @@ export default function Event() {
             <Marker position={selected} />
           </GoogleMap>
         </div>
-        <div className='flex my-2 '>
-          <p>
-            <i className="fa-solid fa-circle-info mr-2 text-lg" />
-            {details}</p>
+
+        <div className='flex my-2'>
+          <p className='flex'>
+            <i className="fa-solid fa-circle-info text-lg mr-2 text-[#185784]" />
+            <span className='text-justify'>{details}</span>
+          </p>
         </div>
-        <div>
-          <GuestList guests={guests}/>
-        </div>
-        <div>
-          <GuestForm onAdd={() => setGuests(undefined)} />
+
+        <div className='flex flex-col sm:flex-row'>
+          <div className='flex-1 sm:mr-2'>
+            <div>
+              <GuestForm onAdd={() => setGuests(undefined)} />
+            </div>
+            <div>
+              <GuestList guests={guests} />
+            </div>
+          </div>
+          <div className='flex-1  '>
+            <div className='mt-2 sm:mt-0'>
+              <TaskForm onAdd={() => setTasks(undefined)} />
+            </div>
+            <div>
+              <TaskList tasks={tasks} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -134,7 +163,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
         value={value}
         onChange={event => setValue(event.target.value)}
         disabled={!ready}
-        className='bg-purple-200 rounded border border-black'
+        className='bg-purple-200 rounded border border-black hidden'
         placeholder='search here placeholder' />
       <ComboboxPopover>
         <ComboboxList>
