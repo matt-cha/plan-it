@@ -114,7 +114,7 @@ export default function CreateEvent() {
                     id='file-upload-button'
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
               </div>
-              <div className='cursor-pointer h-64 max-w-xs sm:h-96 sm:max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-300'>
+              <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-1000'>
                 {/* ternary operator conditionally shows text or image if imageURL is truthy or falsy so users know to upload an image here */}
                 {imageUrl
                   ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)
