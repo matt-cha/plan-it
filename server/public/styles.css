@@ -747,6 +747,11 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .ml-1{
   margin-left: 0.25rem;
 }
@@ -921,10 +926,6 @@ video {
 
 .max-h-0{
   max-height: 0px;
-}
-
-.max-h-28{
-  max-height: 7rem;
 }
 
 .max-h-60{

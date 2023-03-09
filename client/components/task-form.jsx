@@ -48,7 +48,7 @@ export default function TaskForm({ onAdd }) {
       <div className={`overflow-hidden transition-ease-in-out-1 ${showTaskForm ? 'max-h-60' : 'max-h-0 text-transparent'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='my-2'>
-            <label className='pl-2'>
+            <label className='pl-2 cursor-pointer'>
               <span className='text-lg font-medium'>Task</span>
               <div>
                 <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='Contact vendors about food options' {...register('taskName', {

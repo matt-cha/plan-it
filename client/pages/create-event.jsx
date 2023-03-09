@@ -100,7 +100,7 @@ export default function CreateEvent() {
           </div>
           {startEnd && <div><p className='text-red-500'>End date and time must be after the start date and time</p></div>}
           <div className='new-image-submission'>
-            <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
+            <label htmlFor="file-upload-button" className="cursor-pointer pl-2 rounded max-w-min text-[#0d2137]  ">
               <span className="text-xl font-medium">Cover Photo</span>
               <div className='my-2'>
                 {/* input field to upload images, sr-only to make visible only for screen readers
