@@ -23,12 +23,10 @@ export default function Location({ control, errors }) {
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
-    <>
-      <div className='gmaps'>
-        <p className='pl-2 text-[#0d2137] text-xl font-medium'>Location</p>
-      </div>
-      <div className='my-2'>
-        <Controller
+    <div className='gmaps my-2'>
+      <label className='cursor-pointer pl-2 my-2 text-[#0d2137] text-xl font-medium'>Location
+        <div className='my-2'>
+          <Controller
           name="location"
           control={control}
           rules={{ required: 'Please select a location.' }}
@@ -40,23 +38,25 @@ export default function Location({ control, errors }) {
             />
           }
         />
+        </div>
         {errors.location && (
           <span className="text-red-500">{errors.location.message}</span>
         )}
-      </div>
-      <div className='w-full '>
-        {/* selected will be the lat and long set by the use state hook from selecting an address that positions the map and its marker */}
-        <GoogleMap
+
+        <div className='w-full my-4'>
+          {/* selected will be the lat and long set by the use state hook from selecting an address that positions the map and its marker */}
+          <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={10}
           center={selected}
           className='object-contain my-2 '
           mapContainerClassName='w-full h-1/2 rounded'
         >
-          <Marker position={selected} />
-        </GoogleMap>
-      </div>
-    </>
+            <Marker position={selected} />
+          </GoogleMap>
+        </div>
+      </label>
+    </div>
   );
 }
 

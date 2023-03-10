@@ -7,6 +7,8 @@ import EndDateTime from '../components/end-date-time';
 import EventNameField from '../components/event-name-field';
 import EventDetailsField from '../components/event-details-field';
 import Location from '../components/location';
+import { useNetworkError } from '../components/network-error';
+
 /* Import all the node packages and react components needed.  */
 
 export default function CreateEvent() {
@@ -17,6 +19,8 @@ export default function CreateEvent() {
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
   const [startEnd, setStartEnd] = useState(false);
+  const { setNetworkError } = useNetworkError();
+
   /**
  * Function that sets the Image URL state with the URL of the selected file
  * @param {object} event - The object containing the file to be uploaded
@@ -62,6 +66,7 @@ export default function CreateEvent() {
       // eslint-disable-next-line no-console
       console.log('data added to DB', data);
     } catch (error) {
+      setNetworkError(true);
       if (error instanceof TypeError) {
         console.error('Error:', error.message);
       } else {
@@ -100,7 +105,7 @@ export default function CreateEvent() {
           </div>
           {startEnd && <div><p className='text-red-500'>End date and time must be after the start date and time</p></div>}
           <div className='new-image-submission'>
-            <label htmlFor="file-upload-button" className="pl-2 rounded max-w-min text-[#0d2137]  ">
+            <label htmlFor="file-upload-button" className="cursor-pointer pl-2 rounded max-w-min text-[#0d2137]  ">
               <span className="text-xl font-medium">Cover Photo</span>
               <div className='my-2'>
                 {/* input field to upload images, sr-only to make visible only for screen readers
@@ -114,7 +119,7 @@ export default function CreateEvent() {
                     id='file-upload-button'
                     accept=".png, .jpg, .jpeg, .gif, .webp" />
               </div>
-              <div className='cursor-pointer h-64 max-w-xs sm:h-96 sm:max-w-3xl mx-auto rounded bg-gradient-to-b my-2 from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-300'>
+              <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-1000'>
                 {/* ternary operator conditionally shows text or image if imageURL is truthy or falsy so users know to upload an image here */}
                 {imageUrl
                   ? (<img className="object-contain rounded h-full w-full" src={imageUrl} />)

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { useNetworkError } from './network-error';
 
 export default function GuestForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
   const [showGuestForm, setShowGuestForm] = useState(false);
   const [submitText, setSubmitText] = useState(false);
+  const { setNetworkError } = useNetworkError();
 
   function handleClick() {
     setShowGuestForm(!showGuestForm);
@@ -62,6 +64,7 @@ export default function GuestForm({ onAdd }) {
       // eslint-disable-next-line no-console
       console.log('message was sent successfully');
     } catch (error) {
+      setNetworkError(true);
       console.error('Error line 39:', error);
     }
   };
@@ -79,7 +82,7 @@ export default function GuestForm({ onAdd }) {
       <div className={`overflow-hidden transition-ease-in-out-1 ${showGuestForm ? 'max-h-64 ' : 'max-h-0 text-transparent'}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='my-2'>
-            <label className='pl-2'>
+            <label className='pl-2 cursor-pointer'>
               <span className='text-lg font-medium'>Guest Name</span>
               <div>
                 <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='Anthony Davis' {...register('guestName', {
@@ -100,7 +103,7 @@ export default function GuestForm({ onAdd }) {
             </label>
           </div>
           <div>
-            <label className='pl-2'>
+            <label className='pl-2 cursor-pointer'>
               <span className='text-lg font-medium'>Phone Number</span>
               <div>
                 <input type='text' className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]' placeholder='8186453513' {...register('phoneNumber', {
