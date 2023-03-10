@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import formatDate from '../lib/format-date';
+import { useNetworkError } from '../components/network-error';
 
 export default function Events() {
   const [events, setEvents] = useState();
+  const { setNetworkError } = useNetworkError();
 
   useEffect(() => {
     fetch('/api/events')
       .then(res => res.json())
-      .then(events => setEvents(events));
+      .then(events => setEvents(events))
+      .catch(error => {
+        setNetworkError(true);
+        console.error('Error fetching events:', error);
+      });
   }, []);
 
   return (

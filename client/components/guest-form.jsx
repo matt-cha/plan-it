@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { useNetworkError } from './network-error';
 
 export default function GuestForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { eventId } = useParams();
   const [showGuestForm, setShowGuestForm] = useState(false);
   const [submitText, setSubmitText] = useState(false);
+  const { setNetworkError } = useNetworkError();
 
   function handleClick() {
     setShowGuestForm(!showGuestForm);
@@ -62,6 +64,7 @@ export default function GuestForm({ onAdd }) {
       // eslint-disable-next-line no-console
       console.log('message was sent successfully');
     } catch (error) {
+      setNetworkError(true);
       console.error('Error line 39:', error);
     }
   };

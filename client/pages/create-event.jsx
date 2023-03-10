@@ -7,6 +7,8 @@ import EndDateTime from '../components/end-date-time';
 import EventNameField from '../components/event-name-field';
 import EventDetailsField from '../components/event-details-field';
 import Location from '../components/location';
+import { useNetworkError } from '../components/network-error';
+
 /* Import all the node packages and react components needed.  */
 
 export default function CreateEvent() {
@@ -17,6 +19,8 @@ export default function CreateEvent() {
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
   const [startEnd, setStartEnd] = useState(false);
+  const { setNetworkError } = useNetworkError();
+
   /**
  * Function that sets the Image URL state with the URL of the selected file
  * @param {object} event - The object containing the file to be uploaded
@@ -62,6 +66,7 @@ export default function CreateEvent() {
       // eslint-disable-next-line no-console
       console.log('data added to DB', data);
     } catch (error) {
+      setNetworkError(true);
       if (error instanceof TypeError) {
         console.error('Error:', error.message);
       } else {

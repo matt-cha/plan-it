@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { useNetworkError } from './network-error';
 export default function TaskForm({ onAdd }) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showTaskForm, setShowTaskForm] = useState(false);
   const { eventId } = useParams();
+  const { setNetworkError } = useNetworkError();
 
   function handleClick() {
     setShowTaskForm(!showTaskForm);
@@ -31,8 +33,8 @@ export default function TaskForm({ onAdd }) {
       // eslint-disable-next-line no-console
       console.log('data added successfully');
     } catch (error) {
+      setNetworkError(true);
       console.error('Error line :', error);
-    /*   alert(error.message); */
     }
   };
 

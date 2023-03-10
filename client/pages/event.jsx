@@ -8,7 +8,7 @@ import TaskList from '../components/task-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
-
+import { useNetworkError } from '../components/network-error';
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
@@ -16,21 +16,31 @@ export default function Event() {
   const libraries = useMemo(() => ['places'], []);
   const [guests, setGuests] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const { setNetworkError } = useNetworkError();
+
   useEffect(() => {
     if (!guests) {
       fetch(`/api/events/${eventId}/guests`)
         .then(res => res.json())
-        .then(guests => setGuests(guests));
+        .then(guests => setGuests(guests))
+        .catch(error => {
+          setNetworkError(true);
+          console.error('Error fetching guests:', error);
+        });
     }
-  }, [eventId, guests]);
+  }, [eventId, guests, setNetworkError]);
 
   useEffect(() => {
     if (!tasks) {
       fetch(`/api/events/${eventId}/tasks`)
         .then(res => res.json())
-        .then(tasks => setTasks(tasks));
+        .then(tasks => setTasks(tasks))
+        .catch(error => {
+          setNetworkError(true);
+          console.error('Error fetching tasks:', error);
+        });
     }
-  }, [eventId, tasks]);
+  }, [eventId, tasks, setNetworkError]);
 
   const mapContainerStyle = {
     width: '100%',
