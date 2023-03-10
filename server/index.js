@@ -287,8 +287,8 @@ app.post('/api/tasks', (req, res) => {
     });
 });
 
-const accountSid = 'AC16c88cb51171dd7a4b08dcd9c237ad3b';
-const authToken = '8e916127cf5d4df8001d339cda26933b';
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 app.post('/api/events/:eventId/guests/message', (req, res) => {
