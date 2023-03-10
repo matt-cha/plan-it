@@ -47,6 +47,7 @@ export default function Event() {
     height: '300px',
     borderRadius: '.25rem'
   };
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: 'AIzaSyAdLGV4RzzLD1SC8fVAshEm_92pcAUgg8s',
     libraries
