@@ -320,6 +320,6 @@ app.use((req, res) => {
 
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
