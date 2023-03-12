@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useNetworkError } from './network-error';
 export default function TaskForm({ onAdd }) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, reset, handleSubmit, formState: { errors } } = useForm();
   const [showTaskForm, setShowTaskForm] = useState(false);
   const { eventId } = useParams();
   const { setNetworkError } = useNetworkError();
@@ -30,6 +30,7 @@ export default function TaskForm({ onAdd }) {
         throw new Error(`Failed to add data to DB: ${response.status}`);
       }
       onAdd(await response.json());
+      reset();
     } catch (error) {
       setNetworkError(true);
       console.error('Error line :', error);
@@ -58,8 +59,8 @@ export default function TaskForm({ onAdd }) {
                     message: 'Task name cannot be shorter than 1 characters'
                   },
                   maxLength: {
-                    value: 25,
-                    message: 'Task name cannot be longer than 25 characters'
+                    value: 400,
+                    message: 'Task name cannot be longer than 400 characters'
                   }
                 })} />
               </div>

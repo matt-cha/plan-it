@@ -19,27 +19,27 @@ export default function Event() {
   const { setNetworkError } = useNetworkError();
 
   useEffect(() => {
-    if (!guests) {
-      fetch(`/api/events/${eventId}/guests`)
-        .then(res => res.json())
-        .then(guests => setGuests(guests))
-        .catch(error => {
-          setNetworkError(true);
-          console.error('Error fetching guests:', error);
-        });
-    }
+
+    fetch(`/api/events/${eventId}/guests`)
+      .then(res => res.json())
+      .then(guests => setGuests(guests))
+      .catch(error => {
+        setNetworkError(true);
+        console.error('Error fetching guests:', error);
+      });
+
   }, [eventId, guests, setNetworkError]);
 
   useEffect(() => {
-    if (!tasks) {
-      fetch(`/api/events/${eventId}/tasks`)
-        .then(res => res.json())
-        .then(tasks => setTasks(tasks))
-        .catch(error => {
-          setNetworkError(true);
-          console.error('Error fetching tasks:', error);
-        });
-    }
+
+    fetch(`/api/events/${eventId}/tasks`)
+      .then(res => res.json())
+      .then(tasks => setTasks(tasks))
+      .catch(error => {
+        setNetworkError(true);
+        console.error('Error fetching tasks:', error);
+      });
+
   }, [eventId, tasks, setNetworkError]);
 
   const mapContainerStyle = {
