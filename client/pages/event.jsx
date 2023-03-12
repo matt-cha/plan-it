@@ -86,7 +86,7 @@ export default function Event() {
           <img className="object-contain rounded h-full w-full " src={`/images/${image}`} />
         </div>
         <div className='flex my-1'>
-          <p className='text-3xl py-2 font-bold  text-[#0d2137]'>{name}</p>
+          <p className='text-3xl py-2 font-bold'>{name}</p>
         </div>
 
         <div className='flex my-2'>
@@ -98,7 +98,7 @@ export default function Event() {
         <div className='flex my-2'>
           <p className='flex'>
             <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
-            <span className=' text-[#0d2137] font-bold'>{location}</span>
+            <span className='font-bold'>{location}</span>
           </p>
         </div>
 
@@ -164,7 +164,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
       const { lat, lng } = await getLatLng(results[0]);
       onSelect({ lat, lng }, address);
     } catch (error) {
-      console.error('Error!:', error);
+      console.error('Error:', error);
     }
   };
 

@@ -13,7 +13,7 @@ export default function StartDateTime({ control, errors, endDate }) {
 
   return (
     <div className='flex-1 sm:mr-2'>
-      <label className='cursor-pointer pl-2 text-[#0d2137]'>
+      <label className='cursor-pointer pl-2'>
         <span className="text-xl font-medium">Start Date and Time</span>
         <div className='my-2'>
           {/* Controller is used to control the input value of the input */}

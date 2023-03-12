@@ -164,12 +164,6 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
     });
   }
 
-  /*   if (startDate > endDate) {
-    return res.status(400).json({
-      error: 'End date must be after start date'
-    });
-  } */
-
   if (!location) {
     return res.status(400).json({
       error: 'Location is a required field'
@@ -308,10 +302,6 @@ app.post('/api/events/:eventId/guests/message', (req, res) => {
     });
 });
 
-/* app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
- */
 app.use((req, res) => {
   res.sendFile('/index.html', {
     root: path.join(__dirname, 'public')

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function EventDetailsField({ register, errors }) {
   return (
-    <label className='pl-2 text-[#0d2137] cursor-pointer'>
+    <label className='pl-2  cursor-pointer'>
       <span className='text-xl font-medium'>Details</span>
       <div className='my-2'>
         <textarea

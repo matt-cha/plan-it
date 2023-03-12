@@ -63,8 +63,6 @@ export default function CreateEvent() {
       /* Extract the event ID from the response JSON and navigate to the new event page */
       const { eventId } = await response.json();
       navigate(`/events/${eventId}`);
-      // eslint-disable-next-line no-console
-      console.log('data added to DB', data);
     } catch (error) {
       setNetworkError(true);
       if (error instanceof TypeError) {
@@ -105,7 +103,7 @@ export default function CreateEvent() {
           </div>
           {startEnd && <div><p className='text-red-500'>End date and time must be after the start date and time</p></div>}
           <div className='new-image-submission'>
-            <label htmlFor="file-upload-button" className="cursor-pointer pl-2 rounded max-w-min text-[#0d2137]  ">
+            <label htmlFor="file-upload-button" className="cursor-pointer pl-2 rounded max-w-min">
               <span className="text-xl font-medium">Cover Photo</span>
               <div className='my-2'>
                 {/* input field to upload images, sr-only to make visible only for screen readers
