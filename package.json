@@ -1,5 +1,5 @@
 {
-  "name": "final-project",
+  "name": "plan-it",
   "version": "1.0.0",
   "private": true,
   "description": "A full stack JavaScript solo project.",
@@ -53,7 +53,7 @@
     "lint-staged": "^13.0.3",
     "livereload": "^0.9.3",
     "markuplint": "^2.11.0",
-    "nodemon": "^2.0.20",
+    "nodemon": "^2.0.21",
     "react-refresh": "^0.14.0",
     "style-loader": "^3.3.1",
     "stylelint": "^14.14.0",
