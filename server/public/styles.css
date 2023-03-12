@@ -755,10 +755,6 @@ video {
   margin-left: 0.25rem;
 }
 
-.ml-2{
-  margin-left: 0.5rem;
-}
-
 .mr-1{
   margin-right: 0.25rem;
 }
@@ -2218,11 +2214,6 @@ video {
 .stacked-fractions{
   --tw-numeric-fraction: stacked-fractions;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
-}
-
-.text-\[\#0d2137\]{
-  --tw-text-opacity: 1;
-  color: rgb(13 33 55 / var(--tw-text-opacity));
 }
 
 .text-\[\#185784\]{
