@@ -164,7 +164,7 @@ const PlacesAutoComplete = ({ onSelect }) => {
       const { lat, lng } = await getLatLng(results[0]);
       onSelect({ lat, lng }, address);
     } catch (error) {
-      console.error('Error!:', error);
+      console.error('Error:', error);
     }
   };
 

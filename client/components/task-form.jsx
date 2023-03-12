@@ -27,11 +27,9 @@ export default function TaskForm({ onAdd }) {
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to add data to DB2##: ${response.status}`);
+        throw new Error(`Failed to add data to DB: ${response.status}`);
       }
       onAdd(await response.json());
-      // eslint-disable-next-line no-console
-      console.log('data added successfully');
     } catch (error) {
       setNetworkError(true);
       console.error('Error line :', error);

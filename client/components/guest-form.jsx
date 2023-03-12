@@ -15,12 +15,6 @@ export default function GuestForm({ onAdd }) {
   }
 
   const onSubmit = async data => {
-    const debug = false;
-    if (debug) {
-      // eslint-disable-next-line no-console
-      console.log('line:14 data:::browser only ', data);
-      return;
-    }
     try {
       const response = await fetch('/api/guests', {
         method: 'POST',
@@ -37,12 +31,8 @@ export default function GuestForm({ onAdd }) {
         throw new Error(`Failed to add data to DB : ${response.status}`);
       }
       onAdd(await response.json());
-      // eslint-disable-next-line no-console
-      console.log('line:14 data:::data added to DB ', data);
-
-      const debugTextMessage = true;
-      if (debugTextMessage) {
-        // eslint-disable-next-line no-console
+      const alertTextMessage = true;
+      if (alertTextMessage) {
         const message = 'Please contact owner to send the text message, intentionlly locked due to API costs';
         alert(message);
         return;
@@ -55,17 +45,15 @@ export default function GuestForm({ onAdd }) {
         body: JSON.stringify({
           from: '+18446990230',
           to: data.phoneNumber,
-          body: 'Test event link: http://localhost:3000/events/1'
+          body: `Event link: http://localhost:3000/events/${eventId}`
         })
       });
       if (!messageResponse.ok) {
         throw new Error(`Failed to send message: ${messageResponse.status}`);
       }
-      // eslint-disable-next-line no-console
-      console.log('message was sent successfully');
     } catch (error) {
       setNetworkError(true);
-      console.error('Error line 39:', error);
+      console.error('Error', error);
     }
   };
 

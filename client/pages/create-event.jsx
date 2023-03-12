@@ -63,8 +63,6 @@ export default function CreateEvent() {
       /* Extract the event ID from the response JSON and navigate to the new event page */
       const { eventId } = await response.json();
       navigate(`/events/${eventId}`);
-      // eslint-disable-next-line no-console
-      console.log('data added to DB', data);
     } catch (error) {
       setNetworkError(true);
       if (error instanceof TypeError) {

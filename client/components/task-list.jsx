@@ -30,12 +30,6 @@ function TaskCard({ task }) {
   const { taskName } = task;
   return (
     <div className='my-2'>
-      {/* <input
-        type="checkbox"
-        checked={isCompleted}
-        onChange={() => toggleCompleted(todoId)}
-
-       /> */}
       <p>{taskName}</p>
     </div>
   );

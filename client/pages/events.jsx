@@ -15,7 +15,7 @@ export default function Events() {
         setNetworkError(true);
         console.error('Error fetching events:', error);
       });
-  }, []);
+  }, [setNetworkError]);
 
   return (
     <div className="flex-wrap justify-center flex m-3">
