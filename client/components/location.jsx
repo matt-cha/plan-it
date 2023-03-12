@@ -25,7 +25,7 @@ export default function Location({ control, errors }) {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div className='gmaps my-2'>
-      <label className='cursor-pointer pl-2 my-2 text-[#0d2137] text-xl font-medium'>Location
+      <label className='cursor-pointer pl-2 my-2 text-xl font-medium'>Location
         <div className='my-2'>
           <Controller
           name="location"

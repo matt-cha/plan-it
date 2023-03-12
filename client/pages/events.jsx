@@ -42,7 +42,7 @@ function EventCard({ event }) {
         <img src={`/images/${image}`} className="object-contain rounded h-full w-full" />
       </div>
       <div className='my-1'>
-        <p className="text-3xl py-2 font-bold text-[#0d2137]">{name}</p>
+        <p className="text-3xl py-2 font-bold">{name}</p>
       </div>
       <div className='flex my-2'>
         <p className='flex'>
@@ -53,7 +53,7 @@ function EventCard({ event }) {
       <div className='flex my-2'>
         <p className='flex'>
           <i className="fa-solid fa-location-dot mr-2.5 text-lg text-[#EA4335]" />
-          <span className=' text-[#0d2137] font-bold'>{location}</span>
+          <span className='font-bold'>{location}</span>
         </p>
       </div>
     </Link>

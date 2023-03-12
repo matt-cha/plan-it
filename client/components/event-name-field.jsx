@@ -3,7 +3,7 @@ import React from 'react';
 export default function EventNameField({ register, errors }) {
 
   return (
-    <label className='pl-2 text-[#0d2137] cursor-pointer'>
+    <label className='pl-2 cursor-pointer'>
       <span className="text-xl font-medium">Event Name</span>
       <div className='my-2'>
         <input

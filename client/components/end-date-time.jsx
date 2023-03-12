@@ -14,7 +14,7 @@ export default function EndDateTime({ control, errors, startDate, endDate }) {
 
   return (
     <div className='flex-1 sm:ml-2'>
-      <label className='cursor-pointer pl-2 text-[#0d2137]'>
+      <label className='cursor-pointer pl-2'>
         <span className="text-xl font-medium">End Date and Time</span>
         <div className='my-2'>
           <Controller
