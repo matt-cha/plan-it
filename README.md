@@ -25,9 +25,9 @@ https://user-images.githubusercontent.com/113474295/224580667-273dbb8a-b1b7-4609
 - JavaScript
 - CSS
 - Tailwind
-- Google Maps API
-- React DateTime NPM
-- Twilio API
+- [Google Maps API](https://developers.google.com/maps)
+- [React DateTime NPM](https://www.npmjs.com/package/react-datetime)
+- [Twilio API](https://www.twilio.com/docs)
 
 ## Features
 
