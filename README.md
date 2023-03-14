@@ -21,6 +21,7 @@ https://user-images.githubusercontent.com/113474295/224580667-273dbb8a-b1b7-4609
 - React
 - Node
 - Express
+- PostgreSQL
 - HTML
 - JavaScript
 - CSS
