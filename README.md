@@ -1,6 +1,6 @@
 # Plan It
 
-A web application for event planners who want to organize events, invite guests, and set tasks within the event.
+A web application for event planners who want to organize and plan events, invite guests, and set tasks within the event.
 
 ## Why I Built This
 
