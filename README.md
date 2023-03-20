@@ -8,7 +8,7 @@ A web application for event planners who want to organize, plan, and schedule ev
 
 As an individual that loves planning and scheduling things ahead of time and getting organized, I wanted to build an application that would make it easy to organize events and keep track of all details in a simple, organized manner. Rather than using a group chat that can get cluttered with messages and irrelevant information, I wanted a brief overview of all details of an event.
 
-Inspired by my good friend, Ryan, who helped me think of this of a practical need for this idea through his engagement party planning that had information to be kept track of and being sent to 40 people in a single group chat.
+Inspired by my good friend, Ryan, who helped me think of this of a practical need for this idea through his engagement party planning that had information to be kept track of and being sent to 40 people in a group chat with messages throughout.
 
 ## Live Demo
 
