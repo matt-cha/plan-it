@@ -201,6 +201,32 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
     });
 });
 
+/* app.post('/api/grades', (req, res) => {
+  const name = req.body.name;
+  const course = req.body.course;
+  const score = req.body.score;
+  const params = [name, course, score];
+
+  const sql = `
+    insert into "grades" ("name", "course", "score")
+    values ($1, $2, $3)
+    returning *;
+  `;
+
+  db.query(sql, params)
+    .then((result) => {
+      const grade = result.rows[0];
+      res.status(201).json(grade);
+
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred.',
+      });
+    });
+}); */
+
 app.post('/api/guests', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const guestName = req.body.data.guestName;
