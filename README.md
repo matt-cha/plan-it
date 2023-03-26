@@ -15,7 +15,7 @@ Inspired by my good friend, Ryan, who helped me think of the practical need for 
 https://plan-it.herokuapp.com/
 
 ## Preview
-
+gry
 https://user-images.githubusercontent.com/113474295/224580667-273dbb8a-b1b7-4609-a030-bf32dd457347.mp4
 
 ## Technologies Used
