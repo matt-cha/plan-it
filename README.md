@@ -1,5 +1,5 @@
 # Plan It
-dhj;;cbdshj
+
 ![android-chrome-192x192](https://user-images.githubusercontent.com/113474295/226087227-a2f23b12-8470-4c57-886e-5312d8b7e5a8.png)
 
 A web application for event planners who want to organize, plan, and schedule events, invite guests, and set tasks within the event.
@@ -8,7 +8,7 @@ A web application for event planners who want to organize, plan, and schedule ev
 
 As an individual that loves planning and scheduling things ahead of time and getting organized, I wanted to build an application that would make it easy to organize events and keep track of all details in a simple, organized manner. Rather than using a group chat that can get cluttered with messages and irrelevant information, I wanted a brief overview of all details of an event.
 
-Inspired by my good friend, Ryan, who helped me think of the practical need for this idea through his engagement party where he was sending information in 5 group chats across 40 people to keep track of directions, location, time, and more. Quite the plan.
+Inspired by my good friend, Ryan, who helped me think of the practical need for this idea through his engagement party where he was sending information in 5 group chats across 40 people to keep track of directions, location, and time.
 
 ## Live Demo
 
