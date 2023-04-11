@@ -34,8 +34,8 @@ export default function GuestForm({ onAdd }) {
       const alertTextMessage = true;
       if (alertTextMessage) {
         /* Prevent text message intentionally due to API costs. */
-        /* const message = 'Please contact owner to send the text message, intentionlly locked due to API costs';
-        alert(message); */
+        const message = 'Please contact owner to send the text message, intentionlly locked due to API costs';
+        alert(message);
         return;
       }
       const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
@@ -114,7 +114,7 @@ export default function GuestForm({ onAdd }) {
               type="submit"
               value='Create Event'>
               {/* Change text message upon submission to notify that text was not sent until ready to be used by demo trial */}
-              {submitText ? 'Send Invite to Guest Phone Number' /* 'Please contact owner to send the text message, intentionlly locked due to API costs' */: 'Send Invite to Guest Phone Number' }
+              {submitText ? 'Please contact owner to send the text message, intentionlly locked due to API costs' : 'Send Invite to Guest Phone Number' }
             </button>
           </div>
         </form>
