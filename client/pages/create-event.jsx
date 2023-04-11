@@ -139,9 +139,9 @@ export default function CreateEvent() {
           <div className='details my-2'>
             <EventDetailsField register={register} errors={errors} />
           </div>
-          <div className='submit-button'>
+          <div className='submit-button flex justify-end'>
             <button
-                className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
+                className='ml-auto rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
                 type="submit"
                 value='Create Event'>
               Create the event!

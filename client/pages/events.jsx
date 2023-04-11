@@ -27,8 +27,20 @@ export default function Events() {
                 <EventCard event={event} />
               </div>
             ))
-            : <p>No events have been made. Click <Link to='/'><span className='text-6xl'>here</span></Link> to make one!</p>
-        }
+            : (
+              <div className="flex flex-col items-center justify-center h-80">
+                <p className="text-3xl font-bold mb-4">
+                  No events have been created yet.
+                </p>
+                <Link
+                  to="/"
+                  className="px-6 py-2 rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300"
+                >
+                  Create an Event
+                </Link>
+              </div>
+
+              )}
       </div>
     </div>
   );
