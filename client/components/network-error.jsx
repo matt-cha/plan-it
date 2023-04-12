@@ -13,4 +13,10 @@ export const NetworkErrorProvider = ({ children }) => {
   );
 };
 
-export const useNetworkError = () => useContext(NetworkErrorContext);
+/* export const useNetworkError = () => useContext(NetworkErrorContext); */
+export const useNetworkError = () => {
+  const { networkError, setNetworkError } = useContext(NetworkErrorContext);
+  console.log('networkError', networkError);
+  console.log('setNetworkError', setNetworkError);
+  return { networkError, setNetworkError };
+};
