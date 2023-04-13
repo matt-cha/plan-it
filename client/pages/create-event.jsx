@@ -38,7 +38,7 @@ export default function CreateEvent() {
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
    */
   const onSubmit = async data => {
-    /*     console.log('data:', data); */
+    console.log('data:', data);
     if (data.startDate > data.endDate) {
       setStartEnd(true);
       return;
