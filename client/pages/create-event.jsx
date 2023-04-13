@@ -38,6 +38,7 @@ export default function CreateEvent() {
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
    */
   const onSubmit = async data => {
+    console.log('data:', data);
     if (data.startDate > data.endDate) {
       setStartEnd(true);
       return;
@@ -45,7 +46,6 @@ export default function CreateEvent() {
     try {
       const formData = new FormData();
       /* Create a new form data object to be sent to the server */
-      console.log('data:', data);
       formData.append('name', data.name);
       formData.append('startDate', data.startDate);
       formData.append('endDate', data.endDate);
