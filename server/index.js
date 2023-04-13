@@ -138,13 +138,12 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
     });
   } */
 app.post('/api/events', uploadsMiddleware, (req, res) => {
-
   if (!req.body) throw new ClientError(400, 'request requires a body');
   console.log('req.body:', req.body);
   console.log('req.file:', req.file);
   console.log('🚀 ~ file: index.js:147 ~ app.post ~ req.image:', req.image);
   console.log('🚀req.file.filename:', req.file.filename);
-  console.log('🚀req:', req);
+  /*   console.log('🚀req:', req); */
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
   const endDate = new Date(req.body.endDate);
