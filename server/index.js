@@ -138,6 +138,7 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
       error: 'Request requires a body'
     });
   } */
+
   if (!req.body) throw new ClientError(400, 'request requires a body');
 
   const name = req.body.name;
