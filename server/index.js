@@ -205,13 +205,6 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
       });
     });
 });
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
-console.log('🚀 ~ file: index.js:210 ~ app.post ~ req.image:', req.image);
 
 /* app.post('/api/grades', (req, res) => {
   const name = req.body.name;
