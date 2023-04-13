@@ -58,20 +58,21 @@ export default function CreateEvent() {
       });
 
       if (!response.ok) {
-        console.log('response not ok here');
+        console.log('response not ok here 61');
+        console.log(response.status);
         throw new Error(`Failed to create event: ${response.statusText}`);
       }
       /* Extract the event ID from the response JSON and navigate to the new event page */
       const { eventId } = await response.json();
       navigate(`/events/${eventId}`);
     } catch (error) {
-      console.error(error);
+      console.error('console.error here 69', error);
       setNetworkError(true);
       if (error instanceof TypeError) {
         console.error('Error:', error.message);
       } else {
         console.log('line 72');
-        console.error('Unexpected error:', error.message);
+        console.error('Unexpected error 75:', error.message);
       }
     }
   };
