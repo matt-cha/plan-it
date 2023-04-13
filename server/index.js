@@ -132,14 +132,16 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
     });
 });
 
-app.post('/api/events', uploadsMiddleware, (req, res) => {
 /*   if (!req.body) {
     return res.status(400).json({
       error: 'Request requires a body'
     });
   } */
+app.post('/api/events', uploadsMiddleware, (req, res) => {
 
   if (!req.body) throw new ClientError(400, 'request requires a body');
+  console.log('req.body:', req.body);
+  console.log('req.file:', req.file);
 
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
@@ -193,7 +195,6 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
   const params = [name, startDate, endDate, location, details, image];
   db.query(sql, params)
     .then(result => {
-      console.log('🚀 ~ file: index.js:200 ~ app.post ~ result:', result);
       res.status(201).json(result.rows[0]);
     })
     .catch(err => {
