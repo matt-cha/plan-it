@@ -55,9 +55,6 @@ export default function CreateEvent() {
       const response = await fetch('/api/events', {
         method: 'POST',
         body: formData
-        /* headers: {
-          'Content-Type': 'application/json'
-        } */
       });
 
       if (!response.ok) {
@@ -106,6 +103,7 @@ export default function CreateEvent() {
               />
 
           </div>
+
           {startEnd && <div><p className='text-red-500'>End date and time must be after the start date and time</p></div>}
           <div className='new-image-submission'>
             <label htmlFor="file-upload-button" className="cursor-pointer pl-2 rounded max-w-min">
