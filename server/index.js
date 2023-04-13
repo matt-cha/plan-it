@@ -132,12 +132,13 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
     });
 });
 
-app.post('/api/events', uploadsMiddleware, (req, res, next) => {
-  if (!req.body) {
+app.post('/api/events', uploadsMiddleware, (req, res) => {
+/*   if (!req.body) {
     return res.status(400).json({
       error: 'Request requires a body'
     });
-  }
+  } */
+  if (!req.body) throw new ClientError(400, 'request requires a body');
 
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
@@ -146,47 +147,41 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const details = req.body.details;
   const image = req.file.filename;
 
-  if (!name) {
-    console.log('🚀 ~ file: index.js:150 ~ app.post ~ name:', name);
+  /* if (!name) {
     return res.status(400).json({
       error: 'Event name is a required field'
     });
   }
 
   if (!startDate || isNaN(startDate.getTime())) {
-    console.log('🚀 ~ file: index.js:157 ~ app.post ~ startDate:', startDate);
     return res.status(400).json({
       error: 'Start date is not valid'
     });
   }
 
   if (!endDate || isNaN(endDate.getTime())) {
-    console.log('🚀 ~ file: index.js:164 ~ app.post ~ endDate:', endDate);
     return res.status(400).json({
       error: 'End date is not valid'
     });
   }
 
   if (!location) {
-    console.log('🚀 ~ file: index.js:171 ~ app.post ~ location:', location);
     return res.status(400).json({
       error: 'Location is a required field'
     });
   }
 
   if (!details) {
-    console.log('🚀 ~ file: index.js:178 ~ app.post ~ details:', details);
     return res.status(400).json({
       error: 'Details is a required field'
     });
   }
 
   if (!image) {
-    console.log('🚀 ~ file: index.js:185 ~ app.post ~ image:', image);
     return res.status(400).json({
       error: 'Image is a required field'
     });
-  }
+  } */
 
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
