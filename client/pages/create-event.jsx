@@ -45,6 +45,7 @@ export default function CreateEvent() {
     try {
       const formData = new FormData();
       /* Create a new form data object to be sent to the server */
+      console.log('data:', data);
       formData.append('name', data.name);
       formData.append('startDate', data.startDate);
       formData.append('endDate', data.endDate);
