@@ -55,7 +55,7 @@ export default function CreateEvent() {
       const response = await fetch('/api/events', {
         method: 'POST',
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
         },
         body: formData
       });
