@@ -147,7 +147,7 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
   const details = req.body.details;
   const image = req.file.filename;
 
-  /* if (!name) {
+  if (!name) {
     return res.status(400).json({
       error: 'Event name is a required field'
     });
@@ -181,7 +181,7 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
     return res.status(400).json({
       error: 'Image is a required field'
     });
-  } */
+  }
 
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
