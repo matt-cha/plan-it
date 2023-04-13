@@ -147,36 +147,42 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const image = req.file.filename;
 
   if (!name) {
+    console.log('🚀 ~ file: index.js:150 ~ app.post ~ name:', name);
     return res.status(400).json({
       error: 'Event name is a required field'
     });
   }
 
   if (!startDate || isNaN(startDate.getTime())) {
+    console.log('🚀 ~ file: index.js:157 ~ app.post ~ startDate:', startDate);
     return res.status(400).json({
       error: 'Start date is not valid'
     });
   }
 
   if (!endDate || isNaN(endDate.getTime())) {
+    console.log('🚀 ~ file: index.js:164 ~ app.post ~ endDate:', endDate);
     return res.status(400).json({
       error: 'End date is not valid'
     });
   }
 
   if (!location) {
+    console.log('🚀 ~ file: index.js:171 ~ app.post ~ location:', location);
     return res.status(400).json({
       error: 'Location is a required field'
     });
   }
 
   if (!details) {
+    console.log('🚀 ~ file: index.js:178 ~ app.post ~ details:', details);
     return res.status(400).json({
       error: 'Details is a required field'
     });
   }
 
   if (!image) {
+    console.log('🚀 ~ file: index.js:185 ~ app.post ~ image:', image);
     return res.status(400).json({
       error: 'Image is a required field'
     });
@@ -191,12 +197,13 @@ app.post('/api/events', uploadsMiddleware, (req, res, next) => {
   const params = [name, startDate, endDate, location, details, image];
   db.query(sql, params)
     .then(result => {
+      console.log('🚀 ~ file: index.js:200 ~ app.post ~ result:', result);
       res.status(201).json(result.rows[0]);
     })
     .catch(err => {
       console.error('Error:', err);
       res.status(500).json({
-        error: 'An unexpected error occurred.'
+        error: 'An unexpected error occurred.2'
       });
     });
 });
