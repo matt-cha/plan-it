@@ -54,6 +54,9 @@ export default function CreateEvent() {
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
       const response = await fetch('/api/events', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
         body: formData
       });
 
