@@ -38,40 +38,62 @@ export default function CreateEvent() {
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
    */
   const onSubmit = async data => {
-    console.log('data:', data);
+    let image;
     if (data.startDate > data.endDate) {
       setStartEnd(true);
       return;
     }
-    try {
+    if (data.image) {
       const formData = new FormData();
+      formData.append('image', data.image[0]);
+      try {
+        const response = await fetch('/api/events/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const responseData = await response.json();
+        image = `/images/${responseData}`;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    try {
+      /*      const formData = new FormData(); */
       /* Create a new form data object to be sent to the server */
-      formData.append('name', data.name);
+      /*    formData.append('name', data.name);
       formData.append('startDate', data.startDate);
       formData.append('endDate', data.endDate);
       formData.append('location', data.location);
       formData.append('details', data.details);
       formData.append('image', data.image[0]);
+      console.log('formData', formData); */
+
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
+      console.log('data', data);
+
       const response = await fetch('/api/events', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...data, image })
       });
-
-      if (!response.ok) {
-        console.log('response.status: ', response.status);
-        throw new Error(`Failed to create event: ${response.statusText}`);
+      const responseData = await response.json();
+      console.log('response full', responseData);
+      if (!responseData.ok) {
+        throw new Error(`Failed to create event create-event.jsx: ${responseData.statusText}`);
       }
+
       /* Extract the event ID from the response JSON and navigate to the new event page */
-      const { eventId } = await response.json();
+      const { eventId } = responseData;
       navigate(`/events/${eventId}`);
     } catch (error) {
       console.error('console.error:', error);
       setNetworkError(true);
       if (error instanceof TypeError) {
-        console.error('Error:', error.message);
+        console.error('Error create-event.jsx:', error.message);
       } else {
-        console.error('Unexpected error g:', error.message);
+        console.error('Unexpected error create-event.jsx:', error.message);
       }
     }
   };

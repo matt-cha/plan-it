@@ -74,11 +74,6 @@ app.get('/api/events/:eventId', (req, res) => {
     });
 });
 
-app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
-  const url = `/images/${req.file.filename}`;
-  res.status(200).json(url);
-});
-
 app.get('/api/events/:eventId/guests', (req, res, next) => {
   const eventId = Number(req.params.eventId);
   if (!Number.isInteger(eventId) || eventId <= 0) {
@@ -89,8 +84,8 @@ app.get('/api/events/:eventId/guests', (req, res, next) => {
   }
   const sql = `
   select "guestId",
-      "guestName",
-      "phoneNumber"
+  "guestName",
+  "phoneNumber"
   from "Guests"
   join "EventGuests" using ("guestId")
   where "EventGuests"."eventId" = $1
@@ -116,7 +111,7 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
   }
   const sql = `
   select "taskId",
-      "taskName"
+  "taskName"
   from "Tasks"
   join "EventTasks" using ("taskId")
   where "EventTasks"."eventId" = $1
@@ -133,26 +128,29 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
 });
 
 /*   if (!req.body) {
-    return res.status(400).json({
-      error: 'Request requires a body'
-    });
-  } */
+  return res.status(400).json({
+    error: 'Request requires a body'
+  });
+} */
+app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
+  /* const url = `/images/${req.file.filename}`;
+  res.status(200).json(url); */
+  res.status(200).json(req.file.filename);
+});
 
-app.post('/api/events', uploadsMiddleware, (req, res) => {
+app.post('/api/events', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
-  console.log('🚀req:', req);
-  /*  console.log('req.body:', req.body);
-  console.log('req.file:', req.file);
-  console.log('🚀 req.image:', req.image); */
-  /*   console.log('🚀req.file.filename:', req.file.filename);
-  console.log('🚀req:', req);
-  console.log('req.image', req.image); */
+  /*   if (!req.file) {
+    // Handle case where file is not uploaded
+    res.status(400).send('No file uploaded');
+    return;
+  } */
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
   const endDate = new Date(req.body.endDate);
   const location = req.body.location;
   const details = req.body.details;
-  const image = req.file.filename;
+  const image = req.body.image;
 
   if (!name) {
     return res.status(400).json({
@@ -184,11 +182,11 @@ app.post('/api/events', uploadsMiddleware, (req, res) => {
     });
   }
 
-  if (!image) {
+  /*   if (!image) {
     return res.status(400).json({
       error: 'Image is a required field'
     });
-  }
+  } */
 
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
