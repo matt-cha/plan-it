@@ -140,11 +140,7 @@ app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
 
 app.post('/api/events', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
-  /*   if (!req.file) {
-    // Handle case where file is not uploaded
-    res.status(400).send('No file uploaded');
-    return;
-  } */
+
   const name = req.body.name;
   const startDate = new Date(req.body.startDate);
   const endDate = new Date(req.body.endDate);
@@ -181,13 +177,6 @@ app.post('/api/events', (req, res) => {
       error: 'Details is a required field'
     });
   }
-
-  /*   if (!image) {
-    return res.status(400).json({
-      error: 'Image is a required field'
-    });
-  } */
-
   const sql = `
     insert into "Events" ("name", "startDate", "endDate", "location", "details", "image")
     values ($1, $2, $3, $4, $5, $6)

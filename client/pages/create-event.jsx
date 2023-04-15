@@ -52,7 +52,7 @@ export default function CreateEvent() {
           body: formData
         });
         const responseData = await response.json();
-        image = `/images/${responseData}`;
+        image = `${responseData}`;
       } catch (error) {
         console.error(error);
       }
@@ -80,8 +80,8 @@ export default function CreateEvent() {
       });
       const responseData = await response.json();
       console.log('response full', responseData);
-      if (!responseData.ok) {
-        throw new Error(`Failed to create event create-event.jsx: ${responseData.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Failed to create event create-event.jsx: ${response.statusText}`);
       }
 
       /* Extract the event ID from the response JSON and navigate to the new event page */
