@@ -1,14 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const NetworkErrorContext = createContext();
 
 export const NetworkErrorProvider = ({ children }) => {
   const [networkError, setNetworkError] = useState(false);
-
+  useEffect(() => {
+    if (networkError) {
+      window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+    }
+  }, [networkError]);
   return (
     <NetworkErrorContext.Provider value={{ networkError, setNetworkError }}>
       {children}
-      {networkError && <div>Sorry, there was an error connecting to the network! Please check your internet connection and try again.</div>}
     </NetworkErrorContext.Provider>
   );
 };

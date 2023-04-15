@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
 export default function EndDateTime({ control, errors, startDate, endDate }) {
+  useEffect(() => {
+    if (errors?.name?.message) {
+      document.getElementById('show-error').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [errors]);
+
   const validateEndDate = selectedDate => {
     const endDate = new Date(selectedDate);
     if (startDate && endDate < new Date(startDate)) {
@@ -40,7 +46,7 @@ export default function EndDateTime({ control, errors, startDate, endDate }) {
           />
         </div>
         {errors.endDate && (
-          <p className='text-red-500'>{errors.endDate.message}</p>
+          <p id='show-error' className='text-red-500'>{errors.endDate.message}</p>
         )}
       </label>
     </div>

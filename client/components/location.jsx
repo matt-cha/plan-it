@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
@@ -6,7 +6,11 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 import '@reach/combobox/styles.css';
 
 export default function Location({ control, errors }) {
-
+  useEffect(() => {
+    if (errors?.name?.message) {
+      document.getElementById('show-error').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [errors]);
   const [selected, setSelected] = useState({ lat: 40.785091, lng: -73.968285 });
   /* value is only computed once when component is first mounted */
   const libraries = useMemo(() => ['places'], []);
@@ -41,7 +45,7 @@ export default function Location({ control, errors }) {
         />
         </div>
         {errors.location && (
-          <span className="text-red-500">{errors.location.message}</span>
+          <span id='show-error' className="text-red-500">{errors.location.message}</span>
         )}
 
         <div className='w-full my-4'>

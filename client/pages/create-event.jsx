@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '@reach/combobox/styles.css';
 import { useNavigate } from 'react-router-dom';
@@ -31,13 +31,9 @@ export default function CreateEvent() {
       const imageUrl = URL.createObjectURL(file);
       setImageUrl(imageUrl);
       setFileUpload(file);
-
     }
   };
 
-  useEffect(() => {
-    console.log('fileUpload', fileUpload);
-  }, [fileUpload]);
   /**
    * Function to handle form submission to create an event
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
@@ -48,9 +44,9 @@ export default function CreateEvent() {
       setStartEnd(true);
       return;
     }
-    if (/* data.image */fileUpload) {
+    if (fileUpload) {
       const formData = new FormData();
-      formData.append('image', /* data.image[0] */fileUpload);
+      formData.append('image', fileUpload);
       try {
         const response = await fetch('/api/events/upload', {
           method: 'POST',
@@ -63,16 +59,6 @@ export default function CreateEvent() {
       }
     }
     try {
-      /*      const formData = new FormData(); */
-      /* Create a new form data object to be sent to the server */
-      /*    formData.append('name', data.name);
-      formData.append('startDate', data.startDate);
-      formData.append('endDate', data.endDate);
-      formData.append('location', data.location);
-      formData.append('details', data.details);
-      formData.append('image', data.image[0]);
-      console.log('formData', formData); */
-
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
       const response = await fetch('/api/events', {
         method: 'POST',
@@ -85,7 +71,6 @@ export default function CreateEvent() {
       if (!response.status) {
         throw new Error(`Failed to create event create-event.jsx: ${response.statusText}`);
       }
-
       /* Extract the event ID from the response JSON and navigate to the new event page */
       const { eventId } = responseData;
       navigate(`/events/${eventId}`);
