@@ -127,14 +127,7 @@ app.get('/api/events/:eventId/tasks', (req, res, next) => {
     });
 });
 
-/*   if (!req.body) {
-  return res.status(400).json({
-    error: 'Request requires a body'
-  });
-} */
 app.post('/api/events/upload', uploadsMiddleware, (req, res, next) => {
-  /* const url = `/images/${req.file.filename}`;
-  res.status(200).json(url); */
   res.status(200).json(req.file.filename);
 });
 
@@ -153,25 +146,21 @@ app.post('/api/events', (req, res) => {
       error: 'Event name is a required field'
     });
   }
-
   if (!startDate || isNaN(startDate.getTime())) {
     return res.status(400).json({
       error: 'Start date is not valid'
     });
   }
-
   if (!endDate || isNaN(endDate.getTime())) {
     return res.status(400).json({
       error: 'End date is not valid'
     });
   }
-
   if (!location) {
     return res.status(400).json({
       error: 'Location is a required field'
     });
   }
-
   if (!details) {
     return res.status(400).json({
       error: 'Details is a required field'

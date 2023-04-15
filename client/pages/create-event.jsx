@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import '@reach/combobox/styles.css';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function CreateEvent() {
   const navigate = useNavigate();
   const [startEnd, setStartEnd] = useState(false);
   const { setNetworkError } = useNetworkError();
-
+  const [fileUpload, setFileUpload] = useState(null);
   /**
  * Function that sets the Image URL state with the URL of the selected file
  * @param {object} event - The object containing the file to be uploaded
@@ -30,9 +30,14 @@ export default function CreateEvent() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImageUrl(imageUrl);
+      setFileUpload(file);
+
     }
   };
 
+  useEffect(() => {
+    console.log('fileUpload', fileUpload);
+  }, [fileUpload]);
   /**
    * Function to handle form submission to create an event
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
@@ -43,9 +48,9 @@ export default function CreateEvent() {
       setStartEnd(true);
       return;
     }
-    if (data.image) {
+    if (/* data.image */fileUpload) {
       const formData = new FormData();
-      formData.append('image', data.image[0]);
+      formData.append('image', /* data.image[0] */fileUpload);
       try {
         const response = await fetch('/api/events/upload', {
           method: 'POST',
@@ -69,8 +74,6 @@ export default function CreateEvent() {
       console.log('formData', formData); */
 
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
-      console.log('data', data);
-
       const response = await fetch('/api/events', {
         method: 'POST',
         headers: {
@@ -79,8 +82,7 @@ export default function CreateEvent() {
         body: JSON.stringify({ ...data, image })
       });
       const responseData = await response.json();
-      console.log('response full', responseData);
-      if (!response.ok) {
+      if (!response.status) {
         throw new Error(`Failed to create event create-event.jsx: ${response.statusText}`);
       }
 
