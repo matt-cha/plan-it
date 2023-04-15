@@ -28,7 +28,7 @@ export default function Event() {
         console.error('Error fetching guests:', error);
       });
 
-  }, [eventId, guests, setNetworkError]);
+  }, [eventId, /* guests */ setNetworkError]);
 
   useEffect(() => {
 
@@ -40,7 +40,7 @@ export default function Event() {
         console.error('Error fetching tasks:', error);
       });
 
-  }, [eventId, tasks, setNetworkError]);
+  }, [eventId, /* tasks */ setNetworkError]);
 
   const mapContainerStyle = {
     width: '100%',

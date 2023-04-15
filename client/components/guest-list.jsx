@@ -5,9 +5,10 @@ export default function GuestList({ guests }) {
   const [guestList, setGuestList] = useState([]);
 
   useEffect(() => {
-    setGuestList(guests || []);
+    if (guests) {
+      setGuestList(guests);
+    }
   }, [guests]);
-
   function handleClick() {
     setShowGuestList(!showGuestList);
   }

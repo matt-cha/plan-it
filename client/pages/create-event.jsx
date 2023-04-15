@@ -20,7 +20,7 @@ export default function CreateEvent() {
   const navigate = useNavigate();
   const [startEnd, setStartEnd] = useState(false);
   const { setNetworkError } = useNetworkError();
-
+  const [fileUpload, setFileUpload] = useState(null);
   /**
  * Function that sets the Image URL state with the URL of the selected file
  * @param {object} event - The object containing the file to be uploaded
@@ -30,6 +30,7 @@ export default function CreateEvent() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImageUrl(imageUrl);
+      setFileUpload(file);
     }
   };
 
@@ -38,40 +39,48 @@ export default function CreateEvent() {
    * @param {Object} data - The data object containing the event name, start and end date, location, details and image file
    */
   const onSubmit = async data => {
-    console.log('data:', data);
+    let image;
     if (data.startDate > data.endDate) {
       setStartEnd(true);
       return;
     }
-    try {
+    if (fileUpload) {
       const formData = new FormData();
-      /* Create a new form data object to be sent to the server */
-      formData.append('name', data.name);
-      formData.append('startDate', data.startDate);
-      formData.append('endDate', data.endDate);
-      formData.append('location', data.location);
-      formData.append('details', data.details);
-      formData.append('image', data.image[0]);
+      formData.append('image', fileUpload);
+      try {
+        const response = await fetch('/api/events/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const responseData = await response.json();
+        image = `${responseData}`;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    try {
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
       const response = await fetch('/api/events', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...data, image })
       });
-
-      if (!response.ok) {
-        console.log('response.status: ', response.status);
-        throw new Error(`Failed to create event: ${response.statusText}`);
+      const responseData = await response.json();
+      if (!response.status) {
+        throw new Error(`Failed to create event create-event.jsx: ${response.statusText}`);
       }
       /* Extract the event ID from the response JSON and navigate to the new event page */
-      const { eventId } = await response.json();
+      const { eventId } = responseData;
       navigate(`/events/${eventId}`);
     } catch (error) {
       console.error('console.error:', error);
       setNetworkError(true);
       if (error instanceof TypeError) {
-        console.error('Error:', error.message);
+        console.error('Error create-event.jsx:', error.message);
       } else {
-        console.error('Unexpected error g:', error.message);
+        console.error('Unexpected error create-event.jsx:', error.message);
       }
     }
   };

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
 export default function StartDateTime({ control, errors, endDate }) {
+  useEffect(() => {
+    if (errors?.name?.message) {
+      document.getElementById('show-error').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [errors]);
+
   const validateStartDate = selectedDate => {
     if (selectedDate <= endDate) {
       return 'Start date must be before end date';
@@ -42,7 +48,7 @@ export default function StartDateTime({ control, errors, endDate }) {
         </div>
         {/* if the left of the operator is truthy, right side is evaluated and error message is shown */}
         {errors.startDate && (
-        <p className='text-red-500'>{errors.startDate.message}</p>
+          <p id='show-error' className='text-red-500'>{errors.startDate.message}</p>
         )}
       </label>
     </div>

@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function EventDetailsField({ register, errors }) {
+  useEffect(() => {
+    if (errors?.name?.message) {
+      document.getElementById('show-error').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [errors]);
+
   return (
     <label className='pl-2  cursor-pointer'>
       <span className='text-xl font-medium'>Details</span>
@@ -23,7 +29,7 @@ export default function EventDetailsField({ register, errors }) {
          />
       </div>
       <div>
-        <p className='text-red-500'>{errors?.details?.message}</p>
+        <p id='show-error' className='text-red-500'>{errors?.details?.message}</p>
       </div>
     </label>
   );

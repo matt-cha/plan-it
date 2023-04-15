@@ -6,9 +6,10 @@ function errorMiddleware(err, req, res, next) {
       error: err.message
     });
   } else {
-    console.error('err line9', err);
+    console.error('err error-middleware', err);
     res.status(500).json({
-      error: 'an unexpected error occurred'
+      error: 'an unexpected error occurred',
+      err
     });
   }
 }
