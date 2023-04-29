@@ -211,6 +211,35 @@ app.post('/api/events', (req, res) => {
     });
 }); */
 
+app.delete('/api/events/:eventId', (req, res) => {
+  const eventId = Number(req.params.eventId);
+
+  const params = [eventId];
+  const sql = `
+    delete
+      from "Events"
+      where "eventId" = $1
+    returning *;
+  `;
+  db.query(sql, params)
+    .then(result => {
+      const event = result.rows[0];
+      if (!event) {
+        res.status(404).json({
+          error: `Cannot find event with eventId '${eventId}`
+        });
+      } else {
+        res.status(204).json(event);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred with the eventId.'
+      });
+    });
+});
+
 app.post('/api/guests', (req, res) => {
   if (!req.body) throw new ClientError(400, 'request requires a body');
   const guestName = req.body.data.guestName;

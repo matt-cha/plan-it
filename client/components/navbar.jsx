@@ -1,7 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const location = useLocation();
+  const pathArray = location.pathname.split('/');
+  const eventId = pathArray[pathArray.length - 1];
+  const navigate = useNavigate();
+  const handleClick = async data => {
+    try {
+      const response = await fetch(`/api/events/${eventId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 204) {
+        navigate('/events');
+      } else {
+        const json = await response.json();
+        navigate('/events');
+      }
+    } catch (error) {
+      console.error('console.error:', error);
+    }
+  };
+
   return (
     <>
       <nav className='fixed top-0 z-10 w-full'>
@@ -24,6 +47,13 @@ export default function Navbar() {
           <Link to='/events'>
             <button className='rounded-md bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none ml-1 px-2 py-1 transition-colors duration-300'>Event List</button>
           </Link>
+          {!isNaN(eventId) && (
+            <Link to='/events'>
+              <div className='flex mx-4'>
+                <button onClick={handleClick} className='rounded-md bg-[#C8F2DE] hover:bg-[#9fe8c5] focus:outline-none px-2 py-1 transition-colors duration-300'><i className="fa-solid fa-trash-alt mr-1" />Delete Event</button>
+              </div>
+            </Link>
+          )}
         </div>
       </nav>
     </>
