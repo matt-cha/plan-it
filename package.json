@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "twbuild": "tailwindcss -i ./server/public/input.css -o ./server/public/styles.css",
     "twwatch": "tailwindcss -i ./server/public/input.css -o ./server/public/styles.css --watch",
-    "postinstall": "run-s install:*"
+    "postinstall": "NODE_ENV=run-s install:*"
   },
   "dependencies": {
     "@reach/combobox": "^0.18.0",
