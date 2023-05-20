@@ -12,8 +12,8 @@
     "db:import-prod": "sh database/import-prod.sh",
     "prepare": "husky install",
     "twbuild": "tailwindcss -i ./server/public/input.css -o ./server/public/styles.css",
-    "twwatch": "tailwindcss -i ./server/public/input.css -o ./server/public/styles.css --watch",
-    "postinstall": "NODE_ENV=run-s install:*"
+    "twwatch": "tailwindcss -i ./server/public/input.css -o ./server/public/styles.css --watch"
+
   },
   "dependencies": {
     "@reach/combobox": "^0.18.0",
