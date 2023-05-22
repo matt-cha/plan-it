@@ -15,7 +15,7 @@ Inspired by my good friend, Ryan, who helped me think of the practical need for 
 
 ## Live Demo
 
-https://plan-it.herokuapp.com/
+https://plan-it-matt-cha.azurewebsites.net/
 
 ## Preview
 
