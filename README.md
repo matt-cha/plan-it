@@ -1,7 +1,3 @@
-aps
-ppppppppppoopppppwkk
-ppppppppf
-ppp
 
 
 
