@@ -1,6 +1,5 @@
 pppp
-ppppppppppp
-ppppppppp
+pppppppppppp
 pp
 
 p
