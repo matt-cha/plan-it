@@ -49,7 +49,7 @@ export default function Event() {
   };
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyASy6P3Yg72bOzrhd4D89_BYhIGuB_jBXc',
+    googleMapsApiKey: 'AIzaSyC68zOPL1zCOapQ8mtrejaut0TpbAb5b-s',
     libraries
   });
 
