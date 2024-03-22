@@ -1,7 +1,1 @@
-{
-  "arrowParens": "avoid",
-  "bracketSameLine": true,
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "none"
-}
+"./node_modules/@learningfuze/lfz-config/config/prettierrc.json"

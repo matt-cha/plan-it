@@ -1,23 +1,32 @@
 import 'dotenv/config';
 import express from 'express';
-import staticMiddleware from './static-middleware';
 import errorMiddleware from './error-middleware';
-import uploadsMiddleware from './uploads-middleware';
+import { uploadsMiddleware } from './uploads-middleware';
 import ClientError from './client-error';
 import pg from 'pg';
 import path from 'path';
+import { defaultMiddleware } from './default-middleware';
 
+const connectionString =
+  process.env.DATABASE_URL ||
+  `postgresql://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DB_NAME}`;
 const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 const app = express();
 
-app.use(staticMiddleware);
+// Create paths for static directories
+const reactStaticDir = new URL('../client/dist', import.meta.url).pathname;
+const uploadsStaticDir = new URL('public', import.meta.url).pathname;
+app.use(express.static(reactStaticDir));
+// Static directory for file uploads server/public/
+app.use(express.static(uploadsStaticDir));
 app.use(express.json());
+
 
 app.get('/api/events', (req, res, next) => {
   const sql = `
@@ -342,14 +351,10 @@ app.post('/api/events/:eventId/guests/message', (req, res) => {
     });
 });
 
-app.use((req, res) => {
-  res.sendFile('/index.html', {
-    root: path.join(__dirname, 'public')
-  });
-});
+app.use(defaultMiddleware(reactStaticDir));
 
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });

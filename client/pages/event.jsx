@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import formatDate from '../lib/format-date';
+import { formatDate } from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
 import TaskForm from '../components/task-form';

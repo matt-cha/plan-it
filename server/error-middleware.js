@@ -1,6 +1,6 @@
-const ClientError = require('./client-error');
+import ClientError from './client-error';
 
-function errorMiddleware(err, req, res, next) {
+export default function errorMiddleware(err, req, res, next) {
   if (err instanceof ClientError) {
     res.status(err.status).json({
       error: err.message
@@ -13,5 +13,3 @@ function errorMiddleware(err, req, res, next) {
     });
   }
 }
-
-module.exports = errorMiddleware;

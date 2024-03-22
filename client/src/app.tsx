@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/navbar';
-import CreateEvent from './pages/create-event';
-import Events from './pages/events';
-import Event from './pages/event';
-import NotFound from './pages/not-found';
-import Loader from './components/loader';
-import { NetworkErrorProvider } from './components/network-error';
+import { useState, useEffect } from 'react';
+import Navbar from '../components/navbar';
+import CreateEvent from '../pages/create-event';
+import Events from '../pages/events';
+import Event from '../pages/event';
+import NotFound from '../pages/not-found';
+import Loader from '../components/loader';
+import { NetworkErrorProvider } from '../components/network-error';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
 
