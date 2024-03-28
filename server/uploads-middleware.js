@@ -1,7 +1,7 @@
-const path = require('path');
-const multer = require('multer');
+import path from 'path';
+import multer from 'multer';
 
-const imagesDirectory = path.join(__dirname, 'public/images');
+const imagesDirectory = 'public/images'
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -14,6 +14,4 @@ const storage = multer.diskStorage({
   }
 });
 
-const uploadsMiddleware = multer({ storage }).single('image');
-
-module.exports = uploadsMiddleware;
+export const uploadsMiddleware = multer({ storage }).single('image');

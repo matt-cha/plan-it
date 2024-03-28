@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import formatDate from '../lib/format-date';
+import { formatDate } from '../lib/format-date'
 import { useNetworkError } from '../components/network-error';
 
 export default function Events() {
