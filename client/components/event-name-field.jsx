@@ -15,7 +15,7 @@ export default function EventNameField({ register, errors }) {
         <input
           type='text'
           autoFocus
-          placeholder='Annual Company Picnic 2023'
+          placeholder='Annual Company Picnic 2024'
           className='pl-2 w-full mx-auto rounded-md  shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]'
          /* register prop with spread syntax to spread the validation rules for event name */
           {...register('name', {
