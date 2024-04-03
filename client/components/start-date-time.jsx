@@ -36,7 +36,7 @@ export default function StartDateTime({ control, errors, endDate }) {
                   <Datetime
                   inputProps={{
                     className: 'pl-2 w-full mx-auto rounded-md shadow-sm py-2 px-3 border border-[#f2dec8] placeholder-gray-400 focus:outline-none focus:ring-[#C8F2DE] focus:border-[#C8F2DE]',
-                    placeholder: '03/20/2023 11:00 AM'
+                    placeholder: '03/20/2025 11:00 AM'
                   }}
                   /* add onChange prop to update the field value */
                   onChange={selectedDate => field.onChange(selectedDate)}
