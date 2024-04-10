@@ -19,7 +19,7 @@ const app = express();
 app.use(staticMiddleware);
 app.use(express.json());
 
-app.get('https://plan-it-matt-cha.vercel.app/events', (req, res, next) => {
+app.get('https://plan-it-matt-cha.vercel.app/api/events', (req, res, next) => {
   const sql = `
   select "eventId",
       "name",
