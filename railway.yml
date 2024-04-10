@@ -1,3 +1,0 @@
-# services:
-#   my-service:
-#     buildCommand: npm ci --legacy-peer-deps
