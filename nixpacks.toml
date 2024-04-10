@@ -1,2 +1,5 @@
+[phases.setup]
+  nixPkgs = ['...', 'postgresql']
+
 [phases.install]
   cmds = ['npm install --legacy-peer-deps']
