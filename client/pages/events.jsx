@@ -8,7 +8,7 @@ export default function Events() {
   const { setNetworkError } = useNetworkError();
 
   useEffect(() => {
-    fetch('/api/events')
+    fetch('https://plan-it.up.railway.app/api/events')
       .then(res => res.json())
       .then(events => setEvents(events))
       .catch(error => {
