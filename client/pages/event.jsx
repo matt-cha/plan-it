@@ -20,7 +20,7 @@ export default function Event() {
 
   useEffect(() => {
 
-    fetch(`/api/events/${eventId}/guests`)
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests))
       .catch(error => {
@@ -32,7 +32,7 @@ export default function Event() {
 
   useEffect(() => {
 
-    fetch(`/api/events/${eventId}/tasks`)
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}/tasks`)
       .then(res => res.json())
       .then(tasks => setTasks(tasks))
       .catch(error => {
@@ -54,7 +54,7 @@ export default function Event() {
   });
 
   useEffect(() => {
-    fetch(`/api/events/${eventId}`)
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}`)
       .then(res => res.json())
       .then(event => {
         setEvent(event);

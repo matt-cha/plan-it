@@ -49,7 +49,7 @@ export default function Events() {
 function EventCard({ event }) {
   const { eventId, name, startDate, location, image } = event;
   return (
-    <Link to={`/events/${eventId}`}>
+    <Link to={`https://plan-it.up.railway.app/events/${eventId}`}>
       <div className='h-96 min-w-min max-w-3xl mx-auto rounded shadow-lg bg-gradient-to-b from-[#f2dec8] to-[#C8F2DE] hover:from-[#edd2b3] hover:to-[#b3edd2] transition-all duration-1000'>
         <img src={`/images/${image}`} className="object-contain rounded h-full w-full" />
       </div>
