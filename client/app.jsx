@@ -31,7 +31,7 @@ export default function App() {
           <Routes>
             <Route path='/' element={<CreateEvent />} />
             <Route path='/events' element={<Events />} />
-            <Route path='/events/:eventId' element={<Event />} />
+            <Route path='/events/:eventId(\d+)' element={<Event />} />
             <Route path='*' element={<NotFound />}/>
           </Routes>
         </div>
