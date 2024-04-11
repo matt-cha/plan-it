@@ -16,7 +16,7 @@ export default function GuestForm({ onAdd }) {
 
   const onSubmit = async data => {
     try {
-      const response = await fetch('/api/guests', {
+      const response = await fetch('https://plan-it.up.railway.app/api/guests', {
         method: 'POST',
         body: JSON.stringify({
           data,
@@ -38,7 +38,7 @@ export default function GuestForm({ onAdd }) {
         alert(message);
         return;
       }
-      const messageResponse = await fetch(`/api/events/${eventId}/guests/message`, {
+      const messageResponse = await fetch(`https://plan-it.up.railway.app/api/events/${eventId}/guests/message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
