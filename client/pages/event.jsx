@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
@@ -17,6 +17,7 @@ export default function Event() {
   const [guests, setGuests] = useState([]);
   const [tasks, setTasks] = useState([]);
   const { setNetworkError } = useNetworkError();
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -54,12 +55,28 @@ export default function Event() {
   });
 
   useEffect(() => {
+    if (isNaN(eventId) || eventId === '') {
+      navigate('/not-found');
+      return;
+    }
+
     fetch(`https://plan-it.up.railway.app/api/events/${eventId}`)
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          navigate('/not-found');
+          throw new Error('Event not found');
+        }
+      })
       .then(event => {
         setEvent(event);
+      })
+      .catch(error => {
+        console.error('Error fetching event:', error);
+        navigate('/not-found');
       });
-  }, [eventId]);
+  }, [eventId, navigate]);
 
   useEffect(() => {
     async function displayLocation(address) {
