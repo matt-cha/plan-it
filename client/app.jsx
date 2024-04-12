@@ -29,9 +29,9 @@ export default function App() {
           <Loader />
           )}
           <Routes>
-            <Route path='https://plan-it.up.railway.app/' element={<CreateEvent />} />
-            <Route path='https://plan-it.up.railway.app/events' element={<Events />} />
-            <Route path='https://plan-it.up.railway.app/events/:eventId(\d+)' element={<Event />} />
+            <Route path='/' element={<CreateEvent />} />
+            <Route path='/events' element={<Events />} />
+            <Route path='/events/:eventId' element={<Event />} />
             <Route path='*' element={<NotFound />}/>
           </Routes>
         </div>
