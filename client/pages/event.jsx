@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
@@ -11,6 +11,7 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 import { useNetworkError } from '../components/network-error';
 export default function Event() {
   const [event, setEvent] = useState();
+  const navigate = useNavigate();
   const [selected, setSelected] = useState(null);
   const { eventId } = useParams();
   const libraries = useMemo(() => ['places'], []);
@@ -76,7 +77,7 @@ export default function Event() {
   }, [event]);
 
   if (!isLoaded) return <div>Loading...</div>;
-  if (!event) return null;
+  if (!event) return navigate('/not-found');
   const { name, startDate, endDate, location, details, image } = event;
 
   return (

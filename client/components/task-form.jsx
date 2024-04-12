@@ -65,7 +65,7 @@ export default function TaskForm({ onAdd }) {
                 })} />
               </div>
               <div>
-                <p>{errors?.taskName?.message}</p>
+                <p className='text-red-500'>{errors?.taskName?.message}</p>
               </div>
             </label>
           </div>

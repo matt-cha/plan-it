@@ -87,7 +87,7 @@ export default function GuestForm({ onAdd }) {
                 })} />
               </div>
               <div>
-                <p>{errors?.guestName?.message}</p>
+                <p className='text-red-500'>{errors?.guestName?.message}</p>
               </div>
             </label>
           </div>
@@ -104,7 +104,7 @@ export default function GuestForm({ onAdd }) {
                 })} />
               </div>
               <div>
-                <p>{errors?.phoneNumber?.message}</p>
+                <p className='text-red-500'>{errors?.phoneNumber?.message}</p>
               </div>
             </label>
           </div>
