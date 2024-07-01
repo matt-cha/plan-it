@@ -50,7 +50,7 @@ export default function Event() {
   };
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAJLGWvLWeYKVsgd32M_O4rxJSnR0slNNs',
+    googleMapsApiKey: 'AIzaSyC-NwgYDesc3bQDiBT8j4bNKts-3Kv-oFA',
     libraries
   });
 
