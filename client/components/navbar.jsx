@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const handleDelete = async data => {
     try {
-      const response = await fetch(`https://plan-it.up.railway.app/api/events/${eventToDeleteId}`, {
+      const response = await fetch(`/api/events/${eventToDeleteId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
