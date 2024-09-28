@@ -14,7 +14,7 @@ export default function TaskForm({ onAdd }) {
 
   const onSubmit = async data => {
     try {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch('https://plan-it.up.railway.app/api/tasks', {
 
         method: 'POST',
         body: JSON.stringify({
@@ -65,7 +65,7 @@ export default function TaskForm({ onAdd }) {
                 })} />
               </div>
               <div>
-                <p>{errors?.taskName?.message}</p>
+                <p className='text-red-500'>{errors?.taskName?.message}</p>
               </div>
             </label>
           </div>

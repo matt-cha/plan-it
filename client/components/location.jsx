@@ -22,7 +22,7 @@ export default function Location({ control, errors }) {
   };
   /*  the useLoadScript hook loads the Google Maps API with the API key and libraries and returns a boolean isLoaded */
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAJLGWvLWeYKVsgd32M_O4rxJSnR0slNNs',
+    googleMapsApiKey: 'AIzaSyDjzFj3lrmDxx_7LwG4_a2dX3eCvdUor_s',
     libraries
   });
 

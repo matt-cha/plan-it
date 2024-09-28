@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import formatDate from '../lib/format-date';
 import GuestForm from '../components/guest-form';
 import GuestList from '../components/guest-list';
@@ -17,10 +17,11 @@ export default function Event() {
   const [guests, setGuests] = useState([]);
   const [tasks, setTasks] = useState([]);
   const { setNetworkError } = useNetworkError();
+  const navigate = useNavigate();
 
   useEffect(() => {
 
-    fetch(`/api/events/${eventId}/guests`)
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests))
       .catch(error => {
@@ -32,7 +33,7 @@ export default function Event() {
 
   useEffect(() => {
 
-    fetch(`/api/events/${eventId}/tasks`)
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}/tasks`)
       .then(res => res.json())
       .then(tasks => setTasks(tasks))
       .catch(error => {
@@ -49,17 +50,33 @@ export default function Event() {
   };
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAJLGWvLWeYKVsgd32M_O4rxJSnR0slNNs',
+    googleMapsApiKey: 'AIzaSyDjzFj3lrmDxx_7LwG4_a2dX3eCvdUor_s',
     libraries
   });
 
   useEffect(() => {
-    fetch(`/api/events/${eventId}`)
-      .then(res => res.json())
+    if (isNaN(eventId) || eventId === '') {
+      navigate('/not-found');
+      return;
+    }
+
+    fetch(`https://plan-it.up.railway.app/api/events/${eventId}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          navigate('/not-found');
+          throw new Error('Event not found');
+        }
+      })
       .then(event => {
         setEvent(event);
+      })
+      .catch(error => {
+        console.error('Error fetching event:', error);
+        navigate('/not-found');
       });
-  }, [eventId]);
+  }, [eventId, navigate]);
 
   useEffect(() => {
     async function displayLocation(address) {

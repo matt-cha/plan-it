@@ -320,9 +320,9 @@ app.post('/api/tasks', (req, res) => {
     });
 });
 
-const accountSid = process.env.ACCOUNT_SID;
+/* const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
-// const client = require('twilio')(accountSid, authToken); twilio dependency
+const client = require('twilio')(accountSid, authToken); twilio dependency
 
 app.post('/api/events/:eventId/guests/message', (req, res) => {
   res.header('Content-Type', 'application/json');
@@ -339,7 +339,7 @@ app.post('/api/events/:eventId/guests/message', (req, res) => {
       console.error(err);
       res.send(JSON.stringify({ sucess: false }));
     });
-});
+}); */
 
 app.use((req, res) => {
   res.sendFile('/index.html', {
