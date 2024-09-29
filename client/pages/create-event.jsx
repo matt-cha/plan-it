@@ -48,7 +48,7 @@ export default function CreateEvent() {
       const formData = new FormData();
       formData.append('image', fileUpload);
       try {
-        const response = await fetch('https://plan-it.up.railway.app/api/events/upload', {
+        const response = await fetch('/api/events/upload', {
           method: 'POST',
           body: formData
         });
@@ -60,7 +60,7 @@ export default function CreateEvent() {
     }
     try {
       /* Send the form data to the server using a POST request to the '/api/events' endpoint and wait for it to complete */
-      const response = await fetch('https://plan-it.up.railway.app/api/events', {
+      const response = await fetch('/api/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
