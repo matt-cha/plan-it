@@ -48,7 +48,7 @@ export default function Event() {
   };
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAie-NTfC_FDnRjGfe1pw_4UWQPmax6BRo',
+    googleMapsApiKey: 'AIzaSyDjzFj3lrmDxx_7LwG4_a2dX3eCvdUor_s',
     libraries
   });
 
