@@ -20,7 +20,6 @@ export default function Event() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     fetch(`https://plan-it.up.railway.app/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests))
@@ -29,10 +28,9 @@ export default function Event() {
         console.error('Error fetching guests:', error);
       });
 
-  }, [eventId, /* guests */ setNetworkError]);
+  }, [eventId, setNetworkError]);
 
   useEffect(() => {
-
     fetch(`https://plan-it.up.railway.app/api/events/${eventId}/tasks`)
       .then(res => res.json())
       .then(tasks => setTasks(tasks))
@@ -41,7 +39,7 @@ export default function Event() {
         console.error('Error fetching tasks:', error);
       });
 
-  }, [eventId, /* tasks */ setNetworkError]);
+  }, [eventId, setNetworkError]);
 
   const mapContainerStyle = {
     width: '100%',
@@ -144,7 +142,8 @@ export default function Event() {
         <div className='flex flex-col sm:flex-row'>
           <div className='flex-1 sm:mr-2'>
             <div>
-              <GuestForm onAdd={() => setGuests(undefined)} />
+              <GuestForm onAdd={(newGuest) => setGuests(prevGuests => [...prevGuests, newGuest])} />
+
             </div>
             <div>
               <GuestList guests={guests} />
@@ -152,7 +151,7 @@ export default function Event() {
           </div>
           <div className='flex-1  '>
             <div className='mt-2 sm:mt-0'>
-              <TaskForm onAdd={() => setTasks(undefined)} />
+              <TaskForm onAdd={(newTask) => setTasks(prevTasks => [...prevTasks, newTask])} />
             </div>
             <div>
               <TaskList tasks={tasks} />

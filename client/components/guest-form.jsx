@@ -34,7 +34,7 @@ export default function GuestForm({ onAdd }) {
       const alertTextMessage = true;
       if (alertTextMessage) {
         /* Prevent text message intentionally due to API costs. */
-        const message = 'Please contact owner to send the text message, intentionlly locked due to API costs';
+        const message = 'Text messaging is disabled in this demo according to Twilio API. Please reach out to the owner for access';
         alert(message);
         return;
       }
@@ -113,8 +113,7 @@ export default function GuestForm({ onAdd }) {
               className='rounded border px-4 py-2 border-[#C8F2DE] bg-[#C8F2DE] hover:bg-[#8ae3b9] hover:border-[#8ae3b9] transition-colors duration-300'
               type="submit"
               value='Create Event'>
-              {/* Change text message upon submission to notify that text was not sent until ready to be used by demo trial */}
-              {submitText ? 'Please contact owner to send the text message, intentionlly locked due to API costs' : 'Send Invite to Guest Phone Number' }
+              Send Invite to Guest Phone Number
             </button>
           </div>
         </form>
