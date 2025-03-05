@@ -46,7 +46,7 @@ export default function GuestForm({ onAdd }) {
         body: JSON.stringify({
           from: '+18446990230',
           to: data.phoneNumber,
-          body: `Event link: http://localhost:3000/events/${eventId}`
+          body: `Event link: https://plan-it.up.railway.app/api/events/${eventId}`
         })
       });
       if (!messageResponse.ok) {
