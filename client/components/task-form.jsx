@@ -12,12 +12,13 @@ export default function TaskForm({ onAdd }) {
     setShowTaskForm(!showTaskForm);
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
       const response = await fetch('https://plan-it.up.railway.app/api/tasks', {
+
         method: 'POST',
         body: JSON.stringify({
-          taskName: data.taskName,
+          data,
           eventId
         }),
         headers: {
@@ -28,12 +29,11 @@ export default function TaskForm({ onAdd }) {
       if (!response.ok) {
         throw new Error(`Failed to add data to DB: ${response.status}`);
       }
-      const newTask = await response.json();
-      onAdd(newTask);
+      onAdd(await response.json());
       reset();
     } catch (error) {
       setNetworkError(true);
-      console.error('Error:', error);
+      console.error('Error line :', error);
     }
   };
 
