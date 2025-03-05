@@ -7,8 +7,8 @@ import TaskForm from '../components/task-form';
 import TaskList from '../components/task-list';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import { useNetworkError } from '../components/network-error';
+
 export default function Event() {
   const [event, setEvent] = useState();
   const [selected, setSelected] = useState(null);
@@ -20,7 +20,6 @@ export default function Event() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     fetch(`https://plan-it.up.railway.app/api/events/${eventId}/guests`)
       .then(res => res.json())
       .then(guests => setGuests(guests))
@@ -28,11 +27,9 @@ export default function Event() {
         setNetworkError(true);
         console.error('Error fetching guests:', error);
       });
-
-  }, [eventId, /* guests */ setNetworkError]);
+  }, [eventId]);
 
   useEffect(() => {
-
     fetch(`https://plan-it.up.railway.app/api/events/${eventId}/tasks`)
       .then(res => res.json())
       .then(tasks => setTasks(tasks))
@@ -40,8 +37,7 @@ export default function Event() {
         setNetworkError(true);
         console.error('Error fetching tasks:', error);
       });
-
-  }, [eventId, setNetworkError]);
+  }, [eventId]);
 
   const mapContainerStyle = {
     width: '100%',
@@ -69,9 +65,7 @@ export default function Event() {
           throw new Error('Event not found');
         }
       })
-      .then(event => {
-        setEvent(event);
-      })
+      .then(event => setEvent(event))
       .catch(error => {
         console.error('Error fetching event:', error);
         navigate('/not-found');
@@ -85,15 +79,15 @@ export default function Event() {
         const { lat, lng } = await getLatLng(results[0]);
         setSelected({ lat, lng });
       } catch (error) {
-        console.error('Error!:', error);
+        console.error('Error:', error);
       }
     }
-    if (!event) return;
-    displayLocation(event.location);
+    if (event) displayLocation(event.location);
   }, [event]);
 
   if (!isLoaded) return <div>Loading...</div>;
   if (!event) return null;
+
   const { name, startDate, endDate, location, details, image } = event;
 
   return (
@@ -120,9 +114,6 @@ export default function Event() {
         </div>
 
         <div>
-          <PlacesAutoComplete onSelect={(latLng, address) => setSelected(latLng)} />
-        </div>
-        <div>
           <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={10}
@@ -143,63 +134,15 @@ export default function Event() {
 
         <div className='flex flex-col sm:flex-row'>
           <div className='flex-1 sm:mr-2'>
-            <div>
-              <GuestForm onAdd={(newGuest) => setGuests(prevGuests => [...prevGuests, newGuest])} />
-            </div>
-            <div>
-              <GuestList guests={guests} />
-            </div>
+            <GuestForm onAdd={(newGuest) => setGuests(prevGuests => [...prevGuests, newGuest])} />
+            <GuestList guests={guests} />
           </div>
-          <div className='flex-1  '>
-            <div className='mt-2 sm:mt-0'>
-              <TaskForm onAdd={(newTask) => setTasks(prevTasks => [...prevTasks, newTask])} />
-            </div>
-            <div>
-              <TaskList tasks={tasks} />
-            </div>
+          <div className='flex-1'>
+            <TaskForm onAdd={(newTask) => setTasks(prevTasks => [...prevTasks, newTask])} />
+            <TaskList tasks={tasks} />
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-const PlacesAutoComplete = ({ onSelect }) => {
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: { status, data },
-    clearSuggestions
-  } = usePlacesAutocomplete();
-
-  const handleSelect = async address => {
-    setValue(address, false);
-    clearSuggestions();
-    try {
-      const results = await getGeocode({ address });
-      const { lat, lng } = await getLatLng(results[0]);
-      onSelect({ lat, lng }, address);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  return (
-    <Combobox onSelect={handleSelect}>
-      <ComboboxInput
-        value={value}
-        onChange={event => setValue(event.target.value)}
-        disabled={!ready}
-        className='bg-purple-200 rounded border border-black hidden'
-        placeholder='search here placeholder' />
-      <ComboboxPopover>
-        <ComboboxList>
-          {status === 'OK' && data.map(({ placeId, description }, index) => (
-            <ComboboxOption key={index} value={description} />
-          ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
-  );
-};
