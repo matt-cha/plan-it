@@ -19,7 +19,7 @@ export default function TaskList({ tasks }) {
             </div>
           ))
         }
-        {noTasks && <p className='my-2 text-red-500'>No tasks have been added</p>}
+        {tasks.length === 0 && <p className='my-2 text-red-500'>No tasks have been added</p>}
       </div>
     </>
   );
